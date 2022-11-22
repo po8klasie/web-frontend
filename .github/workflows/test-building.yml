@@ -1,0 +1,117 @@
+name: Test building
+
+on: [pull_request]
+
+# Cancel workflow if new commit was pushed to PR branch
+# https://docs.github.com/en/actions/using-jobs/using-concurrency
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  analyze: # See https://codeql.github.com/
+    runs-on: ubuntu-latest
+    permissions:
+      actions: read
+      contents: read
+      security-events: write
+
+    strategy:
+      fail-fast: false
+      matrix:
+        language: [ 'javascript' ] # https://git.io/codeql-language-support
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      # Initializes the CodeQL tools for scanning.
+      - name: Initialize CodeQL
+        uses: github/codeql-action/init@v1
+        with:
+          languages: ${{ matrix.language }}
+          # If you wish to specify custom queries, you can do so here or in a config file.
+          # By default, queries listed here will override any specified in a config file.
+          # Prefix the list here with "+" to use these queries and those in the config file.
+          # queries: ./path/to/local/query, your-org/your-repo/queries@main
+
+      - name: Perform CodeQL Analysis
+        uses: github/codeql-action/analyze@v1
+
+  build-and-push:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2.1.0
+
+      # https://github.com/docker/build-push-action/blob/master/docs/advanced/tags-labels.md
+    - name: Docker meta
+      id: meta
+      uses: crazy-max/ghaction-docker-meta@v2
+      with:
+        images: |
+          ghcr.io/po8klasie/po8klasie
+        tags: |
+          type=sha
+          type=ref,event=pr
+
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v1
+
+    # Since secrets are not passed to workflows triggered from forks
+    # (we can't push images to registry cache) we use local cache
+    - name: Mount Docker cache
+      uses: actions/cache@v2
+      with:
+        path: /tmp/.test-building-buildx-cache
+        key: ${{ runner.os }}-buildx-${{ github.ref }}
+        restore-keys: |
+          ${{ runner.os }}-buildx-
+
+    - name: Build image for tests
+      uses: docker/build-push-action@v2
+      with:
+        tags: ${{ steps.meta.outputs.tags }}
+        labels: ${{ steps.meta.outputs.labels }}
+        push: false
+        load: true
+        target: builder
+        cache-from: |
+          type=registry,ref=ghcr.io/po8klasie/po8klasie:cache-master
+          type=local,src=/tmp/.test-building-buildx-cache
+
+    - name: Get SHA tag
+      id: get-sha-tag
+      uses: actions/github-script@v4
+      env:
+        TAGS: ${{ steps.meta.outputs.tags }}
+      with:
+        script: |
+          const { TAGS } = process.env;
+          const shaTag = TAGS.split('\n').find(tag => tag.includes('sha'));
+          core.setOutput('sha-tag', shaTag);
+
+    - name: Run linters & tests
+      env:
+        COMPOSE_FILE: docker-compose.ci.yml
+        DOCKER_IMAGE_FOR_TESTS: ${{ steps.get-sha-tag.outputs.sha-tag }}
+      run: docker-compose up --exit-code-from linter-and-tests
+
+    - name: Build original image
+      uses: docker/build-push-action@v2
+      with:
+        tags: ${{ steps.meta.outputs.tags }}
+        labels: ${{ steps.meta.outputs.labels }}
+        push: false
+        cache-to: type=local,dest=/tmp/.test-building-buildx-cache-new
+
+
+    # This ugly bit is necessary if you don't want your cache to grow forever
+    # till it hits GitHub's limit of 5GB.
+    # Temp fix
+    # https://github.com/docker/build-push-action/issues/252
+    # https://github.com/moby/buildkit/issues/1896
+    - name: Move cache
+      run: |
+        rm -rf /tmp/.test-building-buildx-cache
+        mv /tmp/.test-building-buildx-cache-new /tmp/.test-building-buildx-cache

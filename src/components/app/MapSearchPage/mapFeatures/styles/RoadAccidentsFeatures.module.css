@@ -1,0 +1,26 @@
+.clusterIcon {
+    @apply border-none bg-none;
+}
+
+.clusterIconInnerWrapper {
+    @apply relative w-full h-full rounded-full flex items-center justify-center;
+    @apply bg-yellow-300 font-secondary text-sm;
+}
+
+.clusterIconInnerWrapper::after {
+    --offset: 5px;
+    content: '';
+    top: calc((-1) * var(--offset));
+    left: calc((-1) * var(--offset));
+    width: calc(100% + var(--offset) * 2);
+    height: calc(100% + var(--offset) * 2);
+    @apply absolute -z-1 bg-yellow-200 rounded-full;
+}
+
+.clusterIconInnerWrapper img {
+    right: -5px;
+    top: -10px;
+    width: 20px;
+    height: 20px;
+    @apply absolute;
+}

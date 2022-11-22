@@ -1,0 +1,28 @@
+:root {
+    --primary-font: 'Jost', sans-serif;
+    --primary: #9D54BF;
+
+    --navbar-height: 3.5rem;
+    --filters-row-height: 5rem;
+}
+
+@screen lg {
+    :root {
+        --navbar-height: 4.5rem;
+    }
+}
+
+@layer base {
+    body {
+        @apply bg-appBg;
+        @apply font-secondary !important;
+        @apply w-full h-full;
+    }
+    h1, h2, h3, h4, h5, h6 {
+        @apply font-primary;
+    }
+}
+
+html, body, #__next{
+    @apply w-full h-full;
+}

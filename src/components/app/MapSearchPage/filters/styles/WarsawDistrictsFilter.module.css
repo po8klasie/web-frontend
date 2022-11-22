@@ -1,0 +1,36 @@
+.districtsMap {
+    @apply w-full h-full;
+}
+
+.districtsMap :global .district {
+    @apply fill-current text-primary;
+}
+
+.districtsMap :global .district:hover {
+    @apply transition opacity-60;
+}
+
+
+.districtsMap :global .district.color-1 {
+    @apply opacity-20;
+}
+.districtsMap :global .district.color-2 {
+    @apply opacity-30;
+}
+.districtsMap :global .district.color-3 {
+    @apply opacity-40;
+}
+.districtsMap :global .district.color-4 {
+    @apply opacity-50;
+}
+
+
+.districtsMap :global .river {
+    @apply fill-current text-blue-100;
+}
+
+
+.districtsMap :global tspan {
+    @apply font-secondary text-4xl;
+
+}
