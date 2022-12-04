@@ -6,6 +6,7 @@ import { IoMdBus } from '@react-icons/all-files/io/IoMdBus';
 import { MdTrain } from '@react-icons/all-files/md/MdTrain';
 import { MdTram } from '@react-icons/all-files/md/MdTram';
 import { MdSubway } from '@react-icons/all-files/md/MdSubway';
+import { toggleElementInArray } from '../../../../utils/misc';
 
 const stationTypes = [
   {
@@ -53,12 +54,12 @@ const PublicTransportFilter: FC<FilterProps> = ({ control }) => {
     field: { value, onChange },
   } = useController({
     control,
-    name: 'institution_type',
+    name: 'public_transportation_stop',
+    defaultValue: [],
   });
 
-  const toggle = (val: boolean) => {
-    if (value === val) onChange(null);
-    else onChange(val);
+  const handleChange = (id: string) => {
+    onChange(toggleElementInArray(value, id));
   };
 
   return (
@@ -67,7 +68,11 @@ const PublicTransportFilter: FC<FilterProps> = ({ control }) => {
       <ul>
         {stationTypes.map(({ name, id, icon: Icon }) => (
           <li className="flex items-center">
-            <input type="checkbox" className="bg-primary focus:ring-primary rounded" />
+            <input
+              type="checkbox"
+              onChange={() => handleChange(id)}
+              className="bg-primary focus:ring-primary rounded"
+            />
             <Icon className="mx-1" />
             <span className="">{name}</span>
           </li>

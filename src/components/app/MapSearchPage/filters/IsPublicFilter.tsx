@@ -3,7 +3,7 @@ import { FilterProps } from './types';
 import { useController } from 'react-hook-form';
 
 const baseClassName = 'w-1/2 flex items-center justify-center py-1';
-const activeClassName = 'bg-gray text-white';
+const activeClassName = 'bg-light';
 
 const IsPublicFilter: FC<FilterProps> = ({ control }) => {
   const {
@@ -21,12 +21,16 @@ const IsPublicFilter: FC<FilterProps> = ({ control }) => {
   return (
     <div className="border rounded-xl border-light flex mb-4">
       <button
+        role="checkbox"
+        aria-checked={value === true}
         onClick={() => toggle(true)}
         className={[baseClassName, 'rounded-l-xl', value === true ? activeClassName : ''].join(' ')}
       >
         Publiczna
       </button>
       <button
+        role="checkbox"
+        aria-checked={value === false}
         onClick={() => toggle(false)}
         className={[baseClassName, 'rounded-r-xl', value === false ? activeClassName : ''].join(
           ' ',

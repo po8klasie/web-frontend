@@ -59,6 +59,7 @@ export const getServerSideProps = async (
   await queryClient.prefetchQuery(queryKey);
 
   const school = queryClient.getQueryData<ISchoolData>(queryKey);
+  console.log(school);
   if (!school || !school.rspo) return { notFound: true };
 
   return {

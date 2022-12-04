@@ -82,15 +82,17 @@ const PublicTransportSection: FC<SectionComponentProps> = ({ school }) => {
       <div className="p-3">
         <h3 className="text-lg font-bold text-dark">Dojazd komunikacją miejską</h3>
         <div className="mt-4">
-          {school.publicTransportStops.length === 0 && <span>Brak danych</span>}
+          {!school.publicTransportStops ||
+            (school.publicTransportStops.length === 0 && <span>Brak danych</span>)}
           <div>
-            {school.publicTransportStops.map(({ publicTransportStop, distance }) => (
-              <PublicTransportStop
-                stop={publicTransportStop}
-                distance={distance}
-                key={publicTransportStop.name}
-              />
-            ))}
+            {school.publicTransportStops &&
+              school.publicTransportStops.map(({ publicTransportStop, distance }) => (
+                <PublicTransportStop
+                  stop={publicTransportStop}
+                  distance={distance}
+                  key={publicTransportStop.name}
+                />
+              ))}
           </div>
         </div>
       </div>

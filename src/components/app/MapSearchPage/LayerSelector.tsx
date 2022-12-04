@@ -1,12 +1,11 @@
 import { FiLayers } from '@react-icons/all-files/fi/FiLayers';
-import { Popover, Switch } from '@headlessui/react';
+import { Popover } from '@headlessui/react';
 import { useState } from 'react';
 import { FiCheck } from '@react-icons/all-files/fi/FiCheck';
 
 const layers = ['Wypadki drogowe', 'Komunikacja miejska'];
 
 const LayerSelector = () => {
-  const [enabled, setEnabled] = useState(true);
   return (
     <Popover className="relative">
       <Popover.Button className="mb-2 ml-2 backdrop-blur-2xl bg-white bg-opacity-80 border-primary flex items-center justify-center px-2 py-1 rounded-lg text-lg">

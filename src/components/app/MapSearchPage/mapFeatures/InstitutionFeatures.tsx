@@ -1,4 +1,4 @@
-import React, { useLayoutEffect, useMemo, useRef } from 'react';
+import React from 'react';
 import L from 'leaflet';
 import highSchoolMarker from '../../../../assets/app/highschool-marker.png';
 import selectedSchoolMarker from '../../../../assets/app/selected-school-marker.png';

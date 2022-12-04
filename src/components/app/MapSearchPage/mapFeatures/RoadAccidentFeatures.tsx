@@ -62,7 +62,7 @@ const RoadAccidentFeatures: FC<RoadAccidentFeaturesProps> = ({ data }) => {
     return () => {
       if (clusterGroupRef.current) map.removeLayer(clusterGroupRef.current);
     };
-  }, [data]);
+  }, [data, map]);
 
   return null;
 };

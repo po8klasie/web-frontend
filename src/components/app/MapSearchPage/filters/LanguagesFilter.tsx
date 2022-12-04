@@ -1,7 +1,6 @@
-import { FC, MouseEventHandler, useEffect, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 import { FilterProps } from './types';
 import { useController } from 'react-hook-form';
-import { FiSearch } from '@react-icons/all-files/fi/FiSearch';
 import { Combobox } from '@headlessui/react';
 import CollapsibleFilterWrapper from './CollapsibleFilterWrapper';
 import { FiX } from '@react-icons/all-files/fi/FiX';

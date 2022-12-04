@@ -1,0 +1,24 @@
+.filtersPane {
+    @apply bg-white py-4 fixed -left-full top-navbarHeight w-full h-full overflow-y-scroll;
+    @apply xl:static xl:block xl:col-span-2;
+
+    z-index: 1000;
+}
+
+.mapPane {
+    @apply col-span-12 md:col-span-8 xl:col-span-7 relative h-full;
+
+}
+
+.institutionsPane {
+    @apply pt-4 rounded-t-2xl h-2/3 w-full overflow-y-scroll;
+    @apply md:h-full md:block md:col-span-4;
+    @apply xl:col-span-3;
+
+    z-index: 800;
+}
+
+.institutionsPaneExpanded {
+    composes: institutionsPane;
+    @apply h-full md:h-full;
+}

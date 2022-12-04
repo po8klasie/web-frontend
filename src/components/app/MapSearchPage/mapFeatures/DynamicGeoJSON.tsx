@@ -1,6 +1,5 @@
 import React, { FC, useMemo } from 'react';
 import { GeoJSON, GeoJSONProps } from 'react-leaflet';
-import { nanoid } from 'nanoid';
 import objectHash from 'object-hash';
 type DynamicGeoJSONProps = Pick<GeoJSONProps, 'data' | 'style' | 'pointToLayer'>;
 

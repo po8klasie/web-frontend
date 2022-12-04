@@ -22,10 +22,10 @@ const SchoolHero: FC<SchoolHeroProps> = ({ school }) => {
     <div className="bg-white border-b border-lighten">
       <div className="w-container mx-auto flex justify-between flex-col-reverse md:flex-row">
         <div className="py-6">
-          <Link href={`/${projectID}/search`}>
+          <Link href={`/${projectID}/map`}>
             <a className="flex items-center">
               <BsArrowLeftShort className="mr-1 text-3xl" />
-              Powrót do listy
+              Powrót do mapy
             </a>
           </Link>
           <h1 className="text-2xl md:text-3xl font-bold mt-4">{school.name}</h1>

@@ -6,7 +6,6 @@ import {
   getLanguageEmoji,
   getSchoolTypeFromRspoInstitutionTypeId,
 } from '../../utils/apiDataMapping';
-import { nanoid } from 'nanoid';
 
 interface ForeignLanguagesProps {
   foreignLanguages: string[] | null;
@@ -35,7 +34,7 @@ const SchoolCard: FC<SchoolCardProps> = ({ school, highlighted }) => {
     >
       <div className="m-4 text-gray">
         <h3 className="font-primary font-semibold text-lg text-dark hover:underline">
-          <Link href={`/${school.projectId}/school/${school.rspo}`}>
+          <Link href={`/${school.project_id}/school/${school.rspo}`}>
             <a>{school.name}</a>
           </Link>
         </h3>
@@ -43,7 +42,7 @@ const SchoolCard: FC<SchoolCardProps> = ({ school, highlighted }) => {
           <li>{school.is_public ? 'Szkoła publiczna' : 'Szkoła niepubliczna'}</li>
           <li>{getSchoolTypeFromRspoInstitutionTypeId(school.rspoFacilityType)}</li>
           <li>
-            {school.street} {school.buildingNumber}, {school.city}
+            {school.street} {school.building_number}, {school.city}
           </li>
         </ul>
         <div className="mt-2 flex items-center">
@@ -61,7 +60,7 @@ const SchoolCard: FC<SchoolCardProps> = ({ school, highlighted }) => {
                   school.classes.map((schoolClass) => schoolClass.extended_subjects.join('-')),
                 ),
               ].map((schoolClass) => (
-                <li key={nanoid()}>{schoolClass}</li>
+                <li key={schoolClass}>{schoolClass}</li>
               ))}
             </ul>
           ) : (

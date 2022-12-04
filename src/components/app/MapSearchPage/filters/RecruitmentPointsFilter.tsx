@@ -1,6 +1,6 @@
 import { ChangeEventHandler, FC, MouseEventHandler, useState } from 'react';
 import { FilterProps } from './types';
-import { useController } from 'react-hook-form';
+import { useController, useFormContext } from 'react-hook-form';
 import CollapsibleFilterWrapper from './CollapsibleFilterWrapper';
 import { AiOutlineQuestionCircle } from '@react-icons/all-files/ai/AiOutlineQuestionCircle';
 import { BsQuestionCircle } from '@react-icons/all-files/bs/BsQuestionCircle';
@@ -50,18 +50,30 @@ const renderThumb: FC<IRenderThumbParams> = ({ props }) => (
 const inputClassName =
   'bg-gray-200 p-1 w-10 text-center rounded outline-none border-2 focus:border-gray-300';
 
+const name = 'points_threshold';
+
 const RecruitmentPointsFilter: FC<FilterProps> = ({ control }) => {
   const {
     field: { value, onChange },
   } = useController({
     control,
-    name: 'points_threshold',
+    name,
     defaultValue: [MIN, MAX],
   });
+  const { resetField } = useFormContext();
 
   const [range, setRange] = useState<number[]>(value);
 
-  const handleFinalChange = () => onChange(range);
+  const handleFinalChange = () => {
+    onChange(range);
+
+    if (range.join(',') === [MIN, MAX].join(','))
+      // bc isDirty check is shallow
+      // https://github.com/react-hook-form/react-hook-form/issues/1829#issuecomment-641836571
+      resetField(name, {
+        defaultValue: [MIN, MAX],
+      });
+  };
 
   const createInputChangeHandler = (i: 0 | 1): ChangeEventHandler<HTMLInputElement> => (e) => {
     const updatedVal = parseInt(e.target.value, 10);

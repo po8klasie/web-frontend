@@ -1,7 +1,6 @@
 import dynamic from 'next/dynamic';
 import { FC, useRef } from 'react';
 import { UseControllerProps } from 'react-hook-form';
-import { FilterProps } from './types';
 
 const filterComponents: Record<string, any> = {
   isPublicFilter: dynamic(() => import('./IsPublicFilter')),
