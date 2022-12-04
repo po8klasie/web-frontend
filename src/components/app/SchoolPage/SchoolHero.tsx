@@ -37,18 +37,6 @@ const SchoolHero: FC<SchoolHeroProps> = ({ school }) => {
             ))}
           </ul>
         </div>
-        {/* We don't support images for now */}
-        {/* {<div className="relative"> */}
-        {/*   <div */}
-        {/*     style={{ background: `url(${tmpImg})` }} */}
-        {/*     className="absolute top-0 left-0 w-full h-full blur filter blur opacity-50 md:hidden" */}
-        {/*   /> */}
-        {/*   <img */}
-        {/*     src={tmpImg} */}
-        {/*     alt="lorem" */}
-        {/*     className="object-contain md:object-cover h-full max-h-40 md:w-auto w-full relative z-2" */}
-        {/*   /> */}
-        {/* </div>} */}
       </div>
     </div>
   );
