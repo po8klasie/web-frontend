@@ -51,7 +51,7 @@ const useMapData = () => {
   const debouncedBboxString = useDebouncedValue(bboxString, 300);
   const prevDebouncedBboxString = usePrevious(debouncedBboxString);
   const queryClient = useQueryClient();
-  const { data } = useQuery<any>(
+  const { data, isFetching } = useQuery<any>(
     [`/search/map_features?bbox=${debouncedBboxString}&project_id=${projectID}`],
     {
       enabled: !!debouncedBboxString,
@@ -76,6 +76,7 @@ const useMapData = () => {
     debouncedBboxString,
     mapFeatures: data,
     onUpdateMap,
+    isFetching,
   };
 };
 

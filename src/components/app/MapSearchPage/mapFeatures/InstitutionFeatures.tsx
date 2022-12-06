@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import L from 'leaflet';
 import highSchoolMarker from '../../../../assets/app/highschool-marker.png';
 import selectedSchoolMarker from '../../../../assets/app/selected-school-marker.png';
@@ -15,12 +15,6 @@ const selectedSchoolIcon = L.icon({
   iconSize: [27, 38],
 });
 
-const pointToLayer = (selectedSchoolRspo, setSelectedSchoolRspo) => (feature, latlng) => {
-  return L.marker(latlng, {
-    icon: selectedSchoolRspo === feature.properties.rspo ? selectedSchoolIcon : highSchoolIcon,
-  }).on('click', () => setSelectedSchoolRspo(feature.properties.rspo));
-};
-
 const style = (feature) => {
   return {
     // fillColor: '',
@@ -35,13 +29,16 @@ const style = (feature) => {
 const InstitutionFeatures = ({ data }) => {
   const { selectedSchoolRspo, setSelectedSchoolRspo } = useSelectedSchool();
 
-  return (
-    <DynamicGeoJSON
-      data={data}
-      style={style}
-      pointToLayer={pointToLayer(selectedSchoolRspo, setSelectedSchoolRspo)}
-    />
+  const pointToLayer = useCallback(
+    (feature, latlng) => {
+      return L.marker(latlng, {
+        icon: selectedSchoolRspo === feature.properties.rspo ? selectedSchoolIcon : highSchoolIcon,
+      }).on('click', () => setSelectedSchoolRspo(feature.properties.rspo));
+    },
+    [selectedSchoolRspo, setSelectedSchoolRspo],
   );
+
+  return <DynamicGeoJSON data={data} style={style} pointToLayer={pointToLayer} />;
 };
 
 export default InstitutionFeatures;

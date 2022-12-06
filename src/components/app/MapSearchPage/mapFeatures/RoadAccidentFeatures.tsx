@@ -15,7 +15,13 @@ const roadAccidentIcon = L.icon({
 const pointToLayer = (geoJsonPoint: Feature<Point, any>, latLng: LatLng): Layer => {
   return L.marker(latLng, {
     icon: roadAccidentIcon,
-  });
+  }).bindPopup(`
+    <a 
+      target="_blank"
+      href="http://sewik.pl/accident/${geoJsonPoint.properties.sewikId}">
+      Zobacz zdarzenie w bazie SEWIK
+    </a>
+  `);
 };
 
 const iconCreateFunction = (cluster: L.MarkerCluster) => {

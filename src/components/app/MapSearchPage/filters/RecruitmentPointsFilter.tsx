@@ -52,14 +52,10 @@ const inputClassName =
 
 const name = 'points_threshold';
 
-const RecruitmentPointsFilter: FC<FilterProps> = ({ control }) => {
+const RecruitmentPointsFilter: FC<FilterProps> = ({ control, name, defaultValue }) => {
   const {
     field: { value, onChange },
-  } = useController({
-    control,
-    name,
-    defaultValue: [MIN, MAX],
-  });
+  } = useController({ control, name, defaultValue });
   const { resetField } = useFormContext();
 
   const [range, setRange] = useState<number[]>(value);

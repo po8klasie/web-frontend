@@ -1,6 +1,7 @@
 import dynamic from 'next/dynamic';
 import { FC, useRef } from 'react';
 import { UseControllerProps } from 'react-hook-form';
+import { FilterProps } from './types';
 
 const filterComponents: Record<string, any> = {
   isPublicFilter: dynamic(() => import('./IsPublicFilter')),
@@ -15,20 +16,17 @@ const getFilterComponent = (componentId: keyof typeof filterComponents) => {
   return filterComponents[componentId];
 };
 
-interface FilterComponentProps {
+interface FilterComponentProps extends FilterProps {
   filterComponentId: keyof typeof filterComponents;
-  control: UseControllerProps['control'];
 }
 
-const FilterComponent: FC<FilterComponentProps> = ({ control, filterComponentId }) => {
+const FilterComponent: FC<FilterComponentProps> = ({ filterComponentId, ...props }) => {
   const componentRef = useRef(getFilterComponent(filterComponentId));
   const Component = componentRef.current;
 
-  console.log(filterComponentId, Component);
-
   if (!Component) return null;
 
-  return <Component control={control} />;
+  return <Component {...props} />;
 };
 
 export default FilterComponent;

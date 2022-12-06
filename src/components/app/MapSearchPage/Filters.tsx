@@ -1,21 +1,22 @@
 import FilterComponent from './filters/FilterComponent';
 import { useFormContext } from 'react-hook-form';
-
-const filters = [
-  'isPublicFilter',
-  'institutionTypeFilter',
-  'languagesFilter',
-  'publicTransportFilter',
-  'recruitmentPointsFilter',
-  'warsawDistrictsFilter',
-];
+import { useProjectConfig } from '../../../config/projectConfigContext';
 
 const Filters = () => {
   const { control } = useFormContext();
+  const { searchView } = useProjectConfig();
+  const filters = searchView!.filters;
+
   return (
     <div className="px-2">
-      {filters.map((filterId) => (
-        <FilterComponent control={control} filterComponentId={filterId} key={filterId} />
+      {filters.map(({ name, defaultValue, component }) => (
+        <FilterComponent
+          control={control}
+          filterComponentId={component}
+          name={name}
+          defaultValue={defaultValue}
+          key={name}
+        />
       ))}
     </div>
   );

@@ -17,8 +17,8 @@ export const useFiltersValues = (): UseFiltersValuesReturnType => {
   const { filters: filtersConfig } = searchView as SearchViewConfig;
   const [filtersValues, setFiltersValues] = useState<FiltersValues>(
     Object.fromEntries(
-      (filtersConfig as SearchViewConfig['filters']).map(({ key, initialValue }) => [
-        key,
+      (filtersConfig as SearchViewConfig['filters']).map(({ name, initialValue }) => [
+        name,
         initialValue,
       ]),
     ),
@@ -40,14 +40,14 @@ const AlphaV3FiltersRow: FC<UseFiltersValuesReturnType> = ({ setFiltersValues, f
 
   return (
     <div className={styles.filtersRow}>
-      {filtersConfig.map(({ options, key, displayInRowOnMobile, component }) => {
+      {filtersConfig.map(({ options, name, displayInRowOnMobile, component }) => {
         const FilterComponent = filtersComponents[component as keyof typeof filtersComponents];
         return (
           <span className={!displayInRowOnMobile ? 'hidden md:inline-block' : ''}>
             <FilterComponent
               options={options}
-              onChange={handleFiltersChange(key)}
-              value={filtersValues[key]}
+              onChange={handleFiltersChange(name)}
+              value={filtersValues[name]}
             />
           </span>
         );

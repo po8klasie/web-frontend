@@ -12011,6 +12011,7 @@ __metadata:
     react-perfect-scrollbar: ^1.5.8
     react-progressive-graceful-image: ^0.6.14
     react-range: ^1.8.14
+    react-spinners: ^0.13.7
     responsive-loader: ^2.3.0
     sharp: ^0.29.3
     tailwindcss: ^2.2.19
@@ -12560,6 +12561,16 @@ __metadata:
     react: ^16.8.0-0 || ^17.0.0-0 || ^18.0.0-0
     react-dom: ^16.8.0-0 || ^17.0.0-0 || ^18.0.0-0
   checksum: 7020c011dc293db46ede9b7cb014dbfe71d59f96aad9cf9b12e9de26c2b600c504e11d39368af8c539c4a3dc1f93e966745063e0b494c388c28fbadd338164bb
+  languageName: node
+  linkType: hard
+
+"react-spinners@npm:^0.13.7":
+  version: 0.13.7
+  resolution: "react-spinners@npm:0.13.7"
+  peerDependencies:
+    react: ^16.0.0 || ^17.0.0 || ^18.0.0
+    react-dom: ^16.0.0 || ^17.0.0 || ^18.0.0
+  checksum: d7a555b42313d301e561c39a4f20ae1b0da55541a6936ab44147eca5c8185036d4f6caebf450a9e6303211270f1aa72be843cbc1328024c832507c3f89ef0116
   languageName: node
   linkType: hard
 

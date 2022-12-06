@@ -31,15 +31,15 @@ const MobileFilters: FC<MobileFiltersProps> = ({ onFiltersChange, filtersValues 
               <FiX className="text-xl" />
             </button>
           </div>
-          {filtersConfig.map(({ options, key, component, displayInRowOnMobile }) => {
+          {filtersConfig.map(({ options, name, component, displayInRowOnMobile }) => {
             const FilterComponent =
               mobileFiltersComponents[component as keyof typeof mobileFiltersComponents];
             if (displayInRowOnMobile) return null;
             return (
               <FilterComponent
                 options={options}
-                onChange={onFiltersChange(key)}
-                value={filtersValues[key]}
+                onChange={onFiltersChange(name)}
+                value={filtersValues[name]}
               />
             );
           })}

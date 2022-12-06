@@ -10,195 +10,47 @@ const searchViewConfig: SearchViewConfig = {
   },
   filters: [
     {
-      key: 'query',
-      component: 'text',
-      validator: 'string',
-      initialValue: '',
-      displayInRowOnMobile: true,
-      options: {
-        placeholder: 'Nazwa szkoły lub słowo kluczowe',
-        icon: 'BsSearch',
-      },
+      name: 'is_public',
+      component: 'isPublicFilter',
+      parser: 'booleanOrNull',
+      defaultValue: null,
+      options: {},
     },
     {
-      key: 'is_public',
-      component: 'dropdown',
-      validator: 'none',
-      initialValue: [],
-      displayInRowOnMobile: false,
-      options: {
-        title: 'Szkoła publiczna',
-        isMultipleChoice: false,
-        choices: [
-          {
-            value: true,
-            label: 'tak',
-          },
-          {
-            value: false,
-            label: 'nie',
-          },
-        ],
-      },
+      name: 'institution_type',
+      component: 'institutionTypeFilter',
+      parser: 'array',
+      defaultValue: [],
+      options: {},
     },
     {
-      key: 'school_rspo_type_ids',
-      component: 'dropdown',
-      validator: 'none',
-      initialValue: [],
-      displayInRowOnMobile: false,
-      options: {
-        title: 'Typ szkoły',
-        isMultipleChoice: false,
-        choices: [
-          {
-            value: '14',
-            label: 'liceum',
-          },
-          {
-            value: '16',
-            label: 'technikum',
-          },
-          {
-            value: '93',
-            label: 'szkoła branżowa',
-          },
-        ],
-      },
+      name: 'languages',
+      component: 'languagesFilter',
+      parser: 'array',
+      defaultValue: [],
+      options: {},
     },
-    // to be implemented soon
-    // {
-    //   key: 'extendedSubjects',
-    //   component: 'dropdown',
-    //   validator: 'none',
-    //   initialValue: [],
-    //   options: {
-    //     title: 'Przedmioty rozszerzone',
-    //     isMultipleChoice: true,
-    //     choices: [
-    //       {
-    //         value: 'pol',
-    //         label: 'język polski',
-    //       },
-    //       {
-    //         value: 'hist',
-    //         label: 'historia',
-    //       },
-    //       {
-    //         value: 'wos',
-    //         label: 'WOS',
-    //       },
-    //       {
-    //         value: 'mat',
-    //         label: 'matematyka',
-    //       },
-    //       {
-    //         value: 'fiz',
-    //         label: 'fizyka',
-    //       },
-    //       {
-    //         value: 'inf',
-    //         label: 'informatyka',
-    //       },
-    //       {
-    //         value: 'chem',
-    //         label: 'chemia',
-    //       },
-    //       {
-    //         value: 'biol',
-    //         label: 'biologia',
-    //       },
-    //       {
-    //         value: 'geogr',
-    //         label: 'geografia',
-    //       },
-    //     ],
-    //   },
-    // },
-    // {
-    //   key: 'districts',
-    //   component: 'dropdown',
-    //   validator: 'none',
-    //   initialValue: [],
-    //   options: {
-    //     title: 'Dzielnica',
-    //     isMultipleChoice: true,
-    //     choices: [
-    //       {
-    //         value: 'Bemowo',
-    //         label: 'Bemowo',
-    //       },
-    //       {
-    //         value: 'Białołęka',
-    //         label: 'Białołęka',
-    //       },
-    //       {
-    //         value: 'Bielany',
-    //         label: 'Bielany',
-    //       },
-    //       {
-    //         value: 'Mokotów',
-    //         label: 'Mokotów',
-    //       },
-    //       {
-    //         value: 'Ochota',
-    //         label: 'Ochota',
-    //       },
-    //       {
-    //         value: 'Praga Południe',
-    //         label: 'Praga Południe',
-    //       },
-    //       {
-    //         value: 'Praga Północ',
-    //         label: 'Praga Północ',
-    //       },
-    //       {
-    //         value: 'Rembertów',
-    //         label: 'Rembertów',
-    //       },
-    //       {
-    //         value: 'Śródmieście',
-    //         label: 'Śródmieście',
-    //       },
-    //       {
-    //         value: 'Targówek',
-    //         label: 'Targówek',
-    //       },
-    //       {
-    //         value: 'Ursus',
-    //         label: 'Ursus',
-    //       },
-    //       {
-    //         value: 'Ursynów',
-    //         label: 'Ursynów',
-    //       },
-    //       {
-    //         value: 'Wawer',
-    //         label: 'Wawer',
-    //       },
-    //       {
-    //         value: 'Wesoła',
-    //         label: 'Wesoła',
-    //       },
-    //       {
-    //         value: 'Wilanów',
-    //         label: 'Wilanów',
-    //       },
-    //       {
-    //         value: 'Włochy',
-    //         label: 'Włochy',
-    //       },
-    //       {
-    //         value: 'Wola',
-    //         label: 'Wola',
-    //       },
-    //       {
-    //         value: 'Żoliborz',
-    //         label: 'Żoliborz',
-    //       },
-    //     ],
-    //   },
-    // },
+    {
+      name: 'public_transportation_stop',
+      component: 'publicTransportFilter',
+      parser: 'array',
+      defaultValue: [],
+      options: {},
+    },
+    {
+      name: 'points_threshold',
+      component: 'recruitmentPointsFilter',
+      parser: 'recruitmentPointsRange',
+      defaultValue: [0, 200],
+      options: {},
+    },
+    {
+      name: 'school_rspo_type_ids',
+      component: 'warsawDistrictsFilter',
+      parser: 'array',
+      defaultValue: [],
+      options: {},
+    },
   ],
 };
 

@@ -1,4 +1,4 @@
-import { FC, MouseEventHandler } from 'react';
+import { FC } from 'react';
 import { FilterProps } from './types';
 import { useController } from 'react-hook-form';
 import CollapsibleFilterWrapper from './CollapsibleFilterWrapper';
@@ -36,27 +36,10 @@ const stationTypes = [
   },
 ];
 
-interface InstitutionTypeCardProps {
-  name: string;
-  icon: string;
-  onClick: MouseEventHandler;
-}
-
-const InstitutionTypeCard: FC<InstitutionTypeCardProps> = ({ name, icon, onClick }) => (
-  <button className="my-2 border px-2 py-2 rounded-xl text-center" onClick={onClick}>
-    <span className="text-2xl block">{icon}</span>
-    <span className="block mt-2 text-sm leading-4">{name}</span>
-  </button>
-);
-
-const PublicTransportFilter: FC<FilterProps> = ({ control }) => {
+const PublicTransportFilter: FC<FilterProps> = ({ control, name, defaultValue }) => {
   const {
     field: { value, onChange },
-  } = useController({
-    control,
-    name: 'public_transportation_stop',
-    defaultValue: [],
-  });
+  } = useController({ control, name, defaultValue });
 
   const handleChange = (id: string) => {
     onChange(toggleElementInArray(value, id));

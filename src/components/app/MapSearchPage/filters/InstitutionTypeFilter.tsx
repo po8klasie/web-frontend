@@ -41,14 +41,10 @@ const InstitutionTypeCard: FC<InstitutionTypeCardProps> = ({ name, icon, isActiv
   </button>
 );
 
-const InstitutionTypeFilter: FC<FilterProps> = ({ control }) => {
+const InstitutionTypeFilter: FC<FilterProps> = ({ control, name, defaultValue }) => {
   const {
     field: { value, onChange },
-  } = useController({
-    control,
-    name: 'institution_type',
-    defaultValue: [],
-  });
+  } = useController({ control, name, defaultValue });
 
   const handleClick = (institutionTypeId: string) => () =>
     onChange(toggleElementInArray(value, institutionTypeId, institutionTypes.length));

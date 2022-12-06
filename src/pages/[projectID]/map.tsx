@@ -10,7 +10,7 @@ import withProjectConfig from '../../config/withProjectConfig';
 import { useState } from 'react';
 import { SelectedSchoolProvider } from '../../hooks/useSelectedSchool';
 import { BasicMapData, MapDataProvider } from '../../hooks/useMapData';
-import MapPage from '../../components/app/MapSearchPage/MapPage';
+import MapSearchPageInternals from '../../components/app/MapSearchPage/MapSearchPage';
 
 const MapSearchPage = () => {
   const [basicMapData, setBasicMapData] = useState<BasicMapData>({
@@ -21,11 +21,11 @@ const MapSearchPage = () => {
   });
 
   return (
-    <AppLayout wideNavbar noFooter>
+    <AppLayout wideNavbar noFooter className="h-full">
       <div className="w-full h-full">
         <MapDataProvider basicMapData={basicMapData} setBasicMapData={setBasicMapData}>
           <SelectedSchoolProvider>
-            <MapPage />
+            <MapSearchPageInternals />
           </SelectedSchoolProvider>
         </MapDataProvider>
       </div>

@@ -1,15 +1,15 @@
 import { SchoolInfoSectionId } from '../components/app/SchoolPage/schoolInfoSections/schoolInfoSections';
 import { MapContainerProps } from 'react-leaflet';
+import { AnyParser } from '../utils/searchParser';
 
 export type FilterDefinition = {
-  key: string;
+  name: string;
   component: string; // TODO: More strict types
   // Leaving it as it is cause filters logic will change soon
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   options?: any; // TODO: More strict types
-  validator: string; // TODO: More strict types
-  displayInRowOnMobile: boolean;
-  initialValue: string | unknown[];
+  parser: AnyParser;
+  defaultValue: any;
 };
 
 export type SearchViewConfig = {

@@ -11,9 +11,9 @@ const searchViewConfig: SearchViewConfig = {
   },
   filters: [
     {
-      key: 'name_query',
+      name: 'name_query',
       component: 'text',
-      validator: 'string',
+      parser: 'string',
       initialValue: '',
       displayInRowOnMobile: true,
       options: {
@@ -22,9 +22,9 @@ const searchViewConfig: SearchViewConfig = {
       },
     },
     {
-      key: 'public_school',
+      name: 'public_school',
       component: 'dropdown',
-      validator: 'none',
+      parser: 'none',
       initialValue: [],
       displayInRowOnMobile: false,
       options: {
@@ -43,9 +43,9 @@ const searchViewConfig: SearchViewConfig = {
       },
     },
     {
-      key: 'school_rspo_type_ids',
+      name: 'school_rspo_type_ids',
       component: 'dropdown',
-      validator: 'none',
+      parser: 'none',
       initialValue: [],
       displayInRowOnMobile: false,
       options: {

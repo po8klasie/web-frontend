@@ -8,10 +8,17 @@ interface AppLayoutProps {
   projectAppearance?: ProjectConfig['appearance'];
   wideNavbar?: boolean;
   noFooter?: boolean;
+  className?: string;
 }
 
-const AppLayout: FC<AppLayoutProps> = ({ children, projectAppearance, wideNavbar, noFooter }) => (
-  <div className="bg-appBg h-full">
+const AppLayout: FC<AppLayoutProps> = ({
+  children,
+  projectAppearance,
+  wideNavbar,
+  noFooter,
+  className,
+}) => (
+  <div className={['bg-appBg', className ?? ''].join(' ')}>
     <AppNavbar projectName={projectAppearance?.appName} wide={wideNavbar} />
     <main className="pt-navbarHeight h-full">{children}</main>
     {!noFooter && <AppFooter />}
