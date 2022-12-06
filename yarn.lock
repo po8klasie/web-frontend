@@ -7618,6 +7618,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"geojson@npm:^0.5.0":
+  version: 0.5.0
+  resolution: "geojson@npm:0.5.0"
+  checksum: 44fbf916dc66d17f1561fb56fd2741f21e26da5dd7daf842a794119c841c7f6d611ccc21d9797c9c62a78c41a0f841c0648042989a5a5a05045835c6ada8612f
+  languageName: node
+  linkType: hard
+
 "get-caller-file@npm:^2.0.5":
   version: 2.0.5
   resolution: "get-caller-file@npm:2.0.5"
@@ -10828,6 +10835,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"nanoid@npm:^4.0.0":
+  version: 4.0.0
+  resolution: "nanoid@npm:4.0.0"
+  bin:
+    nanoid: bin/nanoid.js
+  checksum: 7d5946df5c6d383694195b781ae7b5067c149d164ec71e910d6b06676309c3459b68af570b944fb5ecd5065d19df464f05700d141d70bb712ff8ca06642fd8df
+  languageName: node
+  linkType: hard
+
 "nanomatch@npm:^1.2.9":
   version: 1.2.13
   resolution: "nanomatch@npm:1.2.13"
@@ -11983,6 +11999,7 @@ __metadata:
     eslint-plugin-prettier: ^3.1.4
     eslint-plugin-react: ^7.18.3
     eslint-plugin-react-hooks: ^4.4.0
+    geojson: ^0.5.0
     identity-obj-proxy: ^3.0.0
     image-trace-loader: ^1.0.2
     imagemin-mozjpeg: ^9.0.0
@@ -11993,6 +12010,7 @@ __metadata:
     leaflet.markercluster: ^1.5.3
     lodash: ^4.17.20
     lqip-loader: ^2.2.1
+    nanoid: ^4.0.0
     next: ^12.1.4
     next-i18next: ^11.0.0
     next-optimized-images: ^2.6.2
