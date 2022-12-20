@@ -31,26 +31,32 @@ export type AnyParser = keyof typeof parsers;
 
 const parseQS = (asPath: string) => parse(new URL(`http://example.com${asPath}`).search);
 
-export const parseSearchQuery = (asPath: string, filterDefinitions: FilterDefinition[]) => {
+export const parseQueryFromURL = (asPath: string) => {
   const rawQueryData = parseQS(asPath);
-  const parsedSearchData = {};
+  const query = rawQueryData.query && rawQueryData.query.length > 0 ? rawQueryData.query : '';
+  return query;
+};
 
-  filterDefinitions.forEach(({ name, parser: parserId }) => {
-    if (!(name in rawQueryData)) return;
+export const parseFiltersFromUrl = (asPath: string, filterDefinitions: FilterDefinition[]) => {
+  const rawQueryData = parseQS(asPath);
+  const keysInQuery = Object.keys(rawQueryData);
+  const parsedFilters = {};
+
+  filterDefinitions.forEach(({ name, parser: parserId, defaultValue }) => {
+    if (!keysInQuery.includes(name)) return;
+
+    console.log({ name });
 
     const parser = parsers[parserId];
 
     try {
-      parsedSearchData[name] = parser(rawQueryData[name]);
+      const parsedData = parser(rawQueryData[name]);
+
+      parsedFilters[name] = parsedData;
     } catch (e) {
       return;
     }
   });
 
-  console.log({ parsedSearchData });
-
-  return {
-    query: '',
-    ...parsedSearchData,
-  };
+  return parsedFilters;
 };

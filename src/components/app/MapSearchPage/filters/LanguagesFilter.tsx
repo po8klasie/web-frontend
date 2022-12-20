@@ -37,14 +37,11 @@ const languages = {
 type LanguageId = keyof typeof languages;
 const languageIds = Object.keys(languages) as LanguageId[];
 
-const LanguagesFilter: FC<FilterProps> = ({ control, name, defaultValue }) => {
-  const {
-    field: { value, onChange },
-  } = useController({ control, name, defaultValue });
+const LanguagesFilter: FC<FilterProps<string[]>> = ({ name, value, setValue }) => {
   const [query, setQuery] = useState('');
 
   const updateLangIds = (langIds: string[]) => {
-    onChange(langIds);
+    setValue(langIds);
   };
 
   useEffect(() => {

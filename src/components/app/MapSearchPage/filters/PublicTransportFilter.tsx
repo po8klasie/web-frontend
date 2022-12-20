@@ -36,13 +36,9 @@ const stationTypes = [
   },
 ];
 
-const PublicTransportFilter: FC<FilterProps> = ({ control, name, defaultValue }) => {
-  const {
-    field: { value, onChange },
-  } = useController({ control, name, defaultValue });
-
+const PublicTransportFilter: FC<FilterProps<string[]>> = ({ name, value, setValue }) => {
   const handleChange = (id: string) => {
-    onChange(toggleElementInArray(value, id));
+    setValue(toggleElementInArray(value, id));
   };
 
   return (
@@ -50,14 +46,17 @@ const PublicTransportFilter: FC<FilterProps> = ({ control, name, defaultValue })
       <span className="mb-1 block">{'<'}500m od szkoły znajduje się:</span>
       <ul>
         {stationTypes.map(({ name, id, icon: Icon }) => (
-          <li className="flex items-center">
-            <input
-              type="checkbox"
-              onChange={() => handleChange(id)}
-              className="bg-primary focus:ring-primary rounded"
-            />
-            <Icon className="mx-1" />
-            <span className="">{name}</span>
+          <li>
+            <label className="flex items-center">
+              <input
+                type="checkbox"
+                onChange={() => handleChange(id)}
+                checked={value.includes(id)}
+                className="bg-primary focus:ring-primary rounded"
+              />
+              <Icon className="mx-1" />
+              <span className="">{name}</span>
+            </label>
           </li>
         ))}
       </ul>

@@ -1,7 +1,5 @@
-import { UseControllerProps } from 'react-hook-form';
-
-export interface FilterProps {
-  control: UseControllerProps['control'];
+export interface FilterProps<T> {
   name: string;
-  defaultValue: any;
+  setValue: (v: T) => void;
+  value: T;
 }

@@ -10,6 +10,8 @@ import { queryClientOptions } from '../api/queryClient';
 import { QueryClientProvider, QueryClient, Hydrate } from '@tanstack/react-query';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import 'tailwindcss/tailwind.css';
+import { Provider as StoreProvider } from 'react-redux';
+import { store } from '../store/store';
 
 const App: FC<AppProps> = ({ Component, pageProps }) => {
   usePosthogPageChangeTracker();
@@ -21,11 +23,13 @@ const App: FC<AppProps> = ({ Component, pageProps }) => {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>
       <DefaultSeo />
-      <QueryClientProvider client={queryClient}>
-        <Hydrate state={pageProps.dehydratedState}>
-          <Component {...pageProps} />
-        </Hydrate>
-      </QueryClientProvider>
+      <StoreProvider store={store}>
+        <QueryClientProvider client={queryClient}>
+          <Hydrate state={pageProps.dehydratedState}>
+            <Component {...pageProps} />
+          </Hydrate>
+        </QueryClientProvider>
+      </StoreProvider>
     </>
   );
 };

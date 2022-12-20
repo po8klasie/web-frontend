@@ -5,14 +5,10 @@ import { useController } from 'react-hook-form';
 const baseClassName = 'w-1/2 flex items-center justify-center py-1';
 const activeClassName = 'bg-light';
 
-const IsPublicFilter: FC<FilterProps> = ({ control, name, defaultValue }) => {
-  const {
-    field: { value, onChange },
-  } = useController({ control, name, defaultValue });
-
+const IsPublicFilter: FC<FilterProps<string | null>> = ({ name, value, setValue }) => {
   const toggle = (val: string) => {
-    if (value === val) onChange(null);
-    else onChange(val);
+    if (value === val) setValue(null);
+    else setValue(val);
   };
 
   return (

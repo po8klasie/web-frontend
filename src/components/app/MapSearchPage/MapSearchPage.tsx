@@ -12,44 +12,69 @@ import { serializeSearchData } from '../../../utils/searchSerializer';
 import { useProjectConfig } from '../../../config/projectConfigContext';
 import styles from './styles/MapPage.module.css';
 import InstitutionListing from './InstitutionListing';
-import { parseSearchQuery } from '../../../utils/searchParser';
-const parseQS = (asPath: string) => parse(new URL(`http://example.com${asPath}`).search);
+import { parseFiltersFromUrl, parseQueryFromURL } from '../../../utils/searchParser';
+import { useAppDispatch, useAppSelector } from '../../../store/hooks';
+import {
+  resetFilterValues,
+  setDefaultFiltersValues,
+  setFiltersValues,
+  setQuery,
+} from '../../../store/slices/mapSearchPageDataSlice';
 
 const MapSearchPage = () => {
   const router = useRouter();
   const {
     searchView: { filters },
   } = useProjectConfig();
-  const formMethods = useForm({
-    defaultValues: { query: '' },
-  });
+  const formMethods = useForm();
+  const mapSearchPageData = useAppSelector((state) => state.mapSearchPageData);
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
-    const parsedSearchQuery = parseSearchQuery(router.asPath, filters);
-    Object.entries(parsedSearchQuery).forEach(([key, value]) =>
-      formMethods.setValue(key, value, { shouldDirty: true }),
+    const defaultFiltersValues = filters.reduce(
+      (acc, filter) => ({
+        ...acc,
+        [filter.name]: filter.defaultValue,
+      }),
+      {},
     );
+    dispatch(setDefaultFiltersValues(defaultFiltersValues));
+    dispatch(
+      setFiltersValues({
+        ...defaultFiltersValues,
+        ...parseFiltersFromUrl(router.asPath, filters),
+      }),
+    );
+    dispatch(setQuery(parseQueryFromURL(router.asPath)));
   }, []);
 
   const { debouncedBboxString } = useMapData();
   const { projectID } = useProjectConfig();
 
-  const watched = formMethods.watch();
-  console.log(watched);
-  const serializedClientPath = useMemo(() => serializeSearchData(watched, formMethods.formState), [
-    watched,
-    formMethods.formState,
-  ]);
+  const serializedClientPath = useMemo(
+    () =>
+      serializeSearchData(mapSearchPageData.filters, mapSearchPageData.defaultFiltersValues, {
+        query: mapSearchPageData.query,
+      }),
+    [mapSearchPageData.filters, mapSearchPageData.defaultFiltersValues, mapSearchPageData.query],
+  );
 
   const serializedAPIPath = useMemo(
     () =>
-      serializeSearchData(watched, formMethods.formState, {
+      serializeSearchData(mapSearchPageData.filters, mapSearchPageData.defaultFiltersValues, {
+        query: mapSearchPageData.query,
         project_id: projectID,
         bbox: debouncedBboxString,
       }),
-    [watched, formMethods.formState, debouncedBboxString, projectID],
+    [
+      mapSearchPageData.filters,
+      mapSearchPageData.defaultFiltersValues,
+      mapSearchPageData.query,
+      debouncedBboxString,
+      projectID,
+    ],
   );
-  console.log({ serializedClientPath, serializedAPIPath });
+
   useEffect(() => {
     window.history.replaceState(
       null,

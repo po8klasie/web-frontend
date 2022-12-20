@@ -1,4 +1,4 @@
-import { ChangeEventHandler, FC, MouseEventHandler, useState } from 'react';
+import { ChangeEventHandler, FC, MouseEventHandler, useEffect, useState } from 'react';
 import { FilterProps } from './types';
 import { useController, useFormContext } from 'react-hook-form';
 import CollapsibleFilterWrapper from './CollapsibleFilterWrapper';
@@ -50,25 +50,15 @@ const renderThumb: FC<IRenderThumbParams> = ({ props }) => (
 const inputClassName =
   'bg-gray-200 p-1 w-10 text-center rounded outline-none border-2 focus:border-gray-300';
 
-const name = 'points_threshold';
+const RecruitmentPointsFilter: FC<FilterProps<[number, number]>> = ({ value, setValue }) => {
+  const [range, setRange] = useState<[number, number]>(value);
 
-const RecruitmentPointsFilter: FC<FilterProps> = ({ control, name, defaultValue }) => {
-  const {
-    field: { value, onChange },
-  } = useController({ control, name, defaultValue });
-  const { resetField } = useFormContext();
-
-  const [range, setRange] = useState<number[]>(value);
+  useEffect(() => {
+    setRange(value);
+  }, [value]);
 
   const handleFinalChange = () => {
-    onChange(range);
-
-    if (range.join(',') === [MIN, MAX].join(','))
-      // bc isDirty check is shallow
-      // https://github.com/react-hook-form/react-hook-form/issues/1829#issuecomment-641836571
-      resetField(name, {
-        defaultValue: [MIN, MAX],
-      });
+    setValue(range);
   };
 
   const createInputChangeHandler = (i: 0 | 1): ChangeEventHandler<HTMLInputElement> => (e) => {
@@ -76,7 +66,7 @@ const RecruitmentPointsFilter: FC<FilterProps> = ({ control, name, defaultValue 
     if (updatedVal > MAX) return;
     const updatedRange = [...range];
     updatedRange[i] = Number.isNaN(updatedVal) ? 0 : updatedVal;
-    setRange(updatedRange);
+    setRange(updatedRange as [number, number]);
   };
 
   return (

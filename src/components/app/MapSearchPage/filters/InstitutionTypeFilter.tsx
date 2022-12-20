@@ -41,13 +41,9 @@ const InstitutionTypeCard: FC<InstitutionTypeCardProps> = ({ name, icon, isActiv
   </button>
 );
 
-const InstitutionTypeFilter: FC<FilterProps> = ({ control, name, defaultValue }) => {
-  const {
-    field: { value, onChange },
-  } = useController({ control, name, defaultValue });
-
+const InstitutionTypeFilter: FC<FilterProps<string[]>> = ({ value, setValue }) => {
   const handleClick = (institutionTypeId: string) => () =>
-    onChange(toggleElementInArray(value, institutionTypeId, institutionTypes.length));
+    setValue(toggleElementInArray(value, institutionTypeId, institutionTypes.length));
 
   return (
     <CollapsibleFilterWrapper title="Typ szkoły">
