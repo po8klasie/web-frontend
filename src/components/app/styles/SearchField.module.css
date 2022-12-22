@@ -1,0 +1,11 @@
+.searchField {
+    @apply relative bg-white;
+}
+
+.searchFieldAutocompleteDropdown {
+    @apply absolute top-full left-0 w-full mt-1 hidden;
+}
+
+.searchField:focus-within .searchFieldAutocompleteDropdown {
+    @apply block;
+}

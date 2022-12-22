@@ -1,16 +1,16 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
 import 'tailwindcss/tailwind.css';
-import AppLayout from '../../components/app/AppLayout';
+import AppLayout from '../../../components/app/AppLayout';
 import { GetServerSidePropsContext, GetServerSidePropsResult } from 'next';
-import { ProjectConfig } from '../../config/types';
+import { ProjectConfig } from '../../../config/types';
 import { dehydrate, DehydratedState, QueryClient } from '@tanstack/react-query';
-import { queryClientOptions } from '../../api/queryClient';
-import { getProjectConfigProps } from '../../config/nextHelpers';
-import withProjectConfig from '../../config/withProjectConfig';
+import { queryClientOptions } from '../../../api/queryClient';
+import { getProjectConfigProps } from '../../../config/nextHelpers';
+import withProjectConfig from '../../../config/withProjectConfig';
 import { useState } from 'react';
-import { SelectedSchoolProvider } from '../../hooks/useSelectedSchool';
-import { BasicMapData, MapDataProvider } from '../../hooks/useMapData';
-import MapSearchPageInternals from '../../components/app/MapSearchPage/MapSearchPage';
+import { SelectedSchoolProvider } from '../../../hooks/useSelectedSchool';
+import { BasicMapData, MapDataProvider } from '../../../hooks/useMapData';
+import MapSearchPageInternals from '../../../components/app/MapSearchPage/MapSearchPage';
 
 const MapSearchPage = () => {
   const [basicMapData, setBasicMapData] = useState<BasicMapData>({

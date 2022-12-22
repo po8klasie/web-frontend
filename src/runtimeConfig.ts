@@ -1,5 +1,5 @@
 import getConfig from 'next/config';
-const { publicRuntimeConfig: originalPublicRuntimeConfig } = getConfig();
+const originalConfig = getConfig();
 
 export interface IPublicRuntimeConfig {
   API_URL: string;
@@ -29,6 +29,6 @@ export const isFeatureFlagEnabled = (flagValue: string) => flagValue === 'true';
 // Runtime configuration won't be available to any page (or component in a page) without getInitialProps
 // (including non-custom error pages). If page uses Automatic Static Optimization empty values will be provided.
 export const publicRuntimeConfig: IPublicRuntimeConfig =
-  originalPublicRuntimeConfig ?? emptyPublicRuntimeConfig;
+  (originalConfig && originalConfig.publicRuntimeConfig) ?? emptyPublicRuntimeConfig;
 
 export const serverRuntimeConfig = {};

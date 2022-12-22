@@ -7,6 +7,7 @@ import { roundedSmallLinkClassName } from '../RoundedExternalLink';
 import Brand from '../Brand';
 import { useProjectConfig } from '../../config/projectConfigContext';
 import { isFeatureFlagEnabled, publicRuntimeConfig } from '../../runtimeConfig';
+import useLinks from "../../hooks/useLinks";
 
 interface AppNavbarProps {
   projectName?: string;
@@ -15,19 +16,21 @@ interface AppNavbarProps {
 
 const AppNavbar: FC<AppNavbarProps> = ({ projectName, wide }) => {
   const router = useRouter();
-  const { projectID } = useProjectConfig();
+  const links = useLinks();
+
   const [isMenuCollapsed, setIsMenuCollapsed] = useState(false);
   const toggleMenu = () => setIsMenuCollapsed(!isMenuCollapsed);
 
-  const links: [string, string][] = [['Strona główna', '/']];
+  const navLinks: [string, string][] = [
+    ['Dashboard', links.DASHBOARD],
+    ['Mapa szkół', links.MAP_SEARCH_PAGE],
+    ['Porównaj szkoły', links.MAP_SEARCH_PAGE],
+    [
+      'Kalkulator punktów',
+     links.CALCULATOR
+    ]
+  ];
 
-  if (isFeatureFlagEnabled(publicRuntimeConfig.SHOW_LINKS_TO_APP) && projectID)
-    links.push(['Szkoły', `/${projectID}/search`]);
-
-  links.push([
-    'Kalkulator punktów',
-    projectID ? `/calculator?projectID=${projectID}` : '/calculator',
-  ]);
 
   const getLinkClassName = (href: string) => {
     return router.pathname === href.split('?')[0] ? 'font-bold' : '';
@@ -60,7 +63,7 @@ const AppNavbar: FC<AppNavbarProps> = ({ projectName, wide }) => {
         >
           <div className="w-container mx-auto lg:w-full lg:flex items-center">
             <ul className="lg:flex lg:mr-8">
-              {links.map(([text, href]) => (
+              {navLinks.map(([text, href]) => (
                 <li key={href} className="lg:mx-4 my-4 lg:my-0">
                   <Link href={href}>
                     <a className={getLinkClassName(href)}>{text}</a>
