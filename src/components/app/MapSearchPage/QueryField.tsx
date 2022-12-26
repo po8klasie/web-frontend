@@ -1,18 +1,18 @@
-
-import { useProjectConfig } from '../../../config/projectConfigContext';import { useRouter } from 'next/router';
+import { useRouter } from 'next/router';
 import { useAppDispatch, useAppSelector } from '../../../store/hooks';
 import { setQuery } from '../../../store/slices/mapSearchPageDataSlice';
 import SearchField, { SearchFieldInstitutionItem } from "../SearchField";
+import useLinks from "../../../hooks/useLinks";
 
 
 const QueryField = () => {
-  const { projectID } = useProjectConfig();
+  const links = useLinks()
   const router = useRouter();
   const queryState = useAppSelector((state) => state.mapSearchPageData.query);
   const dispatch = useAppDispatch();
 
   const handleSelect = (institution: SearchFieldInstitutionItem) => {
-    router.push(`/${projectID}/school/${institution.rspo}`);
+    router.push(links.getSchoolPath(institution.rspo));
   };
 
   const handleQueryFormSubmit = (query: string) => {

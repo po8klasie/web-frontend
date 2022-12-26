@@ -1,26 +1,14 @@
-import { ParsedUrlQuery } from 'querystring';
-import { GetServerSidePropsContext, GetServerSidePropsResult } from 'next';
-import { ProjectConfig } from '../../../config/types';
-import { dehydrate, DehydratedState, QueryClient } from "@tanstack/react-query";
-import { queryClientOptions } from "../../../api/queryClient";
-import { createSingleSchoolDataQueryKey } from "../../../api/singleSchool";
-import { ISchoolData } from "../../../types";
-import { getProjectConfigProps } from "../../../config/nextHelpers";
-import withProjectConfig from "../../../config/withProjectConfig";
-import AppLayout from "../../../components/app/AppLayout";
+
 import Brand from "../../../components/Brand";
-import { FiSearch } from "@react-icons/all-files/fi/FiSearch";
 import { FiMap } from "@react-icons/all-files/fi/FiMap";
 import SearchField, { SearchFieldInstitutionItem } from "../../../components/app/SearchField";
 import { useRouter } from "next/router";
 import { useProjectConfig } from "../../../config/projectConfigContext";
-import Link from "next/link";
 import { IconType } from "@react-icons/all-files";
 import { FC } from "react";
 import useLinks from "../../../hooks/useLinks";
 import styles from './styles/ProjectDashboardPage.module.css'
 import { AiOutlineCalculator } from "@react-icons/all-files/ai/AiOutlineCalculator";
-import { BiGitCompare } from "@react-icons/all-files/bi/BiGitCompare";
 import { FiStar } from "@react-icons/all-files/fi/FiStar";
 import { HiScale } from "@react-icons/all-files/hi/HiScale";
 interface TileProps {
@@ -37,47 +25,45 @@ const Tile: FC<TileProps> = ({path, icon: Icon, name}) => (
     </a>
   </div>
 )
-// className="text-primary text-5xl block"
-// className="text-xl block text-left mt-5"
+
 const ProjectDashboardPage = () => {
   const router = useRouter()
   const { appearance } = useProjectConfig()
-  const projectLinks = useLinks()
+  const links = useLinks()
 
   const tiles: TileProps[] = [
     {
       name: 'Przeglądaj mapę szkół',
       icon: FiMap,
-      path: projectLinks.MAP_SEARCH_PAGE
+      path: links.MAP_SEARCH_PAGE
     },
     {
       name: 'Przeglądaj ulubione szkoły',
       icon: FiStar,
-      path: projectLinks.MAP_SEARCH_PAGE
+      path: links.MAP_SEARCH_PAGE
     },
     {
       name: 'Porównaj szkoły',
       icon: HiScale,
-      path: projectLinks.MAP_SEARCH_PAGE
+      path: links.MAP_SEARCH_PAGE
     },
     {
       name: 'Oblicz punkty rekrutacyjne',
       icon: AiOutlineCalculator,
-      path: projectLinks.CALCULATOR
+      path: links.CALCULATOR
     }
   ]
 
 
   const handleSubmit = (query: string) => {
-    router.push(`${projectLinks.MAP_SEARCH_PAGE}?query=${query}`)
+    router.push(`${links.MAP_SEARCH_PAGE}?query=${query}`)
   }
   const handleInstitutionSelect = (institution: SearchFieldInstitutionItem) => {
-    console.log(`/app/${institution.projectId}/school/${institution.rspo}`)
-    router.push(`/app/${institution.projectId}/school/${institution.rspo}`)
+    router.push(links.getSchoolPath(institution.rspo))
   }
   return (
       <div className="w-4/5 mx-auto mt-20 h-full">
-        <h1 className="text-center ">
+        <h1 className="text-center">
           <Brand
             projectName={appearance.appName}
             projectNameClassName="text-2xl"

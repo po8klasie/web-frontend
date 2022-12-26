@@ -15,7 +15,7 @@ const SearchView: FC = () => {
   const { defaultQuery } = searchViewConfig as SearchViewConfig;
 
   const { filtersValues, setFiltersValues } = useFiltersValues();
-  const debouncedFiltersValues = useDebouncedValue(filtersValues, 300);
+  const [debouncedFiltersValues] = useDebouncedValue(filtersValues, 300);
 
   const { data } = useSchoolsDataRails(debouncedFiltersValues as StringifiableRecord, defaultQuery);
 

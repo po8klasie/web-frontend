@@ -16,7 +16,7 @@ interface AutocompleteOptionProps {
 
 const AutocompleteOption: FC<AutocompleteOptionProps> = ({ institution, onClick }) => (
   <button
-    onClick={() => console.log('click')}
+    onClick={onClick}
     type="button"
     className={[
       'w-full text-left px-5 py-2 text-lg text-red border-b border-lighten first:border-b-0',
@@ -54,7 +54,6 @@ const SearchField: FC<SearchFieldProps> = ({query, onInstitutionSelect, onSubmit
   const autocompleteItems = data ? data : [];
 
   const handleSelect = (institution?: SearchFieldInstitutionItem) => {
-    console.log({institution})
     if (institution) {
       onInstitutionSelect(institution);
     }

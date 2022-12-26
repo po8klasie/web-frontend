@@ -48,7 +48,7 @@ const useMapData = () => {
   const { projectID } = useProjectConfig();
   const { bboxString } = basicMapData;
 
-  const debouncedBboxString = useDebouncedValue(bboxString, 300);
+  const [debouncedBboxString] = useDebouncedValue(bboxString, 300);
   const prevDebouncedBboxString = usePrevious(debouncedBboxString);
   const queryClient = useQueryClient();
   const { data, isFetching } = useQuery<any>(
@@ -62,7 +62,7 @@ const useMapData = () => {
       },
     },
   );
-
+  console.log(isFetching)
   const onUpdateMap = (map: L.Map) => {
     setBasicMapData((mapData) => ({
       ...mapData,

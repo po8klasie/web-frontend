@@ -10,7 +10,6 @@ export interface MapSearchDataState {
 
 const initialState: MapSearchDataState = {
   query: '',
-  bbox: '',
   filters: {},
   defaultFiltersValues: {},
 };

@@ -42,7 +42,7 @@ const Map: FC = () => {
     };
   }, [map]);
 
-  const debouncedIsFetching = useDebouncedValue(isFetching, 300);
+  const [debouncedIsFetching] = useDebouncedValue(isFetching, 300);
 
   return (
     <div className="w-full h-full relative">
