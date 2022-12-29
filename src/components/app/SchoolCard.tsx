@@ -7,6 +7,7 @@ import {
   getSchoolTypeFromRspoInstitutionTypeId,
 } from '../../utils/apiDataMapping';
 import LoadingPlaceholder from './LoadingPlaceholder';
+import { FiStar } from "@react-icons/all-files/fi/FiStar";
 
 interface ForeignLanguagesProps {
   foreignLanguages: string[] | null;
@@ -26,14 +27,16 @@ const ForeignLanguages: FC<ForeignLanguagesProps> = ({ foreignLanguages }) => {
 export interface SchoolCardProps {
   school: ISchoolSearchData;
   highlighted?: boolean;
+  isFavorite?: boolean;
+  onFavoriteClick?: () => void
 }
 
-const SchoolCard: FC<SchoolCardProps> = ({ school, highlighted }) => {
+const SchoolCard: FC<SchoolCardProps> = ({ school, highlighted, isFavorite, onFavoriteClick }) => {
   return (
     <div
-      className={`border border-light bg-white ${highlighted ? 'shadow-lg' : 'shadow'} rounded-md`}
+      className={`border border-light bg-white ${highlighted ? 'shadow-lg' : 'shadow'} rounded-md flex`}
     >
-      <div className="m-4 text-gray">
+      <div className="m-4 text-gray w-full">
         <h3 className="font-primary font-semibold text-lg text-dark hover:underline">
           <Link href={`/${school.project_id}/school/${school.rspo}`}>
             <a>{school.name}</a>
@@ -70,6 +73,14 @@ const SchoolCard: FC<SchoolCardProps> = ({ school, highlighted }) => {
             )}
           </div>
         </div>
+      </div>
+      <div className="mr-4 my-4">
+        <button
+          onClick={() => onFavoriteClick && onFavoriteClick()}
+          title={isFavorite ? 'Usuń z ulubionych' : 'Dodaj do ulubionych'}
+        >
+          <FiStar className={`text-primary stroke-current ${isFavorite ? 'fill-current' : ''}`} />
+        </button>
       </div>
     </div>
   );

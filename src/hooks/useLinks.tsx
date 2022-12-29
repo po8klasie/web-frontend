@@ -5,7 +5,8 @@ const links = {
   DASHBOARD: '/',
   MAP_SEARCH_PAGE: '/map',
   CALCULATOR: '/calculator',
-  SCHOOL: '/school'
+  SCHOOL: '/school',
+  FAVORITES_PAGE: '/favorites'
 } as const;
 
 const useLinks = () => {

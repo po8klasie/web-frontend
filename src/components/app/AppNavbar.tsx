@@ -5,9 +5,8 @@ import { AiOutlineClose } from '@react-icons/all-files/ai/AiOutlineClose';
 import { AiOutlineMenu } from '@react-icons/all-files/ai/AiOutlineMenu';
 import { roundedSmallLinkClassName } from '../RoundedExternalLink';
 import Brand from '../Brand';
-import { useProjectConfig } from '../../config/projectConfigContext';
-import { isFeatureFlagEnabled, publicRuntimeConfig } from '../../runtimeConfig';
 import useLinks from "../../hooks/useLinks";
+import useFavoriteInstitutions from "../../hooks/useFavoriteInstitutions";
 
 interface AppNavbarProps {
   projectName?: string;
@@ -17,18 +16,32 @@ interface AppNavbarProps {
 const AppNavbar: FC<AppNavbarProps> = ({ projectName, wide }) => {
   const router = useRouter();
   const links = useLinks();
+  const {favoriteInstitutionsNumber} = useFavoriteInstitutions()
 
   const [isMenuCollapsed, setIsMenuCollapsed] = useState(false);
   const toggleMenu = () => setIsMenuCollapsed(!isMenuCollapsed);
 
-  const navLinks: [string, string][] = [
-    ['Dashboard', links.DASHBOARD],
-    ['Mapa szkół', links.MAP_SEARCH_PAGE],
-    ['Porównaj szkoły', links.MAP_SEARCH_PAGE],
-    [
-      'Kalkulator punktów',
-     links.CALCULATOR
-    ]
+  const navLinks = [
+    {
+      label: 'Dashboard',
+      href: links.DASHBOARD,
+    },{
+      label: 'Mapa szkół',
+      href: links.MAP_SEARCH_PAGE,
+    },
+    {
+      label: 'Ulubione szkoły',
+      href: links.FAVORITES_PAGE,
+      badge: favoriteInstitutionsNumber === 0 ? null : favoriteInstitutionsNumber
+    },
+    {
+      label: 'Porównaj szkoły',
+      href: links.FAVORITES_PAGE,
+    },
+    {
+      label: 'Kalkulator punktów',
+      href: links.CALCULATOR,
+    },
   ];
 
 
@@ -63,10 +76,18 @@ const AppNavbar: FC<AppNavbarProps> = ({ projectName, wide }) => {
         >
           <div className="w-container mx-auto lg:w-full lg:flex items-center">
             <ul className="lg:flex lg:mr-8">
-              {navLinks.map(([text, href]) => (
+              {navLinks.map(({label, href, badge}) => (
                 <li key={href} className="lg:mx-4 my-4 lg:my-0">
                   <Link href={href}>
-                    <a className={getLinkClassName(href)}>{text}</a>
+                    <a className={getLinkClassName(href)}>
+                      {label}
+
+                      {badge && (
+                        <span className="ml-1 rounded-full px-1 text-sm bg-primaryBg text-primary font-bold">
+                          {badge}
+                        </span>
+                      )}
+                    </a>
                   </Link>
                 </li>
               ))}

@@ -12075,6 +12075,7 @@ __metadata:
     react-range: ^1.8.14
     react-redux: ^8.0.5
     react-spinners: ^0.13.7
+    redux-persist: ^6.0.0
     responsive-loader: ^2.3.0
     sharp: ^0.29.3
     tailwindcss: ^2.2.19
@@ -12776,6 +12777,15 @@ __metadata:
     css-unit-converter: ^1.1.1
     postcss-value-parser: ^3.3.0
   checksum: 8fd27c06c4b443b84749a69a8b97d10e6ec7d142b625b41923a8807abb22b9e37e44df14e26cc606a802957be07bdce5e8ee2976a6952a7b438a7727007101e9
+  languageName: node
+  linkType: hard
+
+"redux-persist@npm:^6.0.0":
+  version: 6.0.0
+  resolution: "redux-persist@npm:6.0.0"
+  peerDependencies:
+    redux: ">4.0.0"
+  checksum: edaf10dbf17351ce8058d0802357adae8665b3a1ff39371834e37838ddbe1a79cccbc717b8ba54acb5307651ccf51d0f7dc1cbc8dbae0726ff952d11ef61c6b8
   languageName: node
   linkType: hard
 

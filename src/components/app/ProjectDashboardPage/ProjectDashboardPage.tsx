@@ -63,7 +63,7 @@ const ProjectDashboardPage = () => {
   }
   return (
       <div className="w-4/5 mx-auto mt-20 h-full">
-        <h1 className="text-center">
+        <h1 className="text-center ">
           <Brand
             projectName={appearance.appName}
             projectNameClassName="text-2xl"
