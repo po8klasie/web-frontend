@@ -8,6 +8,7 @@ import {
 } from '../../utils/apiDataMapping';
 import LoadingPlaceholder from './LoadingPlaceholder';
 import { FiStar } from "@react-icons/all-files/fi/FiStar";
+import useLinks from "../../hooks/useLinks";
 
 interface ForeignLanguagesProps {
   foreignLanguages: string[] | null;
@@ -32,13 +33,14 @@ export interface SchoolCardProps {
 }
 
 const SchoolCard: FC<SchoolCardProps> = ({ school, highlighted, isFavorite, onFavoriteClick }) => {
+  const { getSchoolPath } = useLinks()
   return (
     <div
       className={`border border-light bg-white ${highlighted ? 'shadow-lg' : 'shadow'} rounded-md flex`}
     >
       <div className="m-4 text-gray w-full">
         <h3 className="font-primary font-semibold text-lg text-dark hover:underline">
-          <Link href={`/${school.project_id}/school/${school.rspo}`}>
+          <Link href={getSchoolPath(school.rspo)}>
             <a>{school.name}</a>
           </Link>
         </h3>
