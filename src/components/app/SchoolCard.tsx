@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, MouseEventHandler } from "react";
 import Link from 'next/link';
 import styles from './styles/SchoolCard.module.css';
 import { ISchoolSearchData } from '../../types';
@@ -9,6 +9,11 @@ import {
 import LoadingPlaceholder from './LoadingPlaceholder';
 import { FiStar } from "@react-icons/all-files/fi/FiStar";
 import useLinks from "../../hooks/useLinks";
+import { RectangleStackIcon as RectangleStackIconSolid } from "@heroicons/react/24/solid";
+import { RectangleStackIcon as RectangleStackIconOutline } from "@heroicons/react/24/outline";
+import useComparisonInstitutions from "../../hooks/useComparisonInstitutions";
+import useFavoriteInstitutions from "../../hooks/useFavoriteInstitutions";
+import SchoolCardActionButtons from "./SchoolCardActionButtons";
 
 interface ForeignLanguagesProps {
   foreignLanguages: string[] | null;
@@ -77,12 +82,7 @@ const SchoolCard: FC<SchoolCardProps> = ({ school, highlighted, isFavorite, onFa
         </div>
       </div>
       <div className="mr-4 my-4">
-        <button
-          onClick={() => onFavoriteClick && onFavoriteClick()}
-          title={isFavorite ? 'Usuń z ulubionych' : 'Dodaj do ulubionych'}
-        >
-          <FiStar className={`text-primary stroke-current ${isFavorite ? 'fill-current' : ''}`} />
-        </button>
+        <SchoolCardActionButtons rspo={school.rspo} className="grid gap-y-3" />
       </div>
     </div>
   );

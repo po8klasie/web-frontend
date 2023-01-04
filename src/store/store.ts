@@ -1,13 +1,15 @@
 import { configureStore } from '@reduxjs/toolkit';
 import mapSearchPageDataSlice from './slices/mapSearchPageDataSlice';
 import favoriteInstitutionsSlice from "./slices/favoriteInstitutionsSlice";
+import comparisonSlice from "./slices/comparisonSlice";
 import { persistStore, persistReducer } from 'redux-persist'
-import { favoriteInstitutionsPersistConfig } from "./persistConfigs";
+import { comparisonPersistConfig, favoriteInstitutionsPersistConfig } from "./persistConfigs";
 
 export const store = configureStore({
   reducer: {
     mapSearchPageData: mapSearchPageDataSlice,
-    favoriteInstitutions: persistReducer(favoriteInstitutionsPersistConfig, favoriteInstitutionsSlice)
+    favoriteInstitutions: persistReducer(favoriteInstitutionsPersistConfig, favoriteInstitutionsSlice),
+    comparison: persistReducer(comparisonPersistConfig, comparisonSlice)
   },
 });
 

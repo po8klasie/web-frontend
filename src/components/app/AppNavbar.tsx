@@ -7,6 +7,7 @@ import { roundedSmallLinkClassName } from '../RoundedExternalLink';
 import Brand from '../Brand';
 import useLinks from "../../hooks/useLinks";
 import useFavoriteInstitutions from "../../hooks/useFavoriteInstitutions";
+import useComparisonInstitutions from "../../hooks/useComparisonInstitutions";
 
 interface AppNavbarProps {
   projectName?: string;
@@ -17,6 +18,7 @@ const AppNavbar: FC<AppNavbarProps> = ({ projectName, wide }) => {
   const router = useRouter();
   const links = useLinks();
   const {favoriteInstitutionsNumber} = useFavoriteInstitutions()
+  const {institutionsToCompareNumber} = useComparisonInstitutions()
 
   const [isMenuCollapsed, setIsMenuCollapsed] = useState(false);
   const toggleMenu = () => setIsMenuCollapsed(!isMenuCollapsed);
@@ -36,7 +38,8 @@ const AppNavbar: FC<AppNavbarProps> = ({ projectName, wide }) => {
     },
     {
       label: 'Porównaj szkoły',
-      href: links.FAVORITES_PAGE,
+      href: links.COMPARISON_PAGE,
+      badge: institutionsToCompareNumber === 0 ? null : institutionsToCompareNumber
     },
     {
       label: 'Kalkulator punktów',

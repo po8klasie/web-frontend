@@ -5,6 +5,7 @@
   "packageManager": "yarn@3.2.3",
   "dependencies": {
     "@headlessui/react": "^1.6.0",
+    "@heroicons/react": "^2.0.13",
     "@react-icons/all-files": "^4.1.0",
     "@reduxjs/toolkit": "^1.9.1",
     "@sentry/nextjs": "^6.15.0",

@@ -10,7 +10,7 @@ import useLinks from "../../../hooks/useLinks";
 import styles from './styles/ProjectDashboardPage.module.css'
 import { AiOutlineCalculator } from "@react-icons/all-files/ai/AiOutlineCalculator";
 import { FiStar } from "@react-icons/all-files/fi/FiStar";
-import { HiScale } from "@react-icons/all-files/hi/HiScale";
+import { RectangleStackIcon as RectangleStackIconOutline } from "@heroicons/react/24/outline";
 interface TileProps {
   path: string
   icon: IconType
@@ -44,8 +44,8 @@ const ProjectDashboardPage = () => {
     },
     {
       name: 'Porównaj szkoły',
-      icon: HiScale,
-      path: links.MAP_SEARCH_PAGE
+      icon: RectangleStackIconOutline,
+      path: links.COMPARISON_PAGE
     },
     {
       name: 'Oblicz punkty rekrutacyjne',

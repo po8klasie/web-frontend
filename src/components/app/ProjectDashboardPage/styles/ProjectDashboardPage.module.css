@@ -25,7 +25,7 @@
 }
 
 .tile svg {
-    @apply text-primary text-4xl text-center text-opacity-90;
+    @apply text-primary w-10 h-10 text-center text-opacity-90;
 }
 
 .tile span {
@@ -39,4 +39,8 @@
 
 .tile:is(:hover, :focus-within) span {
     color: theme(colors.primary);
+}
+
+.tile:is(:hover, :focus-within) svg {
+    opacity: 1;
 }
