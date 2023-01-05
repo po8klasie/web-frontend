@@ -3,15 +3,14 @@ import SchoolCard, { SchoolCardPlaceholder } from '../SchoolCard';
 import { useQuery } from '@tanstack/react-query';
 import { FC } from 'react';
 import { nanoid } from 'nanoid';
-import { useAppSelector } from "../../../store/hooks";
 import useFavoriteInstitutions from "../../../hooks/useFavoriteInstitutions";
 
 interface InstitutionListingProps {
-  serializedAPIPath: string;
+  serializedAPIQueryString: string;
 }
 
-const InstitutionListing: FC<InstitutionListingProps> = ({ serializedAPIPath }) => {
-  const { data, isFetching } = useQuery<any>([`/search/institution/?${serializedAPIPath}`], {
+const InstitutionListing: FC<InstitutionListingProps> = ({ serializedAPIQueryString }) => {
+  const { data, isFetching } = useQuery<any>([`/search/institution/?${serializedAPIQueryString}`], {
     placeholderData: [],
   });
   const parsedData = data && data.length ? data : [];

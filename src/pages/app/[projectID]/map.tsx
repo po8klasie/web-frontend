@@ -7,27 +7,16 @@ import { dehydrate, DehydratedState, QueryClient } from '@tanstack/react-query';
 import { queryClientOptions } from '../../../api/queryClient';
 import { getProjectConfigProps } from '../../../config/nextHelpers';
 import withProjectConfig from '../../../config/withProjectConfig';
-import { useState } from 'react';
 import { SelectedSchoolProvider } from '../../../hooks/useSelectedSchool';
-import { BasicMapData, MapDataProvider } from '../../../hooks/useMapData';
 import MapSearchPageInternals from '../../../components/app/MapSearchPage/MapSearchPage';
 
 const MapSearchPage = () => {
-  const [basicMapData, setBasicMapData] = useState<BasicMapData>({
-    bboxString: '',
-    layers: [],
-    zoom: -1,
-    center: [0, 0],
-  });
-
   return (
     <AppLayout wideNavbar noFooter className="h-full">
       <div className="w-full h-full">
-        <MapDataProvider basicMapData={basicMapData} setBasicMapData={setBasicMapData}>
           <SelectedSchoolProvider>
             <MapSearchPageInternals />
           </SelectedSchoolProvider>
-        </MapDataProvider>
       </div>
     </AppLayout>
   );

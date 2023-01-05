@@ -5,6 +5,7 @@ import selectedSchoolMarker from '../../../../assets/app/selected-school-marker.
 import { useSelectedSchool } from '../../../../hooks/useSelectedSchool';
 import { useMap } from "react-leaflet";
 import { Feature, Point } from "geojson";
+import { useAppSelector } from "../../../../store/hooks";
 
 const highSchoolIcon = L.icon({
   iconUrl: highSchoolMarker,
@@ -21,6 +22,7 @@ const InstitutionFeatures = ({ data }) => {
   const geoJSONRef = useRef<L.GeoJSON>();
   const featuresRef = useRef<Record<string, L.Marker>>({});
   const selectedSchoolFeatureRef = useRef<L.Marker | null>(null);
+  const mapData = useAppSelector(state => state.mapSearchPageData.mapData)
 
   const { selectedSchoolRspo, setSelectedSchoolRspo } = useSelectedSchool();
 
@@ -63,6 +65,13 @@ const InstitutionFeatures = ({ data }) => {
         featuresRef.current = {}
         geoJSONRef.current.addData(data)
         updateSelectedSchool()
+
+        // filters were changed - bbox was reset
+        if(!mapData) {
+          map.fitBounds(geoJSONRef.current.getBounds(), {
+            animate: true
+          })
+        }
       } else {
         geoJSONRef.current = L.geoJSON(data, {
           pointToLayer,

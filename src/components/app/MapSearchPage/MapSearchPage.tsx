@@ -1,89 +1,36 @@
-import { useQuery } from '@tanstack/react-query';
-import SchoolCard, { SchoolCardPlaceholder } from '../../../components/app/SchoolCard';
 import MapWrapper from '../../../components/app/MapSearchPage/MapWrapper';
 import Filters from '../../../components/app/MapSearchPage/Filters';
 import { useForm, FormProvider } from 'react-hook-form';
-import { parse } from 'query-string';
-import { useEffect, useMemo } from 'react';
-import SelectedSchoolCard from '../../../components/app/MapSearchPage/SelectedSchoolCard';
-import { useRouter } from 'next/router';
-import useMapData from '../../../hooks/useMapData';
-import { serializeSearchData } from '../../../utils/searchSerializer';
-import { useProjectConfig } from '../../../config/projectConfigContext';
+import { useEffect} from 'react';
 import styles from './styles/MapPage.module.css';
 import InstitutionListing from './InstitutionListing';
-import { parseFiltersFromUrl, parseQueryFromURL } from '../../../utils/searchParser';
-import { useAppDispatch, useAppSelector } from '../../../store/hooks';
-import {
-  resetFilterValues,
-  setDefaultFiltersValues,
-  setFiltersValues,
-  setQuery,
-} from '../../../store/slices/mapSearchPageDataSlice';
+import useURLSerializer from "./hooks/useURLSerializer";
+import useURLParser from "./hooks/useURLParser";
+
+const updateURL = (serializedClientQueryString: string, serializedMapPosition: string) => {
+  const qs = serializedClientQueryString ? `?${serializedClientQueryString}` : ''
+  const hash = serializedMapPosition ? `#${serializedMapPosition}` : ''
+  if(!qs && !hash) return;
+
+  window.history.replaceState(
+    null,
+    '',
+    [
+      window.location.pathname,
+      qs,
+      hash
+    ].join('')
+  );
+}
 
 const MapSearchPage = () => {
-  const router = useRouter();
-  const {
-    searchView: { filters },
-  } = useProjectConfig();
   const formMethods = useForm();
-  const mapSearchPageData = useAppSelector((state) => state.mapSearchPageData);
-  const dispatch = useAppDispatch();
+  useURLParser()
+  const { serializedAPIQueryString, serializedClientQueryString, serializedMapPosition } = useURLSerializer()
 
   useEffect(() => {
-    const defaultFiltersValues = filters.reduce(
-      (acc, filter) => ({
-        ...acc,
-        [filter.name]: filter.defaultValue,
-      }),
-      {},
-    );
-    dispatch(setDefaultFiltersValues(defaultFiltersValues));
-    dispatch(
-      setFiltersValues({
-        ...defaultFiltersValues,
-        ...parseFiltersFromUrl(router.asPath, filters),
-      }),
-    );
-    dispatch(setQuery(parseQueryFromURL(router.asPath)));
-  }, []);
-
-  const { debouncedBboxString } = useMapData();
-  const { projectID } = useProjectConfig();
-
-  const serializedClientPath = useMemo(
-    () =>
-      serializeSearchData(mapSearchPageData.filters, mapSearchPageData.defaultFiltersValues, {
-        query: mapSearchPageData.query,
-      }),
-    [mapSearchPageData.filters, mapSearchPageData.defaultFiltersValues, mapSearchPageData.query],
-  );
-
-  const serializedAPIPath = useMemo(
-    () =>
-      serializeSearchData(mapSearchPageData.filters, mapSearchPageData.defaultFiltersValues, {
-        query: mapSearchPageData.query,
-        project_id: projectID,
-        bbox: debouncedBboxString,
-      }),
-    [
-      mapSearchPageData.filters,
-      mapSearchPageData.defaultFiltersValues,
-      mapSearchPageData.query,
-      debouncedBboxString,
-      projectID,
-    ],
-  );
-
-  useEffect(() => {
-    window.history.replaceState(
-      null,
-      '',
-      serializedClientPath
-        ? `${window.location.pathname}?${serializedClientPath}`
-        : window.location.pathname,
-    );
-  }, [serializedClientPath]);
+    updateURL(serializedClientQueryString, serializedMapPosition)
+  }, [serializedClientQueryString, serializedMapPosition]);
 
   return (
     <FormProvider {...formMethods}>
@@ -96,7 +43,7 @@ const MapSearchPage = () => {
         </div>
         <div className={styles.institutionsPaneExpanded}>
           <div className="px-2">
-            <InstitutionListing serializedAPIPath={serializedAPIPath} />
+            <InstitutionListing serializedAPIQueryString={serializedAPIQueryString} />
           </div>
         </div>
       </div>

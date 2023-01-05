@@ -1,5 +1,5 @@
-import React, { FC, useCallback, useEffect, useState } from 'react';
-import { Map as LeafletMap } from 'leaflet';
+import React, { FC, useCallback, useEffect, useMemo, useState } from "react";
+import L, { Map as LeafletMap } from 'leaflet';
 import { MapContainer, TileLayer } from 'react-leaflet';
 
 import 'leaflet/dist/leaflet.css';
@@ -7,9 +7,21 @@ import { useProjectConfig } from '../../../config/projectConfigContext';
 import { SearchViewConfig } from '../../../config/types';
 import { tileLayerProps } from '../../../utils/map';
 import MapFeatures from './MapFeatures';
-import useMapData from '../../../hooks/useMapData';
 import { ClipLoader } from 'react-spinners';
 import useDebouncedValue from '../../../hooks/useDebouncedValue';
+import { useQuery, useQueryClient } from "@tanstack/react-query";
+import {
+  markMapAsInitiated,
+  setCurrentMapPosition,
+  setDesiredMapPosition,
+  setMapData
+} from "../../../store/slices/mapSearchPageDataSlice";
+import { useAppDispatch, useAppSelector } from "../../../store/hooks";
+import useDebouncedBbox from "./hooks/useDebouncedBbox";
+import usePrevious from "../../../hooks/usePrevious";
+import { stringify } from "query-string";
+import { stringifyQueryString } from "../../../utils/searchSerializer";
+import useURLSerializer, { useFiltersObjectWithoutDefaults } from "./hooks/useURLSerializer";
 
 const LoadingOverlay = () => {
   return (
@@ -24,12 +36,42 @@ const LoadingOverlay = () => {
 
 /* Warning! This is client-side only component. It needs to be imported using dynamic() */
 const Map: FC = () => {
-  const [map, setMap] = useState<LeafletMap | null>(null);
-  const { onUpdateMap, mapFeatures, isFetching } = useMapData();
+  const dispatch = useAppDispatch()
+  const { projectID } = useProjectConfig()
+  const queryClient = useQueryClient();
   const { searchView: searchViewConfig } = useProjectConfig();
   const { mapOptions } = searchViewConfig as SearchViewConfig;
+  const debouncedBbox = useDebouncedBbox()
+  const prevDebouncedBbox = usePrevious(debouncedBbox);
+  const [map, setMap] = useState<LeafletMap | null>(null);
+  const desiredMapPosition = useAppSelector(state => state.mapSearchPageData.desiredMapPosition)
 
-  const handleMapUpdate = useCallback(() => onUpdateMap(map), [map]);
+
+  const handleMapUpdate = useCallback(() => {
+   if (map) {
+     dispatch(setCurrentMapPosition({
+         bbox: map.getBounds().toBBoxString().trim(),
+         zoom: map.getZoom(),
+         center: [map.getCenter().lat, map.getCenter().lng],
+       })
+     )
+   }
+  }, [map]);
+
+  useEffect(() => {
+    if(map && desiredMapPosition) {
+      map.setView(desiredMapPosition.center, desiredMapPosition.zoom);
+      dispatch(setDesiredMapPosition(null));
+    }
+  }, [map, desiredMapPosition])
+
+
+
+  const { serializedAPIQueryString } = useURLSerializer()
+
+  const { data: mapFeatures, isFetching } = useQuery<any>(
+    [`/search/map_features?${serializedAPIQueryString}`],
+  );
 
   useEffect(() => {
     if (map) {

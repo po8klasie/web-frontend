@@ -37,12 +37,31 @@ export const parseQueryFromURL = (asPath: string) => {
   return query;
 };
 
+export const parseMapPositionFromURL = (asPath: string) => {
+  let hash = new URL(`http://example.com${asPath}`).hash
+  if (hash) hash = hash.substring(1)
+  const rawQueryData = parse(hash)
+  const areHashParamsOk = [
+    rawQueryData.lat,
+    rawQueryData.lng,
+    rawQueryData.zoom
+  ].every(n => n && !Number.isNaN(n))
+
+  if(!areHashParamsOk)
+    return null
+
+  return {
+    center: [parseFloat(rawQueryData.lat), parseFloat(rawQueryData.lng)],
+    zoom: parseInt(rawQueryData.zoom, 10)
+  }
+}
+
 export const parseFiltersFromUrl = (asPath: string, filterDefinitions: FilterDefinition[]) => {
   const rawQueryData = parseQS(asPath);
   const keysInQuery = Object.keys(rawQueryData);
   const parsedFilters = {};
 
-  filterDefinitions.forEach(({ name, parser: parserId, defaultValue }) => {
+  filterDefinitions.forEach(({ name, parser: parserId }) => {
     if (!keysInQuery.includes(name)) return;
 
     console.log({ name });
