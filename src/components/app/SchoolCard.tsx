@@ -56,6 +56,11 @@ const SchoolCard: FC<SchoolCardProps> = ({ school, highlighted, isFavorite, onFa
             {school.street} {school.building_number}, {school.city}
           </li>
         </ul>
+        <div className="mt-2">
+          Najniższy próg klasy 2022/2023:
+          {' '}
+          <strong>{school.points_stats_min > 0 ? school.points_stats_min : 'brak danych'}</strong>
+        </div>
         <div className="mt-2 flex items-center">
           <span className="mr-4">Języki</span>
           <div>

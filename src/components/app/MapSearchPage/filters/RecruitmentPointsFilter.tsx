@@ -70,7 +70,7 @@ const RecruitmentPointsFilter: FC<FilterProps<[number, number]>> = ({ value, set
   };
 
   return (
-    <CollapsibleFilterWrapper title="Próg punktowy">
+    <CollapsibleFilterWrapper title="Najniższy próg punktowy">
       <RecruitmentPointsAlert />
       <div className="mt-2 flex items-center">
         <input className={inputClassName} onChange={createInputChangeHandler(0)} value={range[0]} />
