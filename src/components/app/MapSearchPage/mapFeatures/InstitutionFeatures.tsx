@@ -22,7 +22,7 @@ const InstitutionFeatures = ({ data }) => {
   const geoJSONRef = useRef<L.GeoJSON>();
   const featuresRef = useRef<Record<string, L.Marker>>({});
   const selectedSchoolFeatureRef = useRef<L.Marker | null>(null);
-  const mapData = useAppSelector(state => state.mapSearchPageData.mapData)
+  const currentMapPosition = useAppSelector(state => state.mapSearchPageData.currentMapPosition)
 
   const { selectedSchoolRspo, setSelectedSchoolRspo } = useSelectedSchool();
 
@@ -67,7 +67,7 @@ const InstitutionFeatures = ({ data }) => {
         updateSelectedSchool()
 
         // filters were changed - bbox was reset
-        if(!mapData) {
+        if(!currentMapPosition) {
           map.fitBounds(geoJSONRef.current.getBounds(), {
             animate: true
           })

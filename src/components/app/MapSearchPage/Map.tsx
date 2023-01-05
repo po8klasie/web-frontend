@@ -38,14 +38,13 @@ const LoadingOverlay = () => {
 const Map: FC = () => {
   const dispatch = useAppDispatch()
   const { projectID } = useProjectConfig()
-  const queryClient = useQueryClient();
   const { searchView: searchViewConfig } = useProjectConfig();
   const { mapOptions } = searchViewConfig as SearchViewConfig;
   const debouncedBbox = useDebouncedBbox()
-  const prevDebouncedBbox = usePrevious(debouncedBbox);
   const [map, setMap] = useState<LeafletMap | null>(null);
   const desiredMapPosition = useAppSelector(state => state.mapSearchPageData.desiredMapPosition)
-
+  const visibleLayersIds = useAppSelector(state => state.mapSearchPageData.visibleLayersIds)
+  const query = useAppSelector(state => state.mapSearchPageData.query)
 
   const handleMapUpdate = useCallback(() => {
    if (map) {
@@ -67,10 +66,17 @@ const Map: FC = () => {
 
 
 
-  const { serializedAPIQueryString } = useURLSerializer()
+  const filtersObjectWithoutDefaults = useFiltersObjectWithoutDefaults()
+  const qs = useMemo(() => stringifyQueryString({
+    ...filtersObjectWithoutDefaults,
+    bbox: debouncedBbox,
+    query,
+    project_id: projectID,
+    layers_ids: visibleLayersIds
+  }), [filtersObjectWithoutDefaults, debouncedBbox, query, projectID, visibleLayersIds])
 
   const { data: mapFeatures, isFetching } = useQuery<any>(
-    [`/search/map_features?${serializedAPIQueryString}`],
+    [`/search/map_features?${qs}`],
   );
 
   useEffect(() => {

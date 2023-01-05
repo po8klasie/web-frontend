@@ -18,6 +18,7 @@ export interface MapSearchDataState {
   desiredMapPosition: DesiredMapPositionI | null
   filters: Record<string, any>;
   defaultFiltersValues: Record<string, any>;
+  visibleLayersIds: string[]
 }
 
 const initialState: MapSearchDataState = {
@@ -26,7 +27,7 @@ const initialState: MapSearchDataState = {
   currentMapPosition: null,
   desiredMapPosition: null,
   defaultFiltersValues: {},
-  mapInit: false,
+  visibleLayersIds: []
 };
 
 export const mapSearchPageDataSlice = createSlice({
@@ -60,6 +61,9 @@ export const mapSearchPageDataSlice = createSlice({
     setDesiredMapPosition: (state, action: PayloadAction<DesiredMapPositionI | null>) => {
       state.desiredMapPosition = action.payload
     },
+    setVisibleLayersIds: (state, action: PayloadAction<string[]>) => {
+      state.visibleLayersIds = action.payload
+    }
   },
 });
 
@@ -72,6 +76,7 @@ export const {
   resetFilterValues,
   setDefaultFiltersValues,
   setFiltersValues,
+  setVisibleLayersIds
 } = mapSearchPageDataSlice.actions;
 
 export default mapSearchPageDataSlice.reducer;

@@ -56,16 +56,14 @@ const RoadAccidentFeatures: FC<RoadAccidentFeaturesProps> = ({ data }) => {
   const clusterGroupRef = useRef<L.MarkerClusterGroup>(L.markerClusterGroup(markerClusterGroupOptions));
 
   useEffect(() => {
+    if(geoJSONRef.current) {
+      clusterGroupRef.current.removeLayer(geoJSONRef.current);
+    }
     if (data) {
-      if(geoJSONRef.current) {
-        geoJSONRef.current.clearLayers()
-        geoJSONRef.current.addData(data)
-      } else {
-        const geoJSON = new L.GeoJSON(data, geoJsonOptions);
-        clusterGroupRef.current.addLayer(geoJSON);
-        map.addLayer(clusterGroupRef.current);
-        geoJSONRef.current = geoJSON
-      }
+      const geoJSON = new L.GeoJSON(data, geoJsonOptions);
+      clusterGroupRef.current.addLayer(geoJSON);
+      map.addLayer(clusterGroupRef.current);
+      geoJSONRef.current = geoJSON
     }
   }, [data]);
 
