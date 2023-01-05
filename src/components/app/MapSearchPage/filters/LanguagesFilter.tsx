@@ -1,4 +1,4 @@
-import { FC, useEffect, useState } from 'react';
+import { FC, useEffect, useMemo, useState } from "react";
 import { FilterProps } from './types';
 import { useController } from 'react-hook-form';
 import { Combobox } from '@headlessui/react';
@@ -32,6 +32,11 @@ const languages = {
     name: 'włoski',
     icon: '🇮🇹',
   },
+  por: {
+    id: 'por',
+    name: 'portugalski',
+    icon: '🇵🇹'
+  }
 };
 
 type LanguageId = keyof typeof languages;
@@ -41,6 +46,7 @@ const LanguagesFilter: FC<FilterProps<string[]>> = ({ name, value, setValue }) =
   const [query, setQuery] = useState('');
 
   const updateLangIds = (langIds: string[]) => {
+    console.log(langIds)
     setValue(langIds);
   };
 
@@ -48,12 +54,17 @@ const LanguagesFilter: FC<FilterProps<string[]>> = ({ name, value, setValue }) =
     setQuery('');
   }, [value]);
 
-  const filteredLangIds =
-    query === ''
-      ? languageIds
-      : languageIds.filter((langId) => {
-          return languages[langId].name.toLowerCase().includes(query.toLowerCase());
-        });
+  const filteredLangIds = useMemo(() => {
+    const isQueryEmpty = query === ''
+    if (isQueryEmpty) return []
+
+    return languageIds.filter((langId) => {
+      const langInQuery = languages[langId].name.toLowerCase().includes(query.toLowerCase())
+      const isAlreadySelected = value.includes(langId)
+
+      return !isAlreadySelected && langInQuery
+    });
+  }, [query, value])
 
   return (
     <CollapsibleFilterWrapper title="Języki obce">
@@ -70,15 +81,12 @@ const LanguagesFilter: FC<FilterProps<string[]>> = ({ name, value, setValue }) =
             className="outline-none bg-gray-200 border-2 focus:border-gray-300 px-2 py-1 rounded w-full"
             placeholder="Wpisz język"
             autoComplete="off"
-            displayValue={(langId) =>
-              languages[langId as string] ? languages[langId as LanguageId].name : ''
-            }
             onChange={(event) => setQuery(event.target.value)}
           />
           {query.trim().length > 0 && (
             <Combobox.Options static className="bg-gray-100 w-full absolute top-full left-0">
               {filteredLangIds.map((id) => (
-                <Combobox.Option key={id} value={id} className="px-2 py-1 focus:bg-gray-200">
+                <Combobox.Option key={id} value={id} className="px-2 py-1 focus:bg-gray-200 cursor-pointer">
                   {languages[id].icon} {languages[id].name}
                 </Combobox.Option>
               ))}
