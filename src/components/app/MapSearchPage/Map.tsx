@@ -75,7 +75,7 @@ const Map: FC = () => {
     layers_ids: visibleLayersIds
   }), [filtersObjectWithoutDefaults, debouncedBbox, query, projectID, visibleLayersIds])
 
-  const { data: mapFeatures, isFetching } = useQuery<any>(
+  const { data: mapFeatures, isLoading } = useQuery<any>(
     [`/search/map_features?${qs}`],
   );
 
@@ -90,11 +90,11 @@ const Map: FC = () => {
     };
   }, [map]);
 
-  const [debouncedIsFetching] = useDebouncedValue(isFetching, 300);
+  const [debouncedIsLoading] = useDebouncedValue(isLoading, 300);
 
   return (
     <div className="w-full h-full relative">
-      {debouncedIsFetching && <LoadingOverlay />}
+      {isLoading && <LoadingOverlay />}
       <div className="w-full h-full">
         <MapContainer
           className="w-full h-full rounded-t-lg"

@@ -1,5 +1,6 @@
 import { parse } from 'query-string';
 import { FilterDefinition } from '../config/types';
+import { availableRspoInstitutionTypeIds } from "../components/app/MapSearchPage/filters/InstitutionTypeFilter";
 
 const parsers = {
   booleanOrNull: (value: unknown) => {
@@ -25,6 +26,16 @@ const parsers = {
     arr.sort();
     return arr;
   },
+  rspoInstitutionTypeId: (value: unknown) => {
+    let valueArr = value;
+    if (!Array.isArray(valueArr)) valueArr = [valueArr];
+    const availableInstitutionTypesSet = new Set(availableRspoInstitutionTypeIds);
+    (valueArr as unknown[]).forEach((x: unknown) => {
+      if(!availableInstitutionTypesSet.has(x as string))
+        throw new Error("Can't transform");
+    })
+    return valueArr
+  }
 } as const;
 
 export type AnyParser = keyof typeof parsers;

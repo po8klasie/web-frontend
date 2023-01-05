@@ -51,7 +51,7 @@ const SchoolCard: FC<SchoolCardProps> = ({ school, highlighted, isFavorite, onFa
         </h3>
         <ul className={styles.schoolPropertiesList}>
           <li>{school.is_public ? 'Szkoła publiczna' : 'Szkoła niepubliczna'}</li>
-          <li>{getSchoolTypeFromRspoInstitutionTypeId(school.rspoFacilityType)}</li>
+          <li>{getSchoolTypeFromRspoInstitutionTypeId(school.rspo_institution_type)}</li>
           <li>
             {school.street} {school.building_number}, {school.city}
           </li>

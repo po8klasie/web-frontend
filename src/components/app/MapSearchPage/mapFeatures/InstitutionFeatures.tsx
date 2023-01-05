@@ -68,9 +68,12 @@ const InstitutionFeatures = ({ data }) => {
 
         // filters were changed - bbox was reset
         if(!currentMapPosition) {
-          map.fitBounds(geoJSONRef.current.getBounds(), {
-            animate: true
-          })
+          const bounds = geoJSONRef.current.getBounds()
+          if(bounds.isValid())
+            map.fitBounds(bounds, {
+              animate: true,
+              padding: [2, 2]
+            })
         }
       } else {
         geoJSONRef.current = L.geoJSON(data, {

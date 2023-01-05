@@ -17,9 +17,9 @@ const searchViewConfig: SearchViewConfig = {
       options: {},
     },
     {
-      name: 'institution_type',
+      name: 'rspo_institution_type',
       component: 'institutionTypeFilter',
-      parser: 'array',
+      parser: 'rspoInstitutionTypeId',
       defaultValue: [],
       options: {},
     },
