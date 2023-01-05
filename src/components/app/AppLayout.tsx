@@ -20,7 +20,7 @@ const AppLayout: FC<AppLayoutProps> = ({
 }) => (
   <div className={['bg-appBg flex flex-col', className ?? ''].join(' ')}>
     <AppNavbar projectName={projectAppearance?.appName} wide={wideNavbar} />
-    <main className="pt-navbarHeight" style={{flex: '1 0 auto'}}>{children}</main>
+    <main className="pt-navbarHeight h-full" style={{flex: '1 0 auto'}}>{children}</main>
     <div className="shrink-0">
       {!noFooter && <AppFooter />}
     </div>

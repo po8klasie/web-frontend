@@ -1,9 +1,10 @@
-import React, { useCallback } from 'react';
+import React, { useEffect, useRef } from "react";
 import L from 'leaflet';
 import highSchoolMarker from '../../../../assets/app/highschool-marker.png';
 import selectedSchoolMarker from '../../../../assets/app/selected-school-marker.png';
 import { useSelectedSchool } from '../../../../hooks/useSelectedSchool';
-import DynamicGeoJSON from './DynamicGeoJSON';
+import { useMap } from "react-leaflet";
+import { Feature, Point } from "geojson";
 
 const highSchoolIcon = L.icon({
   iconUrl: highSchoolMarker,
@@ -15,30 +16,67 @@ const selectedSchoolIcon = L.icon({
   iconSize: [27, 38],
 });
 
-const style = (feature) => {
-  return {
-    // fillColor: '',
-    weight: 3,
-    opacity: 1,
-    color: 'red',
-    dashArray: '3',
-    fillOpacity: 0.0,
-  };
-};
-
 const InstitutionFeatures = ({ data }) => {
+  const map = useMap();
+  const geoJSONRef = useRef<L.GeoJSON>();
+  const featuresRef = useRef<Record<string, L.Marker>>({});
+  const selectedSchoolFeatureRef = useRef<L.Marker | null>(null);
+
   const { selectedSchoolRspo, setSelectedSchoolRspo } = useSelectedSchool();
 
-  const pointToLayer = useCallback(
-    (feature, latlng) => {
-      return L.marker(latlng, {
-        icon: selectedSchoolRspo === feature.properties.rspo ? selectedSchoolIcon : highSchoolIcon,
-      }).on('click', () => setSelectedSchoolRspo(feature.properties.rspo));
-    },
-    [selectedSchoolRspo, setSelectedSchoolRspo],
-  );
+  const pointToLayer = (feature: Feature<Point, {rspo: string}>, latLng: L.LatLng) => {
+    const { rspo } = feature.properties
+    const isSelectedSchool = selectedSchoolRspo === rspo
+    const icon = isSelectedSchool ? selectedSchoolIcon : highSchoolIcon
 
-  return <DynamicGeoJSON data={data} style={style} pointToLayer={pointToLayer} />;
+    const marker = L.marker(
+      latLng, {
+        icon
+      }).on(
+      'click',
+      () => setSelectedSchoolRspo(rspo)
+    )
+
+    featuresRef.current[rspo] = marker
+    if(isSelectedSchool) {
+      selectedSchoolFeatureRef.current = marker
+    }
+    return marker
+  }
+
+  const updateSelectedSchool = () => {
+    if (selectedSchoolFeatureRef.current) {
+      selectedSchoolFeatureRef.current.setIcon(highSchoolIcon)
+    }
+    selectedSchoolFeatureRef.current = null
+
+    if(selectedSchoolRspo && Object.prototype.hasOwnProperty.call(featuresRef.current, selectedSchoolRspo)) {
+      selectedSchoolFeatureRef.current = featuresRef.current[selectedSchoolRspo]
+      selectedSchoolFeatureRef.current.setIcon(selectedSchoolIcon)
+    }
+  }
+
+  useEffect(() => {
+    if(data) {
+      if(geoJSONRef.current) {
+        geoJSONRef.current.clearLayers()
+        featuresRef.current = {}
+        geoJSONRef.current.addData(data)
+        updateSelectedSchool()
+      } else {
+        geoJSONRef.current = L.geoJSON(data, {
+          pointToLayer,
+        }).addTo(map)
+      }
+    }
+  }, [data])
+
+  useEffect(() => {
+    updateSelectedSchool()
+  }, [selectedSchoolRspo])
+
+
+  return null
 };
 
 export default InstitutionFeatures;

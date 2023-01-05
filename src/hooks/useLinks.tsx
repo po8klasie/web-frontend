@@ -23,8 +23,6 @@ const useLinks = () => {
     getSchoolPath: (rspo: string) => `/${prefixedLinks.SCHOOL}/${rspo}`
   } as const), [projectID])
 
-  console.log(prefixedLinks)
-
   return {
     ...prefixedLinks,
     ...helpers

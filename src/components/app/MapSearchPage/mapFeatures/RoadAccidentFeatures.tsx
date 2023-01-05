@@ -52,23 +52,22 @@ interface RoadAccidentFeaturesProps {
 
 const RoadAccidentFeatures: FC<RoadAccidentFeaturesProps> = ({ data }) => {
   const map = useMap();
-  const clusterGroupRef = useRef<null | L.MarkerClusterGroup>(null);
+  const geoJSONRef = useRef<L.GeoJSON>()
+  const clusterGroupRef = useRef<L.MarkerClusterGroup>(L.markerClusterGroup(markerClusterGroupOptions));
 
   useEffect(() => {
     if (data) {
-      const geoJson = new L.GeoJSON(data, geoJsonOptions);
-
-      clusterGroupRef.current = L.markerClusterGroup(markerClusterGroupOptions);
-
-      clusterGroupRef.current.addLayer(geoJson);
-
-      map.addLayer(clusterGroupRef.current);
+      if(geoJSONRef.current) {
+        geoJSONRef.current.clearLayers()
+        geoJSONRef.current.addData(data)
+      } else {
+        const geoJSON = new L.GeoJSON(data, geoJsonOptions);
+        clusterGroupRef.current.addLayer(geoJSON);
+        map.addLayer(clusterGroupRef.current);
+        geoJSONRef.current = geoJSON
+      }
     }
-
-    return () => {
-      if (clusterGroupRef.current) map.removeLayer(clusterGroupRef.current);
-    };
-  }, [data, map]);
+  }, [data]);
 
   return null;
 };
