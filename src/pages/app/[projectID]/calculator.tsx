@@ -4,13 +4,17 @@ import { NextSeo } from 'next-seo';
 import 'tailwindcss/tailwind.css';
 
 import { AiOutlineWarning } from '@react-icons/all-files/ai/AiOutlineWarning';
-import AppLayout from '../components/app/AppLayout';
-import Calculator from '../components/calculator/Calculator';
-import withProjectConfig from '../config/withProjectConfig';
+import AppLayout from '../../../components/app/AppLayout';
+import Calculator from '../../../components/calculator/Calculator';
+import withProjectConfig from '../../../config/withProjectConfig';
+import { GetServerSidePropsContext, GetServerSidePropsResult } from "next";
+import { ProjectConfig } from "../../../config/types";
+import { DehydratedState } from "@tanstack/react-query";
+import { getProjectConfigProps } from "../../../config/nextHelpers";
 
-const CalculatorPage: FC = () => {
+const CalculatorPage: FC = ({PROJECT}) => {
   return (
-    <AppLayout>
+    <AppLayout projectAppearance={PROJECT.appearance}>
       <NextSeo
         title="Kalkulator punktów"
         description="Oblicz swoje punkty rekrutacyjne z kalkulatorem punktów wyszukiwarki szkół średnich po8klasie"
@@ -44,7 +48,21 @@ const CalculatorPage: FC = () => {
 
 export default withProjectConfig(CalculatorPage);
 
-// https://nextjs.org/docs/api-reference/next.config.js/runtime-configuration
-// A page that relies on publicRuntimeConfig must use getInitialProps/getServerSideProps to opt-out of Automatic Static Optimization.
-// Runtime configuration won't be available to any page (or component in a page) without getInitialProps/getServerSideProps.
-export const getServerSideProps = () => ({ props: {} });
+export const getServerSideProps = async (
+  context: GetServerSidePropsContext<SchoolPageParams>,
+): Promise<
+  GetServerSidePropsResult<{ PROJECT: Partial<ProjectConfig>; dehydratedState: DehydratedState }>
+  > => {
+  const projectID = context?.params?.projectID;
+
+  if (!projectID)
+    return {
+      notFound: true,
+    };
+
+  return {
+    props: {
+      PROJECT: await getProjectConfigProps(['appearance'], projectID),
+    },
+  };
+};
