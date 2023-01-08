@@ -1,11 +1,11 @@
 import { ParsedUrlQuery } from 'querystring';
 import { GetServerSidePropsContext, GetServerSidePropsResult } from 'next';
-import { ProjectConfig } from '../../../config/types';
+import { ProjectConfig } from '../../config/types';
 import { dehydrate, DehydratedState, QueryClient } from "@tanstack/react-query";
-import { getProjectConfigProps } from "../../../config/nextHelpers";
-import withProjectConfig from "../../../config/withProjectConfig";
-import AppLayout from "../../../components/app/AppLayout";
-import ComparisonPage from "../../../components/app/ComparisonPage/ComparisonPage";
+import { getProjectConfigProps } from "../../config/nextHelpers";
+import withProjectConfig from "../../config/withProjectConfig";
+import AppLayout from "../../components/app/AppLayout";
+import ComparisonPage from "../../components/app/ComparisonPage/ComparisonPage";
 
 
 const ProjectComparisonPage = ({PROJECT}) => (

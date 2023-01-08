@@ -1,11 +1,11 @@
 import { ParsedUrlQuery } from 'querystring';
 import { GetServerSidePropsContext, GetServerSidePropsResult } from 'next';
-import { ProjectConfig } from '../../../config/types';
+import { ProjectConfig } from '../../config/types';
 import { dehydrate, DehydratedState, QueryClient } from "@tanstack/react-query";
-import { getProjectConfigProps } from "../../../config/nextHelpers";
-import withProjectConfig from "../../../config/withProjectConfig";
-import AppLayout from "../../../components/app/AppLayout";
-import FavoritesPage from "../../../components/app/FavoritesPage/FavoritesPage";
+import { getProjectConfigProps } from "../../config/nextHelpers";
+import withProjectConfig from "../../config/withProjectConfig";
+import AppLayout from "../../components/app/AppLayout";
+import FavoritesPage from "../../components/app/FavoritesPage/FavoritesPage";
 
 
 const ProjectFavoritesPage = ({PROJECT}) => (

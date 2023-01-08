@@ -3,18 +3,18 @@ import React, { FC } from 'react';
 import 'tailwindcss/tailwind.css';
 import { GetServerSidePropsContext, GetServerSidePropsResult } from 'next';
 import { ParsedUrlQuery } from 'querystring';
-import { withProjectConfig, ProjectConfigConsumerProps } from '../../../../config/withProjectConfig';
-import { getProjectConfigProps } from '../../../../config/nextHelpers';
-import AppLayout from '../../../../components/app/AppLayout';
-import SchoolHero from '../../../../components/app/SchoolPage/SchoolHero';
-import SchoolPageContent from '../../../../components/app/SchoolPage/SchoolPageContent';
-import { ISchoolData } from '../../../../types';
-import { ProjectConfig } from '../../../../config/types';
+import { withProjectConfig, ProjectConfigConsumerProps } from '../../../config/withProjectConfig';
+import { getProjectConfigProps } from '../../../config/nextHelpers';
+import AppLayout from '../../../components/app/AppLayout';
+import SchoolHero from '../../../components/app/SchoolPage/SchoolHero';
+import SchoolPageContent from '../../../components/app/SchoolPage/SchoolPageContent';
+import { ISchoolData } from '../../../types';
+import { ProjectConfig } from '../../../config/types';
 import { NextSeo } from 'next-seo';
-import useSingleSchoolData, { createSingleSchoolDataQueryKey } from '../../../../api/singleSchool';
+import useSingleSchoolData, { createSingleSchoolDataQueryKey } from '../../../api/singleSchool';
 import { useRouter } from 'next/router';
 import { dehydrate, DehydratedState, QueryClient } from '@tanstack/react-query';
-import { queryClientOptions } from '../../../../api/queryClient';
+import { queryClientOptions } from '../../../api/queryClient';
 
 interface SchoolPageProps extends ProjectConfigConsumerProps<'appearance' | 'schoolInfo'> {
   school: ISchoolData;
