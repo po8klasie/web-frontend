@@ -60,7 +60,7 @@ const AppNavbar: FC<AppNavbarProps> = ({ projectName, wide }) => {
         } mx-auto lg:flex justify-between items-center py-3`}
       >
         <div className="relative flex items-center justify-between">
-          <Link href="/">
+          <Link href={links.DASHBOARD}>
             <a className="flex items-center">
               <Brand projectName={projectName} className="font-bold text-xl" />
               <span className="ml-2 rounded-full bg-primaryBg text-primary uppercase px-2 py-1 text-xs font-bold">
