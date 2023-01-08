@@ -15,7 +15,7 @@ const useLinks = () => {
   const prefixedLinks = useMemo(() => (
     Object.entries(links).reduce((acc, [key, value]) => ({
       ...acc,
-      [key]: `/app/${projectID}${value}`
+      [key]: `${projectID}${value}`
     }), {}) as typeof links
   ), [projectID])
 
