@@ -1,6 +1,4 @@
 import React, { FC } from 'react';
-// eslint-disable-next-line import/no-extraneous-dependencies
-import 'tailwindcss/tailwind.css';
 import { GetServerSidePropsContext, GetServerSidePropsResult } from 'next';
 import { ParsedUrlQuery } from 'querystring';
 import { withProjectConfig, ProjectConfigConsumerProps } from '../../../config/withProjectConfig';

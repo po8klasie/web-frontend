@@ -1,3 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 :root {
     --primary-font: 'Jost', sans-serif;
     --primary: #9D54BF;

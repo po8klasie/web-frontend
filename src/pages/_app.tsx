@@ -8,8 +8,6 @@ import 'normalize.css';
 import '../global.css';
 import { queryClientOptions } from '../api/queryClient';
 import { QueryClientProvider, QueryClient, Hydrate } from '@tanstack/react-query';
-// eslint-disable-next-line import/no-extraneous-dependencies
-import 'tailwindcss/tailwind.css';
 import { Provider as StoreProvider } from 'react-redux';
 import { store } from '../store/store';
 
