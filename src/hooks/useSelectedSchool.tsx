@@ -14,7 +14,7 @@ export const SelectedSchoolProvider = ({ children }) => {
 
 export const useSelectedSchool = () => {
   const { selectedSchoolRspo, setSelectedSchoolRspo } = useContext(selectedSchoolContext);
-  const { data } = useQuery<any>([`/search/institution/${selectedSchoolRspo}`], {
+  const { data } = useQuery([`/search/institution/${selectedSchoolRspo}`], {
     enabled: !!selectedSchoolRspo,
   });
 

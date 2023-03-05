@@ -1,6 +1,5 @@
-import { FC, MouseEventHandler, ReactNode, useState } from "react";
+import { FC, MouseEventHandler, ReactNode, useState } from 'react';
 import { FilterProps } from './types';
-import { useController } from 'react-hook-form';
 import CollapsibleFilterWrapper from './CollapsibleFilterWrapper';
 import { toggleElementInArray } from '../../../../utils/misc';
 
@@ -17,7 +16,11 @@ const mainInstitutionTypes = [
   },
   {
     rspoTypeId: '94',
-    name: <span>Szkoła branżowa <br/> I st.</span>,
+    name: (
+      <span>
+        Szkoła branżowa <br /> I st.
+      </span>
+    ),
     icon: '💼',
   },
 ];
@@ -48,12 +51,12 @@ const extraInstitutionTypes = [
     name: 'Ogólnokształcąca szkoła muzyczna II stopnia',
     icon: '🎷',
   },
-]
+];
 
 export const availableRspoInstitutionTypeIds: string[] = [
-  ...mainInstitutionTypes.map(type => type.rspoTypeId),
-  ...extraInstitutionTypes.map(type => type.rspoTypeId)
-]
+  ...mainInstitutionTypes.map((type) => type.rspoTypeId),
+  ...extraInstitutionTypes.map((type) => type.rspoTypeId),
+];
 
 interface InstitutionTypeCardProps {
   name: ReactNode;
@@ -64,9 +67,7 @@ interface InstitutionTypeCardProps {
 
 const InstitutionTypeCard: FC<InstitutionTypeCardProps> = ({ name, icon, isActive, onClick }) => (
   <button
-    className={['border px-2 py-2 rounded-xl text-center', isActive ? 'bg-gray-100' : ''].join(
-      ' ',
-    )}
+    className={['border px-2 py-2 rounded-xl text-center', isActive ? 'bg-gray-100' : ''].join(' ')}
     onClick={onClick}
   >
     <span className="text-2xl block">{icon}</span>
@@ -74,11 +75,17 @@ const InstitutionTypeCard: FC<InstitutionTypeCardProps> = ({ name, icon, isActiv
   </button>
 );
 
-const HorizontalInstitutionTypeCard: FC<InstitutionTypeCardProps> = ({ name, icon, isActive, onClick }) => (
+const HorizontalInstitutionTypeCard: FC<InstitutionTypeCardProps> = ({
+  name,
+  icon,
+  isActive,
+  onClick,
+}) => (
   <button
-    className={['flex items-center border px-2 py-1 rounded-xl text-center', isActive ? 'bg-gray-100' : ''].join(
-      ' ',
-    )}
+    className={[
+      'flex items-center border px-2 py-1 rounded-xl text-center',
+      isActive ? 'bg-gray-100' : '',
+    ].join(' ')}
     onClick={onClick}
   >
     <span className="text-xl block">{icon}</span>
@@ -87,9 +94,15 @@ const HorizontalInstitutionTypeCard: FC<InstitutionTypeCardProps> = ({ name, ico
 );
 
 const InstitutionTypeFilter: FC<FilterProps<string[]>> = ({ value, setValue }) => {
-  const [shouldShowMore, setShouldShowMore] = useState(false)
+  const [shouldShowMore, setShouldShowMore] = useState(false);
   const handleClick = (institutionTypeId: string) => () =>
-    setValue(toggleElementInArray(value, institutionTypeId, mainInstitutionTypes.length+extraInstitutionTypes.length));
+    setValue(
+      toggleElementInArray(
+        value,
+        institutionTypeId,
+        mainInstitutionTypes.length + extraInstitutionTypes.length,
+      ),
+    );
 
   return (
     <CollapsibleFilterWrapper title="Typ szkoły">
@@ -103,10 +116,9 @@ const InstitutionTypeFilter: FC<FilterProps<string[]>> = ({ value, setValue }) =
             onClick={handleClick(rspoTypeId)}
           />
         ))}
-
       </div>
       <div className="mt-1 mb-2">
-        <button className="text-sm" onClick={() => setShouldShowMore(should => !should)}>
+        <button className="text-sm" onClick={() => setShouldShowMore((should) => !should)}>
           Pokaż
           {shouldShowMore ? ' mniej ' : ' więcej '}
           typów szkół

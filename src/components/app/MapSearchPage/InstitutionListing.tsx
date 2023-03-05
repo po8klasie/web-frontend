@@ -3,18 +3,18 @@ import SchoolCard, { SchoolCardPlaceholder } from '../SchoolCard';
 import { useQuery } from '@tanstack/react-query';
 import { FC } from 'react';
 import { nanoid } from 'nanoid';
-import useFavoriteInstitutions from "../../../hooks/useFavoriteInstitutions";
+import useFavoriteInstitutions from '../../../hooks/useFavoriteInstitutions';
 
 interface InstitutionListingProps {
   serializedAPIQueryString: string;
 }
 
 const InstitutionListing: FC<InstitutionListingProps> = ({ serializedAPIQueryString }) => {
-  const { data, isFetching } = useQuery<any>([`/search/institution/?${serializedAPIQueryString}`], {
+  const { data, isFetching } = useQuery([`/search/institution/?${serializedAPIQueryString}`], {
     placeholderData: [],
   });
   const parsedData = data && data.length ? data : [];
-  const {isInstitutionFavorite, toggleIsInstitutionFavorite} = useFavoriteInstitutions()
+  const { isInstitutionFavorite, toggleIsInstitutionFavorite } = useFavoriteInstitutions();
 
   return (
     <div>
@@ -24,11 +24,12 @@ const InstitutionListing: FC<InstitutionListingProps> = ({ serializedAPIQueryStr
           <SchoolCard
             school={school}
             onFavoriteClick={() => toggleIsInstitutionFavorite(school.rspo)}
-            isFavorite={isInstitutionFavorite(school.rspo)} />
+            isFavorite={isInstitutionFavorite(school.rspo)}
+          />
         </div>
       ))}
       {isFetching &&
-        new Array(3).fill(0).map((school) => (
+        new Array(3).fill(0).map(() => (
           <div className="p-1" key={nanoid()}>
             <SchoolCardPlaceholder />
           </div>

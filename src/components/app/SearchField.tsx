@@ -1,8 +1,8 @@
 import { FiSearch } from '@react-icons/all-files/fi/FiSearch';
-import { FC, MouseEventHandler, useEffect, useState } from "react";
+import { FC, MouseEventHandler, useEffect, useState } from 'react';
 import useDebouncedValue from '../../hooks/useDebouncedValue';
 import { useQuery } from '@tanstack/react-query';
-import styles from './styles/SearchField.module.css'
+import styles from './styles/SearchField.module.css';
 export interface SearchFieldInstitutionItem {
   name: string;
   rspo: string;
@@ -11,7 +11,7 @@ export interface SearchFieldInstitutionItem {
 
 interface AutocompleteOptionProps {
   institution: SearchFieldInstitutionItem;
-  onClick: MouseEventHandler
+  onClick: MouseEventHandler;
 }
 
 const AutocompleteOption: FC<AutocompleteOptionProps> = ({ institution, onClick }) => (
@@ -28,13 +28,13 @@ const AutocompleteOption: FC<AutocompleteOptionProps> = ({ institution, onClick 
 );
 
 interface SearchFieldProps {
-  query?: string
-  onInstitutionSelect: (item: SearchFieldInstitutionItem) => void
-  onSubmit: (query: string) => void
-  className?: string
+  query?: string;
+  onInstitutionSelect: (item: SearchFieldInstitutionItem) => void;
+  onSubmit: (query: string) => void;
+  className?: string;
 }
 
-const SearchField: FC<SearchFieldProps> = ({query, onInstitutionSelect, onSubmit, className}) => {
+const SearchField: FC<SearchFieldProps> = ({ query, onInstitutionSelect, onSubmit, className }) => {
   const [localQuery, setLocalQuery] = useState(query ?? '');
 
   useEffect(() => {

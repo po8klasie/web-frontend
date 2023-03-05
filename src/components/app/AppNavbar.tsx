@@ -5,9 +5,9 @@ import { AiOutlineClose } from '@react-icons/all-files/ai/AiOutlineClose';
 import { AiOutlineMenu } from '@react-icons/all-files/ai/AiOutlineMenu';
 import { roundedSmallLinkClassName } from '../RoundedExternalLink';
 import Brand from '../Brand';
-import useLinks from "../../hooks/useLinks";
-import useFavoriteInstitutions from "../../hooks/useFavoriteInstitutions";
-import useComparisonInstitutions from "../../hooks/useComparisonInstitutions";
+import useLinks from '../../hooks/useLinks';
+import useFavoriteInstitutions from '../../hooks/useFavoriteInstitutions';
+import useComparisonInstitutions from '../../hooks/useComparisonInstitutions';
 
 interface AppNavbarProps {
   projectName?: string;
@@ -17,8 +17,8 @@ interface AppNavbarProps {
 const AppNavbar: FC<AppNavbarProps> = ({ projectName, wide }) => {
   const router = useRouter();
   const links = useLinks();
-  const {favoriteInstitutionsNumber} = useFavoriteInstitutions()
-  const {institutionsToCompareNumber} = useComparisonInstitutions()
+  const { favoriteInstitutionsNumber } = useFavoriteInstitutions();
+  const { institutionsToCompareNumber } = useComparisonInstitutions();
 
   const [isMenuCollapsed, setIsMenuCollapsed] = useState(false);
   const toggleMenu = () => setIsMenuCollapsed(!isMenuCollapsed);
@@ -27,26 +27,26 @@ const AppNavbar: FC<AppNavbarProps> = ({ projectName, wide }) => {
     {
       label: 'Dashboard',
       href: links.DASHBOARD,
-    },{
+    },
+    {
       label: 'Mapa szkół',
       href: links.MAP_SEARCH_PAGE,
     },
     {
       label: 'Ulubione szkoły',
       href: links.FAVORITES_PAGE,
-      badge: favoriteInstitutionsNumber === 0 ? null : favoriteInstitutionsNumber
+      badge: favoriteInstitutionsNumber === 0 ? null : favoriteInstitutionsNumber,
     },
     {
       label: 'Porównaj szkoły',
       href: links.COMPARISON_PAGE,
-      badge: institutionsToCompareNumber === 0 ? null : institutionsToCompareNumber
+      badge: institutionsToCompareNumber === 0 ? null : institutionsToCompareNumber,
     },
     {
       label: 'Kalkulator punktów',
       href: links.CALCULATOR,
     },
   ];
-
 
   const getLinkClassName = (href: string) => {
     return router.pathname === href.split('?')[0] ? 'font-bold' : '';
@@ -79,7 +79,7 @@ const AppNavbar: FC<AppNavbarProps> = ({ projectName, wide }) => {
         >
           <div className="w-container mx-auto lg:w-full lg:flex items-center">
             <ul className="lg:flex lg:mr-8">
-              {navLinks.map(({label, href, badge}) => (
+              {navLinks.map(({ label, href, badge }) => (
                 <li key={href} className="lg:mx-4 my-4 lg:my-0">
                   <Link href={href}>
                     <a className={getLinkClassName(href)}>

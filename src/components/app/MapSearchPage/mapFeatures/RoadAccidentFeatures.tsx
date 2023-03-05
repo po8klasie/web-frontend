@@ -12,7 +12,7 @@ const roadAccidentIcon = L.icon({
   iconSize: [30, 30],
 });
 
-const pointToLayer = (geoJsonPoint: Feature<Point, any>, latLng: LatLng): Layer => {
+const pointToLayer = (geoJsonPoint: Feature<Point, { sewikId: string }>, latLng: LatLng): Layer => {
   return L.marker(latLng, {
     icon: roadAccidentIcon,
   }).bindPopup(`
@@ -52,20 +52,22 @@ interface RoadAccidentFeaturesProps {
 
 const RoadAccidentFeatures: FC<RoadAccidentFeaturesProps> = ({ data }) => {
   const map = useMap();
-  const geoJSONRef = useRef<L.GeoJSON>()
-  const clusterGroupRef = useRef<L.MarkerClusterGroup>(L.markerClusterGroup(markerClusterGroupOptions));
+  const geoJSONRef = useRef<L.GeoJSON>();
+  const clusterGroupRef = useRef<L.MarkerClusterGroup>(
+    L.markerClusterGroup(markerClusterGroupOptions),
+  );
 
   useEffect(() => {
-    if(geoJSONRef.current) {
+    if (geoJSONRef.current) {
       clusterGroupRef.current.removeLayer(geoJSONRef.current);
     }
     if (data) {
       const geoJSON = new L.GeoJSON(data, geoJsonOptions);
       clusterGroupRef.current.addLayer(geoJSON);
       map.addLayer(clusterGroupRef.current);
-      geoJSONRef.current = geoJSON
+      geoJSONRef.current = geoJSON;
     }
-  }, [data]);
+  }, [data, map]);
 
   return null;
 };

@@ -12,9 +12,9 @@ const MapSearchPage = () => {
   return (
     <AppLayout wideNavbar noFooter className="h-full">
       <div className="w-full h-full">
-          <SelectedSchoolProvider>
-            <MapSearchPageInternals />
-          </SelectedSchoolProvider>
+        <SelectedSchoolProvider>
+          <MapSearchPageInternals />
+        </SelectedSchoolProvider>
       </div>
     </AppLayout>
   );
@@ -22,7 +22,7 @@ const MapSearchPage = () => {
 export default withProjectConfig(MapSearchPage);
 
 export const getServerSideProps = async (
-  context: GetServerSidePropsContext<any>,
+  context: GetServerSidePropsContext<{ projectID: string }>,
 ): Promise<
   GetServerSidePropsResult<{ PROJECT: Partial<ProjectConfig>; dehydratedState: DehydratedState }>
 > => {

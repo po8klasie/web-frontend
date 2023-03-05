@@ -4,12 +4,12 @@ import { AiOutlineWarning } from '@react-icons/all-files/ai/AiOutlineWarning';
 import AppLayout from '../../components/app/AppLayout';
 import Calculator from '../../components/calculator/Calculator';
 import withProjectConfig from '../../config/withProjectConfig';
-import { GetServerSidePropsContext, GetServerSidePropsResult } from "next";
-import { ProjectConfig } from "../../config/types";
-import { DehydratedState } from "@tanstack/react-query";
-import { getProjectConfigProps } from "../../config/nextHelpers";
+import { GetServerSidePropsContext, GetServerSidePropsResult } from 'next';
+import { ProjectConfig } from '../../config/types';
+import { DehydratedState } from '@tanstack/react-query';
+import { getProjectConfigProps } from '../../config/nextHelpers';
 
-const CalculatorPage: FC = ({PROJECT}) => {
+const CalculatorPage: FC = ({ PROJECT }) => {
   return (
     <AppLayout projectAppearance={PROJECT.appearance}>
       <NextSeo
@@ -49,7 +49,7 @@ export const getServerSideProps = async (
   context: GetServerSidePropsContext<SchoolPageParams>,
 ): Promise<
   GetServerSidePropsResult<{ PROJECT: Partial<ProjectConfig>; dehydratedState: DehydratedState }>
-  > => {
+> => {
   const projectID = context?.params?.projectID;
 
   if (!projectID)

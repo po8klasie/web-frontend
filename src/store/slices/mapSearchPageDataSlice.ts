@@ -2,23 +2,23 @@ import { createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
 
 interface CurrentMapPositionI {
-  zoom: number
-  center: [number, number]
-  bbox: string
+  zoom: number;
+  center: [number, number];
+  bbox: string;
 }
 
 interface DesiredMapPositionI {
-  zoom: number
-  center: [number, number]
+  zoom: number;
+  center: [number, number];
 }
 
 export interface MapSearchDataState {
   query: string;
-  currentMapPosition: CurrentMapPositionI | null
-  desiredMapPosition: DesiredMapPositionI | null
-  filters: Record<string, any>;
-  defaultFiltersValues: Record<string, any>;
-  visibleLayersIds: string[]
+  currentMapPosition: CurrentMapPositionI | null;
+  desiredMapPosition: DesiredMapPositionI | null;
+  filters: Record<string, unknown>;
+  defaultFiltersValues: Record<string, unknown>;
+  visibleLayersIds: string[];
 }
 
 const initialState: MapSearchDataState = {
@@ -27,7 +27,7 @@ const initialState: MapSearchDataState = {
   currentMapPosition: null,
   desiredMapPosition: null,
   defaultFiltersValues: {},
-  visibleLayersIds: []
+  visibleLayersIds: [],
 };
 
 export const mapSearchPageDataSlice = createSlice({
@@ -43,7 +43,7 @@ export const mapSearchPageDataSlice = createSlice({
       state.filters[action.payload.filterName] = action.payload.value;
       state.currentMapPosition = null;
     },
-    resetFilterValues: (state, action) => {
+    resetFilterValues: (state) => {
       state.filters = { ...state.defaultFiltersValues };
       state.currentMapPosition = null;
     },
@@ -56,14 +56,14 @@ export const mapSearchPageDataSlice = createSlice({
       state.currentMapPosition = null;
     },
     setCurrentMapPosition: (state, action: PayloadAction<CurrentMapPositionI | null>) => {
-      state.currentMapPosition = action.payload
+      state.currentMapPosition = action.payload;
     },
     setDesiredMapPosition: (state, action: PayloadAction<DesiredMapPositionI | null>) => {
-      state.desiredMapPosition = action.payload
+      state.desiredMapPosition = action.payload;
     },
     setVisibleLayersIds: (state, action: PayloadAction<string[]>) => {
-      state.visibleLayersIds = action.payload
-    }
+      state.visibleLayersIds = action.payload;
+    },
   },
 });
 
@@ -76,7 +76,7 @@ export const {
   resetFilterValues,
   setDefaultFiltersValues,
   setFiltersValues,
-  setVisibleLayersIds
+  setVisibleLayersIds,
 } = mapSearchPageDataSlice.actions;
 
 export default mapSearchPageDataSlice.reducer;

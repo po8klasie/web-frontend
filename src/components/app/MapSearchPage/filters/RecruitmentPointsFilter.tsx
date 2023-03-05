@@ -1,9 +1,6 @@
-import { ChangeEventHandler, FC, MouseEventHandler, useEffect, useState } from 'react';
+import { ChangeEventHandler, FC, useEffect, useState } from 'react';
 import { FilterProps } from './types';
-import { useController, useFormContext } from 'react-hook-form';
 import CollapsibleFilterWrapper from './CollapsibleFilterWrapper';
-import { AiOutlineQuestionCircle } from '@react-icons/all-files/ai/AiOutlineQuestionCircle';
-import { BsQuestionCircle } from '@react-icons/all-files/bs/BsQuestionCircle';
 import Link from 'next/link';
 import { AiOutlineWarning } from '@react-icons/all-files/ai/AiOutlineWarning';
 import { getTrackBackground, Range } from 'react-range';

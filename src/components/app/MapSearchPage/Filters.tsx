@@ -1,19 +1,16 @@
 import FilterComponent from './filters/FilterComponent';
-import { useFormContext } from 'react-hook-form';
 import { useProjectConfig } from '../../../config/projectConfigContext';
 import { useAppDispatch, useAppSelector } from '../../../store/hooks';
 import { setFilterValue } from '../../../store/slices/mapSearchPageDataSlice';
+import { SearchViewConfig } from '../../../config/types';
 
 const Filters = () => {
-  const defaultFiltersValues = useAppSelector(
-    (state) => state.mapSearchPageData.defaultFiltersValues,
-  );
   const filtersState = useAppSelector((state) => state.mapSearchPageData.filters);
   const dispatch = useAppDispatch();
   const { searchView } = useProjectConfig();
-  const filters = searchView!.filters;
+  const filters = (searchView as SearchViewConfig).filters;
 
-  const createValueSetter = (filterName: string) => (value: any) =>
+  const createValueSetter = (filterName: string) => (value: unknown) =>
     dispatch(
       setFilterValue({
         filterName,

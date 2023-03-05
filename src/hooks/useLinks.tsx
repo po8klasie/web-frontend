@@ -1,5 +1,5 @@
-import { useProjectConfig } from "../config/projectConfigContext";
-import { useMemo } from "react";
+import { useProjectConfig } from '../config/projectConfigContext';
+import { useMemo } from 'react';
 
 const links = {
   DASHBOARD: '/',
@@ -7,26 +7,35 @@ const links = {
   CALCULATOR: '/calculator',
   SCHOOL: '/school',
   FAVORITES_PAGE: '/favorites',
-  COMPARISON_PAGE: '/compare'
+  COMPARISON_PAGE: '/compare',
 } as const;
 
 const useLinks = () => {
   const { projectID } = useProjectConfig();
-  const prefixedLinks = useMemo(() => (
-    Object.entries(links).reduce((acc, [key, value]) => ({
-      ...acc,
-      [key]: `/${projectID}${value}`
-    }), {}) as typeof links
-  ), [projectID])
+  const prefixedLinks = useMemo(
+    () =>
+      Object.entries(links).reduce(
+        (acc, [key, value]) => ({
+          ...acc,
+          [key]: `/${projectID}${value}`,
+        }),
+        {},
+      ) as typeof links,
+    [projectID],
+  );
 
-  const helpers = useMemo(() => ({
-    getSchoolPath: (rspo: string) => `/${prefixedLinks.SCHOOL}/${rspo}`
-  } as const), [projectID])
+  const helpers = useMemo(
+    () =>
+      ({
+        getSchoolPath: (rspo: string) => `/${prefixedLinks.SCHOOL}/${rspo}`,
+      } as const),
+    [prefixedLinks.SCHOOL],
+  );
 
   return {
     ...prefixedLinks,
-    ...helpers
-  }
-}
+    ...helpers,
+  };
+};
 
-export default useLinks
+export default useLinks;

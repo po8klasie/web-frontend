@@ -1,4 +1,4 @@
-import React, { FC, MouseEventHandler } from "react";
+import React, { FC } from 'react';
 import Link from 'next/link';
 import styles from './styles/SchoolCard.module.css';
 import { ISchoolSearchData } from '../../types';
@@ -7,13 +7,8 @@ import {
   getSchoolTypeFromRspoInstitutionTypeId,
 } from '../../utils/apiDataMapping';
 import LoadingPlaceholder from './LoadingPlaceholder';
-import { FiStar } from "@react-icons/all-files/fi/FiStar";
-import useLinks from "../../hooks/useLinks";
-import { RectangleStackIcon as RectangleStackIconSolid } from "@heroicons/react/24/solid";
-import { RectangleStackIcon as RectangleStackIconOutline } from "@heroicons/react/24/outline";
-import useComparisonInstitutions from "../../hooks/useComparisonInstitutions";
-import useFavoriteInstitutions from "../../hooks/useFavoriteInstitutions";
-import SchoolCardActionButtons from "./SchoolCardActionButtons";
+import useLinks from '../../hooks/useLinks';
+import SchoolCardActionButtons from './SchoolCardActionButtons';
 
 interface ForeignLanguagesProps {
   foreignLanguages: string[] | null;
@@ -34,14 +29,16 @@ export interface SchoolCardProps {
   school: ISchoolSearchData;
   highlighted?: boolean;
   isFavorite?: boolean;
-  onFavoriteClick?: () => void
+  onFavoriteClick?: () => void;
 }
 
-const SchoolCard: FC<SchoolCardProps> = ({ school, highlighted, isFavorite, onFavoriteClick }) => {
-  const { getSchoolPath } = useLinks()
+const SchoolCard: FC<SchoolCardProps> = ({ school, highlighted }) => {
+  const { getSchoolPath } = useLinks();
   return (
     <div
-      className={`border border-light bg-white ${highlighted ? 'shadow-lg' : 'shadow'} rounded-md flex`}
+      className={`border border-light bg-white ${
+        highlighted ? 'shadow-lg' : 'shadow'
+      } rounded-md flex`}
     >
       <div className="m-4 text-gray w-full">
         <h3 className="font-primary font-semibold text-lg text-dark hover:underline">
@@ -57,8 +54,7 @@ const SchoolCard: FC<SchoolCardProps> = ({ school, highlighted, isFavorite, onFa
           </li>
         </ul>
         <div className="mt-2">
-          Najniższy próg klasy 2022/2023:
-          {' '}
+          Najniższy próg klasy 2022/2023:{' '}
           <strong>{school.points_stats_min > 0 ? school.points_stats_min : 'brak danych'}</strong>
         </div>
         <div className="mt-2 flex items-center">

@@ -1,6 +1,5 @@
 import { FC } from 'react';
 import { FilterProps } from './types';
-import { useController } from 'react-hook-form';
 import CollapsibleFilterWrapper from './CollapsibleFilterWrapper';
 import { IoMdBus } from '@react-icons/all-files/io/IoMdBus';
 import { MdTrain } from '@react-icons/all-files/md/MdTrain';
@@ -36,7 +35,7 @@ const stationTypes = [
   },
 ];
 
-const PublicTransportFilter: FC<FilterProps<string[]>> = ({ name, value, setValue }) => {
+const PublicTransportFilter: FC<FilterProps<string[]>> = ({ value, setValue }) => {
   const handleChange = (id: string) => {
     setValue(toggleElementInArray(value, id));
   };

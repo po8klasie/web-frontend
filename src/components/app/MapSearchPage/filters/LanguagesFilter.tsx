@@ -1,6 +1,5 @@
-import { FC, useEffect, useMemo, useState } from "react";
+import { FC, useEffect, useMemo, useState } from 'react';
 import { FilterProps } from './types';
-import { useController } from 'react-hook-form';
 import { Combobox } from '@headlessui/react';
 import CollapsibleFilterWrapper from './CollapsibleFilterWrapper';
 import { FiX } from '@react-icons/all-files/fi/FiX';
@@ -35,18 +34,18 @@ const languages = {
   por: {
     id: 'por',
     name: 'portugalski',
-    icon: '🇵🇹'
-  }
+    icon: '🇵🇹',
+  },
 };
 
 type LanguageId = keyof typeof languages;
 const languageIds = Object.keys(languages) as LanguageId[];
 
-const LanguagesFilter: FC<FilterProps<string[]>> = ({ name, value, setValue }) => {
+const LanguagesFilter: FC<FilterProps<string[]>> = ({ value, setValue }) => {
   const [query, setQuery] = useState('');
 
   const updateLangIds = (langIds: string[]) => {
-    console.log(langIds)
+    console.log(langIds);
     setValue(langIds);
   };
 
@@ -55,16 +54,16 @@ const LanguagesFilter: FC<FilterProps<string[]>> = ({ name, value, setValue }) =
   }, [value]);
 
   const filteredLangIds = useMemo(() => {
-    const isQueryEmpty = query === ''
-    if (isQueryEmpty) return []
+    const isQueryEmpty = query === '';
+    if (isQueryEmpty) return [];
 
     return languageIds.filter((langId) => {
-      const langInQuery = languages[langId].name.toLowerCase().includes(query.toLowerCase())
-      const isAlreadySelected = value.includes(langId)
+      const langInQuery = languages[langId].name.toLowerCase().includes(query.toLowerCase());
+      const isAlreadySelected = value.includes(langId);
 
-      return !isAlreadySelected && langInQuery
+      return !isAlreadySelected && langInQuery;
     });
-  }, [query, value])
+  }, [query, value]);
 
   return (
     <CollapsibleFilterWrapper title="Języki obce">
@@ -86,7 +85,11 @@ const LanguagesFilter: FC<FilterProps<string[]>> = ({ name, value, setValue }) =
           {query.trim().length > 0 && (
             <Combobox.Options static className="bg-gray-100 w-full absolute top-full left-0">
               {filteredLangIds.map((id) => (
-                <Combobox.Option key={id} value={id} className="px-2 py-1 focus:bg-gray-200 cursor-pointer">
+                <Combobox.Option
+                  key={id}
+                  value={id}
+                  className="px-2 py-1 focus:bg-gray-200 cursor-pointer"
+                >
                   {languages[id].icon} {languages[id].name}
                 </Combobox.Option>
               ))}

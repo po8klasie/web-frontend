@@ -7,8 +7,10 @@ export type FilterDefinition = {
   component: string; // TODO: More strict types
   // Leaving it as it is cause filters logic will change soon
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  options?: any; // TODO: More strict types
+  options?: Record<string, unknown>; // TODO: More strict types
   parser: AnyParser;
+  // TODO(micorix): Use generics
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   defaultValue: any;
 };
 

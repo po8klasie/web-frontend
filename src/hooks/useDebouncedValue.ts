@@ -1,6 +1,7 @@
 import { useEffect, useState, useRef } from 'react';
 
-function useDebouncedValue<T = any>(value: T, wait: number, options = { leading: false }) {
+function useDebouncedValue<T = unknown>(value: T, wait: number, options = { leading: false }) {
+  // eslint-disable-next-line @typescript-eslint/naming-convention
   const [_value, setValue] = useState(value);
   const mountedRef = useRef(false);
   const timeoutRef = useRef<number>(null);
@@ -31,4 +32,4 @@ function useDebouncedValue<T = any>(value: T, wait: number, options = { leading:
   return [_value, cancel] as const;
 }
 
-export default useDebouncedValue
+export default useDebouncedValue;

@@ -1,35 +1,37 @@
-import useDebouncedBbox from "./useDebouncedBbox";
-import { useProjectConfig } from "../../../../config/projectConfigContext";
-import { useMemo } from "react";
+import useDebouncedBbox from './useDebouncedBbox';
+import { useProjectConfig } from '../../../../config/projectConfigContext';
+import { useMemo } from 'react';
 import {
   createFiltersObjectWithoutDefaults,
   stringifyMapPosition,
-  stringifyQueryString
-} from "../../../../utils/searchSerializer";
-import { useAppSelector } from "../../../../store/hooks";
+  stringifyQueryString,
+} from '../../../../utils/searchSerializer';
+import { useAppSelector } from '../../../../store/hooks';
 
 export const useFiltersObjectWithoutDefaults = () => {
-  const filters = useAppSelector(state => state.mapSearchPageData.filters)
-  const defaultFiltersValues = useAppSelector(state => state.mapSearchPageData.defaultFiltersValues)
-  return useMemo(() => createFiltersObjectWithoutDefaults(
+  const filters = useAppSelector((state) => state.mapSearchPageData.filters);
+  const defaultFiltersValues = useAppSelector(
+    (state) => state.mapSearchPageData.defaultFiltersValues,
+  );
+  return useMemo(() => createFiltersObjectWithoutDefaults(filters, defaultFiltersValues), [
     filters,
-    defaultFiltersValues
-  ), [filters, defaultFiltersValues])
-}
+    defaultFiltersValues,
+  ]);
+};
 
 const useURLSerializer = () => {
   const { projectID } = useProjectConfig();
 
-  const query = useAppSelector(state => state.mapSearchPageData.query)
-  const currentMapPosition = useAppSelector(state => state.mapSearchPageData.currentMapPosition)
-  const debouncedBbox = useDebouncedBbox()
-  const filterObjWithoutDefaults = useFiltersObjectWithoutDefaults()
+  const query = useAppSelector((state) => state.mapSearchPageData.query);
+  const currentMapPosition = useAppSelector((state) => state.mapSearchPageData.currentMapPosition);
+  const debouncedBbox = useDebouncedBbox();
+  const filterObjWithoutDefaults = useFiltersObjectWithoutDefaults();
 
   const serializedClientQueryString = useMemo(
     () =>
       stringifyQueryString({
         ...filterObjWithoutDefaults,
-        query
+        query,
       }),
     [filterObjWithoutDefaults, query],
   );
@@ -42,21 +44,21 @@ const useURLSerializer = () => {
         project_id: projectID,
         bbox: debouncedBbox,
       }),
-    [filterObjWithoutDefaults, query]
+    [filterObjWithoutDefaults, query, debouncedBbox, projectID],
   );
 
   const serializedMapPosition = useMemo(() => {
-    if(!currentMapPosition) return ''
-    return stringifyMapPosition(currentMapPosition.center, currentMapPosition.zoom)
-  }, [currentMapPosition])
+    if (!currentMapPosition) return '';
+    return stringifyMapPosition(currentMapPosition.center, currentMapPosition.zoom);
+  }, [currentMapPosition]);
 
-  console.log({serializedMapPosition})
+  console.log({ serializedMapPosition });
 
   return {
     serializedAPIQueryString,
     serializedClientQueryString,
-    serializedMapPosition
-  }
-}
+    serializedMapPosition,
+  };
+};
 
-export default useURLSerializer
+export default useURLSerializer;

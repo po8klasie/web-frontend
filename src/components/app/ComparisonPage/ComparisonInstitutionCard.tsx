@@ -2,27 +2,23 @@ import React, { FC } from 'react';
 import Link from 'next/link';
 import styles from './styles/SchoolComparisonCard.module.css';
 import LoadingPlaceholder from '../LoadingPlaceholder';
-import useLinks from "../../../hooks/useLinks";
-import ComparablePropertiesRenderer from "./ComparablePropertiesRenderer";
-import { ComparisonInstitutionI, PropertiesMaxLengthsI } from "./types";
-import SchoolCardActionButtons from "../SchoolCardActionButtons";
-
+import useLinks from '../../../hooks/useLinks';
+import ComparablePropertiesRenderer from './ComparablePropertiesRenderer';
+import { ComparisonInstitutionI, PropertiesMaxLengthsI } from './types';
+import SchoolCardActionButtons from '../SchoolCardActionButtons';
 
 export interface SchoolComparisonCardProps {
-  institution: ComparisonInstitutionI
-  propertiesMaxLengths: PropertiesMaxLengthsI
+  institution: ComparisonInstitutionI;
+  propertiesMaxLengths: PropertiesMaxLengthsI;
 }
 
-const ComparisonInstitutionCard: FC<SchoolComparisonCardProps> = ({ institution: {
-  name,
-  rspo,
-  comparison
-}, propertiesMaxLengths }) => {
-  const { getSchoolPath } = useLinks()
+const ComparisonInstitutionCard: FC<SchoolComparisonCardProps> = ({
+  institution: { name, rspo, comparison },
+  propertiesMaxLengths,
+}) => {
+  const { getSchoolPath } = useLinks();
   return (
-    <div
-      className={`border border-light bg-white rounded-md h-full`}
-    >
+    <div className={`border border-light bg-white rounded-md h-full`}>
       <div className="m-4 text-gray">
         <SchoolCardActionButtons rspo={rspo} className="my-4 flex items-center justify-between" />
         <h3 className="font-primary font-semibold text-lg text-dark hover:underline">
@@ -30,7 +26,10 @@ const ComparisonInstitutionCard: FC<SchoolComparisonCardProps> = ({ institution:
             <a>{name}</a>
           </Link>
         </h3>
-       <ComparablePropertiesRenderer comparisonItems={comparison} propertiesMaxLengths={propertiesMaxLengths} />
+        <ComparablePropertiesRenderer
+          comparisonItems={comparison}
+          propertiesMaxLengths={propertiesMaxLengths}
+        />
       </div>
     </div>
   );

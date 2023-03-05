@@ -1,11 +1,10 @@
 import { FC } from 'react';
 import { FilterProps } from './types';
-import { useController } from 'react-hook-form';
 
 const baseClassName = 'w-1/2 flex items-center justify-center py-1';
 const activeClassName = 'bg-light';
 
-const IsPublicFilter: FC<FilterProps<string | null>> = ({ name, value, setValue }) => {
+const IsPublicFilter: FC<FilterProps<string | null>> = ({ value, setValue }) => {
   const toggle = (val: string) => {
     if (value === val) setValue(null);
     else setValue(val);

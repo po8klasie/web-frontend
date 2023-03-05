@@ -1,9 +1,10 @@
 import dynamic from 'next/dynamic';
-import { FC, useRef } from 'react';
-import { UseControllerProps } from 'react-hook-form';
+import { ComponentType, FC, useRef } from 'react';
 import { FilterProps } from './types';
 
-const filterComponents: Record<string, any> = {
+// TODO(micorix): Stricter type
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const filterComponents: Record<string, ComponentType<any>> = {
   isPublicFilter: dynamic(() => import('./IsPublicFilter')),
   institutionTypeFilter: dynamic(() => import('./InstitutionTypeFilter')),
   warsawDistrictsFilter: dynamic(() => import('./WarsawDistrictsFilter')),

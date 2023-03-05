@@ -1,6 +1,6 @@
 import { parse } from 'query-string';
 import { FilterDefinition } from '../config/types';
-import { availableRspoInstitutionTypeIds } from "../components/app/MapSearchPage/filters/InstitutionTypeFilter";
+import { availableRspoInstitutionTypeIds } from '../components/app/MapSearchPage/filters/InstitutionTypeFilter';
 
 const parsers = {
   booleanOrNull: (value: unknown) => {
@@ -31,11 +31,10 @@ const parsers = {
     if (!Array.isArray(valueArr)) valueArr = [valueArr];
     const availableInstitutionTypesSet = new Set(availableRspoInstitutionTypeIds);
     (valueArr as unknown[]).forEach((x: unknown) => {
-      if(!availableInstitutionTypesSet.has(x as string))
-        throw new Error("Can't transform");
-    })
-    return valueArr
-  }
+      if (!availableInstitutionTypesSet.has(x as string)) throw new Error("Can't transform");
+    });
+    return valueArr;
+  },
 } as const;
 
 export type AnyParser = keyof typeof parsers;
@@ -49,23 +48,20 @@ export const parseQueryFromURL = (asPath: string) => {
 };
 
 export const parseMapPositionFromURL = (asPath: string) => {
-  let hash = new URL(`http://example.com${asPath}`).hash
-  if (hash) hash = hash.substring(1)
-  const rawQueryData = parse(hash)
-  const areHashParamsOk = [
-    rawQueryData.lat,
-    rawQueryData.lng,
-    rawQueryData.zoom
-  ].every(n => n && !Number.isNaN(n))
+  let hash = new URL(`http://example.com${asPath}`).hash;
+  if (hash) hash = hash.substring(1);
+  const rawQueryData = parse(hash);
+  const areHashParamsOk = [rawQueryData.lat, rawQueryData.lng, rawQueryData.zoom].every(
+    (n) => n && !Number.isNaN(n),
+  );
 
-  if(!areHashParamsOk)
-    return null
+  if (!areHashParamsOk) return null;
 
   return {
     center: [parseFloat(rawQueryData.lat), parseFloat(rawQueryData.lng)],
-    zoom: parseInt(rawQueryData.zoom, 10)
-  }
-}
+    zoom: parseInt(rawQueryData.zoom, 10),
+  };
+};
 
 export const parseFiltersFromUrl = (asPath: string, filterDefinitions: FilterDefinition[]) => {
   const rawQueryData = parseQS(asPath);
