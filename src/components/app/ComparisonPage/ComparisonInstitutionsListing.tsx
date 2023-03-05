@@ -9,7 +9,7 @@ interface ComparisonInstitutionsListingProps {
 
 const ComparisonInstitutionsListing: FC<ComparisonInstitutionsListingProps> = ({ institutions, propertiesMaxLengths }) => {
   return (
-    <div className="flex justify-center">
+    <div className="md:flex justify-center">
       {institutions.map((institution) => (
         <div className="p-1" key={institution.rspo} style={{maxWidth: '15rem'}}>
           <ComparisonInstitutionCard

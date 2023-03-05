@@ -65,7 +65,7 @@ const ProjectDashboardPage = () => {
     router.push(links.getSchoolPath(institution.rspo))
   }
   return (
-      <div className="w-4/5 mx-auto mt-20 h-full">
+      <div className="w-11/12 sm:w-4/5 mx-auto mt-20 h-full">
         <h1 className="text-center ">
           <Brand
             projectName={appearance.appName}
@@ -75,13 +75,13 @@ const ProjectDashboardPage = () => {
                 Beta
         </span>
         </h1>
-        <div className="flex items-center text-2xl w-3/5 bg-white mx-auto mt-10 rounded-xl shadow-xl">
+        <div className="flex items-center text-2xl lg:w-3/5 bg-white mx-auto mt-10 rounded-xl shadow-xl">
           <SearchField
             className="w-full rounded-xl"
             onSubmit={handleSubmit}
             onInstitutionSelect={handleInstitutionSelect} />
         </div>
-        <div className="mt-20 grid grid-cols-4 gap-10">
+        <div className="mt-10 lg:mt-20 grid sm:grid-cols-2 xl:grid-cols-4 gap-5 lg:gap-10">
           {tiles.map(tileProps => (
             <Tile {...tileProps} key={tileProps.name}  />
           ))}

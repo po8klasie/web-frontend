@@ -25,7 +25,7 @@ const ComparisonPage = () => {
   const isComparisonAvailable = !isLoading && data && data.length > 0
 
   return (
-    <div className="w-4/5 mx-auto mt-10 h-full">
+    <div className="w-11/12 sm:w-4/5 mx-auto mt-10 h-full">
       <h1 className="text-center font-primary text-2xl text-bold">
         Porównaj szkoły
       </h1>
