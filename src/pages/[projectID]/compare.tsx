@@ -10,7 +10,7 @@ import ComparisonPage from "../../components/app/ComparisonPage/ComparisonPage";
 
 const ProjectComparisonPage = ({PROJECT}) => (
   (
-    <AppLayout projectAppearance={PROJECT.appearance} className="h-full">
+    <AppLayout projectAppearance={PROJECT.appearance} className="min-h-[100vh]">
       <ComparisonPage />
     </AppLayout>
   )

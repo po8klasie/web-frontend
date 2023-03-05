@@ -9,9 +9,9 @@ interface ComparisonInstitutionsListingProps {
 
 const ComparisonInstitutionsListing: FC<ComparisonInstitutionsListingProps> = ({ institutions, propertiesMaxLengths }) => {
   return (
-    <div className="md:flex justify-center">
+    <div className="grid gap-y-10 sm:flex justify-center">
       {institutions.map((institution) => (
-        <div className="p-1" key={institution.rspo} style={{maxWidth: '15rem'}}>
+        <div className="p-1 mx-auto sm:mx-0" key={institution.rspo} style={{maxWidth: '15rem'}}>
           <ComparisonInstitutionCard
             institution={institution}
             propertiesMaxLengths={propertiesMaxLengths}
