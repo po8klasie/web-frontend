@@ -1,24 +1,25 @@
 import { createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
+import produce from "immer";
 
 export interface FavoriteInstitutionsState {
-  favoriteInstitutionsRspos: string[]
+  favoriteInstitutionsRspos: Record<string, string[]>
 }
 
 const initialState: FavoriteInstitutionsState = {
-  favoriteInstitutionsRspos: []
+  favoriteInstitutionsRspos: {
+    warszawa: [],
+    gdynia: []
+  }
 };
 
 export const favoriteInstitutionsSlice = createSlice({
   name: 'favoriteInstitutions',
   initialState,
   reducers: {
-    setFavoriteInstitutionsRspos: (state, action: PayloadAction<string[]>) => {
-      return ({
-        ...state,
-        favoriteInstitutionsRspos: action.payload
-      })
-    },
+    setFavoriteInstitutionsRspos: (state, action: PayloadAction<{rspos: string[], projectID: string}>) => produce(state, (draft) => {
+      draft.favoriteInstitutionsRspos[action.payload.projectID] = action.payload.rspos
+    })
   },
 });
 

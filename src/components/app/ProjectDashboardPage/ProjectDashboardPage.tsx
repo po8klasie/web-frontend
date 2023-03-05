@@ -11,6 +11,7 @@ import styles from './styles/ProjectDashboardPage.module.css'
 import { AiOutlineCalculator } from "@react-icons/all-files/ai/AiOutlineCalculator";
 import { FiStar } from "@react-icons/all-files/fi/FiStar";
 import { RectangleStackIcon as RectangleStackIconOutline } from "@heroicons/react/24/outline";
+import Link from "next/link";
 interface TileProps {
   path: string
   icon: IconType
@@ -19,10 +20,12 @@ interface TileProps {
 
 const Tile: FC<TileProps> = ({path, icon: Icon, name}) => (
   <div className={styles.tile}>
-    <a href={path}>
-      <Icon />
-      <span>{name}</span>
-    </a>
+    <Link href={path}>
+      <a>
+        <Icon />
+        <span>{name}</span>
+      </a>
+    </Link>
   </div>
 )
 
@@ -40,7 +43,7 @@ const ProjectDashboardPage = () => {
     {
       name: 'Przeglądaj ulubione szkoły',
       icon: FiStar,
-      path: links.MAP_SEARCH_PAGE
+      path: links.FAVORITES_PAGE
     },
     {
       name: 'Porównaj szkoły',
