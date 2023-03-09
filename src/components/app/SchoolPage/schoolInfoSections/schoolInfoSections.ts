@@ -4,11 +4,15 @@ import EducationalOfferSection from './EducationalOfferSection';
 import ClassProfilesSection from './ClassProfilesSection';
 import { SectionComponentProps } from './types';
 import PublicTransportSection from './PublicTransportSection';
+import SportSection from './SportSection';
+import CollaborationSection from './CollaborationSection';
 
 export type SchoolInfoSectionId =
   | 'overview'
   | 'classProfiles'
   | 'educationalOffer'
+  | 'sport'
+  | 'collaboration'
   | 'publicTransport';
 
 export interface SchoolInfoSectionConfig {
@@ -32,6 +36,16 @@ const schoolInfoSections: Record<SchoolInfoSectionId, SchoolInfoSectionConfig> =
     id: 'educationalOffer',
     name: 'Oferta edukacyjna',
     SectionComponent: EducationalOfferSection,
+  },
+  sport: {
+    id: 'sport',
+    name: 'Sport',
+    SectionComponent: SportSection,
+  },
+  collaboration: {
+    id: 'collaboration',
+    name: 'Współpraca',
+    SectionComponent: CollaborationSection,
   },
   publicTransport: {
     id: 'publicTransport',

@@ -7,6 +7,7 @@ import { MdTrain } from '@react-icons/all-files/md/MdTrain';
 import { MdTram } from '@react-icons/all-files/md/MdTram';
 import { MdSubway } from '@react-icons/all-files/md/MdSubway';
 import { IPublicTransportRoute, IPublicTransportStop } from '../../../../types';
+import { DataPresentGuard, SectionHeading } from './reusableUI';
 
 const routeIconClassName = 'mr-2 opacity-70';
 
@@ -64,14 +65,21 @@ interface PublicTransportStopProps {
 const PublicTransportStop: FC<PublicTransportStopProps> = ({ stop, distance }) => (
   <>
     <div className="mt-2 flex items-center">
-      <span className="font-semibold whitespace-nowrap">
-        {stop.name} <small>({distance}m)</small>
+      <span className="font-semibold font-primary text-gray-800 whitespace-nowrap">
+        {stop.name} <small>({distance.toFixed(0)}m)</small>
       </span>
     </div>
     <div className="flex flex-wrap w-full">
-      {stop.publicTransportRoutes.map((route) => (
-        <PublicTransportRoute route={route} />
-      ))}
+      <DataPresentGuard
+        data={stop.publicTransportRoutes}
+        render={(data) => (
+          <>
+            {data.map((route) => (
+              <PublicTransportRoute route={route} />
+            ))}
+          </>
+        )}
+      />
     </div>
   </>
 );
@@ -80,20 +88,22 @@ const PublicTransportSection: FC<SectionComponentProps> = ({ school }) => {
   return (
     <SchoolInfoSection id="publicTransport" overwriteFooter="Źródło: Open Street Map" updateTime="">
       <div className="p-3">
-        <h3 className="text-lg font-bold text-dark">Dojazd komunikacją miejską</h3>
+        <SectionHeading title="Dojazd komunikacją miejską" />
         <div className="mt-4">
-          {!school.publicTransportStops ||
-            (school.publicTransportStops.length === 0 && <span>Brak danych</span>)}
-          <div>
-            {school.publicTransportStops &&
-              school.publicTransportStops.map(({ publicTransportStop, distance }) => (
-                <PublicTransportStop
-                  stop={publicTransportStop}
-                  distance={distance}
-                  key={publicTransportStop.name}
-                />
-              ))}
-          </div>
+          <DataPresentGuard
+            data={school.publicTransportStops}
+            render={(data) => (
+              <>
+                {data.map(({ publicTransportStop, distance }) => (
+                  <PublicTransportStop
+                    stop={publicTransportStop}
+                    distance={distance}
+                    key={publicTransportStop.name}
+                  />
+                ))}
+              </>
+            )}
+          />
         </div>
       </div>
     </SchoolInfoSection>

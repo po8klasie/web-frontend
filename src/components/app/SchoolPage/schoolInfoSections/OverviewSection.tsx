@@ -8,6 +8,8 @@ import { LatLngTuple } from 'leaflet';
 import SchoolInfoSection from './SchoolInfoSection';
 import { SectionComponentProps } from './types';
 import { parseCoords } from '../../../../utils/map';
+import { MdPhone } from '@react-icons/all-files/md/MdPhone';
+import { SectionHeading } from './reusableUI';
 
 const SchoolLocationMap = dynamic(() => import('../SchoolLocationMap'), { ssr: false });
 
@@ -32,7 +34,7 @@ const OverviewSection: FC<SectionComponentProps> = ({ school }) => {
       <div className="py-3 px-5">
         <div className="grid lg:grid-cols-6">
           <div className="col-span-3 xl:col-span-2">
-            <h3 className="text-lg font-bold text-dark">Podstawowe informacje</h3>
+            <SectionHeading title="Podstawowe informacje" />
             <ul className="mt-2 text-gray">
               <li className="my-2">
                 <ItemWithIcon icon={MdHome}>
@@ -40,19 +42,20 @@ const OverviewSection: FC<SectionComponentProps> = ({ school }) => {
                 </ItemWithIcon>
               </li>
               <li className="my-2">
-                <ItemWithIcon icon={MdLink}>{school.website}</ItemWithIcon>
+                <a href={school.website} rel="noreferrer noopener" target="_blank">
+                  <ItemWithIcon icon={MdLink}>{school.website}</ItemWithIcon>
+                </a>
               </li>
-              {/* not yet implemented */}
-              {/* <li className="my-2"> */}
-              {/*   <ItemWithIcon icon={MdPhone}>{school.}</ItemWithIcon> */}
-              {/* </li> */}
               <li className="my-2">
-                <ItemWithIcon icon={MdEmail}>{school.email}</ItemWithIcon>
+                <a href={`tel:${school.phone}`} rel="noreferrer noopener" target="_blank">
+                  <ItemWithIcon icon={MdPhone}>{school.phone}</ItemWithIcon>
+                </a>
               </li>
-              {/* not yet implemented */}
-              {/* <li className="my-2"> */}
-              {/*   <ItemWithIcon icon={MdOutlineSchool}>{school.}</ItemWithIcon> */}
-              {/* </li> */}
+              <li className="my-2">
+                <a href={`mailto:${school.email}`} rel="noreferrer noopener" target="_blank">
+                  <ItemWithIcon icon={MdEmail}>{school.email}</ItemWithIcon>
+                </a>
+              </li>
             </ul>
           </div>
           <div className="col-span-3 xl:col-span-4 h-72 xl:mt-0 mt-2">

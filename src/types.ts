@@ -43,43 +43,25 @@ export interface IPublicTransportStopWrapper {
 }
 
 export interface ISchoolData extends ISchoolSearchData {
+  postalCode: string;
   email: string;
   phone: string;
   website: string;
-  postalCode: string;
   description: string;
+  extracurricularActivities?: string[];
+  schoolEvents?: string[];
+  noOfSchoolTripsPerYear?: string;
+  sportActivities?: string[];
+  sportInfrastructure?: string[];
+  ngoPartners?: string[];
+  universityPartners?: string[];
+  avgStudentsNoPerClass?: number;
+  maxStudentsNoPerClass?: number;
+  minStudentsNoPerClass?: number;
+  noOfStudentsTakingPartInOlympiads?: string;
+  noOfFulltimePsychologistPositions?: string;
+  // TODO(micorix): Provide explicit type
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  classes: any;
   publicTransportStops: IPublicTransportStopWrapper[];
 }
-
-export interface RailsApiSchool {
-  apartmentNo: string;
-  buildingNo: string;
-  classrooms: string | null;
-  county: string;
-  createdAt: string;
-  email: string;
-  id: number;
-  institutionTypeId: number;
-  integrationClasses: number | null;
-  latitude: string;
-  longitude: string;
-  municipality: string;
-  name: string;
-  public: boolean;
-  rspoInstitutionId: number;
-  rspoInstitutionTypeId: keyof typeof institutionTypes;
-  sportFacilities: null | string;
-  street: string;
-  studentsPerTeacher: null;
-  town: string;
-  updatedAt: string;
-  website: string;
-  workingTime: null;
-  zipCode: string;
-  description: string | null;
-  foreignLanguages: string | null;
-  classProfiles: string | null;
-  extracurricularActivities: string | null;
-}
-
-export type SearchData = Record<string, string | number | unknown[]>;

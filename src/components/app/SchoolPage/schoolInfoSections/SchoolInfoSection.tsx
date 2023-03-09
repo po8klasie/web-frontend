@@ -23,7 +23,7 @@ const SchoolInfoSection: FC<SchoolInfoSectionProps> = ({
   <div className="mt-5 first:mt-0 border border-light rounded-lg" id={id}>
     {children}
     <div className="border-light border-t py-2 px-5 text-right text-gray text-sm">
-      {overwriteFooter || <SchoolUpdateInfo updateTime={updateTime} />}
+      {overwriteFooter ?? <SchoolUpdateInfo updateTime={updateTime} />}
     </div>
   </div>
 );
