@@ -10,6 +10,8 @@ import { queryClientOptions } from '../api/queryClient';
 import { QueryClientProvider, QueryClient, Hydrate } from '@tanstack/react-query';
 import { Provider as StoreProvider } from 'react-redux';
 import { store } from '../store/store';
+import { ErrorBoundary } from '@sentry/react';
+import ClientSideErrorPage from '../components/errors/ClientSideErrorPage';
 
 const App: FC<AppProps> = ({ Component, pageProps }) => {
   usePosthogPageChangeTracker();
@@ -20,14 +22,16 @@ const App: FC<AppProps> = ({ Component, pageProps }) => {
       <Head>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>
-      <DefaultSeo />
-      <StoreProvider store={store}>
-        <QueryClientProvider client={queryClient}>
-          <Hydrate state={pageProps.dehydratedState}>
-            <Component {...pageProps} />
-          </Hydrate>
-        </QueryClientProvider>
-      </StoreProvider>
+      <ErrorBoundary fallback={<ClientSideErrorPage />}>
+        <DefaultSeo />
+        <StoreProvider store={store}>
+          <QueryClientProvider client={queryClient}>
+            <Hydrate state={pageProps.dehydratedState}>
+              <Component {...pageProps} />
+            </Hydrate>
+          </QueryClientProvider>
+        </StoreProvider>
+      </ErrorBoundary>
     </>
   );
 };
