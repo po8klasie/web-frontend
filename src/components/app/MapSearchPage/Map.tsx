@@ -18,13 +18,13 @@ import useDebouncedBbox from './hooks/useDebouncedBbox';
 import { stringifyQueryString } from '../../../utils/searchSerializer';
 import { useFiltersObjectWithoutDefaults } from './hooks/useURLSerializer';
 
-const LoadingOverlay = () => {
+const Loader = () => {
   return (
     <div
-      className="absolute w-full h-full bg-white bg-opacity-80 flex items-center justify-center"
+      className="absolute right-5 top-5 bg-white bg-opacity-80 flex items-center justify-center p-1 rounded-full"
       style={{ zIndex: 100000 }}
     >
-      <ClipLoader size={50} color="#9D54BF" />
+      <ClipLoader size={20} color="#9D54BF" />
     </div>
   );
 };
@@ -88,7 +88,7 @@ const Map: FC = () => {
 
   return (
     <div className="w-full h-full relative">
-      {isLoading && <LoadingOverlay />}
+      {isLoading && <Loader />}
       <div className="w-full h-full">
         <MapContainer
           className="w-full h-full rounded-t-lg"
