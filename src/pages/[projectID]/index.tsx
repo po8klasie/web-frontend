@@ -27,14 +27,24 @@ export const getServerSideProps = async (
 > => {
   const projectID = context?.params?.projectID;
 
-  if (!projectID)
+  if (!projectID?.trim())
     return {
       notFound: true,
     };
 
+  let projectConfigProps;
+
+  try {
+    projectConfigProps = await getProjectConfigProps(['appearance'], projectID);
+  } catch {
+    return {
+      notFound: true,
+    };
+  }
+
   return {
     props: {
-      PROJECT: await getProjectConfigProps(['appearance'], projectID),
+      PROJECT: projectConfigProps,
     },
   };
 };
