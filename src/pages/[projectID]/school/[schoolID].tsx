@@ -8,11 +8,11 @@ import SchoolHero from '../../../components/app/SchoolPage/SchoolHero';
 import SchoolPageContent from '../../../components/app/SchoolPage/SchoolPageContent';
 import { ISchoolData } from '../../../types';
 import { ProjectConfig } from '../../../config/types';
-import { NextSeo } from 'next-seo';
 import useSingleSchoolData, { createSingleSchoolDataQueryKey } from '../../../api/singleSchool';
 import { useRouter } from 'next/router';
 import { dehydrate, DehydratedState, QueryClient } from '@tanstack/react-query';
 import { queryClientOptions } from '../../../api/queryClient';
+import { ProjectSpecificSeo } from '../../../Seo';
 
 interface SchoolPageProps extends ProjectConfigConsumerProps<'appearance' | 'schoolInfo'> {
   school: ISchoolData;
@@ -24,7 +24,7 @@ const SchoolPage: FC<SchoolPageProps> = ({ PROJECT: { appearance, schoolInfo } }
 
   return (
     <AppLayout projectAppearance={appearance}>
-      <NextSeo title={appearance.appName} />
+      <ProjectSpecificSeo appearanceConfig={appearance} title={(school as ISchoolData).name} />
       <SchoolHero school={school as ISchoolData} />
       <SchoolPageContent schoolInfoConfig={schoolInfo} school={school as ISchoolData} />
     </AppLayout>

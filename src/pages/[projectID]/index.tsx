@@ -6,9 +6,12 @@ import { getProjectConfigProps } from '../../config/nextHelpers';
 import withProjectConfig from '../../config/withProjectConfig';
 import AppLayout from '../../components/app/AppLayout';
 import ProjectDashboardPage from '../../components/app/ProjectDashboardPage/ProjectDashboardPage';
+import { ProjectSpecificSeo } from '../../Seo';
+import React from 'react';
 
 const ProjectIndexPage = ({ PROJECT }) => (
   <AppLayout projectAppearance={PROJECT.appearance} className="h-full">
+    <ProjectSpecificSeo appearanceConfig={PROJECT.appearance} title="Dashboard" />
     <ProjectDashboardPage />
   </AppLayout>
 );

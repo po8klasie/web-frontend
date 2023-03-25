@@ -6,9 +6,12 @@ import { getProjectConfigProps } from '../../config/nextHelpers';
 import withProjectConfig from '../../config/withProjectConfig';
 import AppLayout from '../../components/app/AppLayout';
 import FavoritesPage from '../../components/app/FavoritesPage/FavoritesPage';
+import { ProjectSpecificSeo } from '../../Seo';
+import React from 'react';
 
 const ProjectFavoritesPage = ({ PROJECT }) => (
   <AppLayout projectAppearance={PROJECT.appearance} className="min-h-[100vh]">
+    <ProjectSpecificSeo appearanceConfig={PROJECT.appearance} title="Ulubione szkoły" />
     <FavoritesPage />
   </AppLayout>
 );

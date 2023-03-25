@@ -1,5 +1,4 @@
 import React, { FC } from 'react';
-import { NextSeo } from 'next-seo';
 import { AiOutlineWarning } from '@react-icons/all-files/ai/AiOutlineWarning';
 import AppLayout from '../../components/app/AppLayout';
 import Calculator from '../../components/calculator/Calculator';
@@ -8,11 +7,13 @@ import { GetServerSidePropsContext, GetServerSidePropsResult } from 'next';
 import { ProjectConfig } from '../../config/types';
 import { DehydratedState } from '@tanstack/react-query';
 import { getProjectConfigProps } from '../../config/nextHelpers';
+import { ProjectSpecificSeo } from '../../Seo';
 
 const CalculatorPage: FC = ({ PROJECT }) => {
   return (
     <AppLayout projectAppearance={PROJECT.appearance}>
-      <NextSeo
+      <ProjectSpecificSeo
+        appearanceConfig={PROJECT.appearance}
         title="Kalkulator punktów"
         description="Oblicz swoje punkty rekrutacyjne z kalkulatorem punktów wyszukiwarki szkół średnich po8klasie"
       />

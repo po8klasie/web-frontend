@@ -1,7 +1,7 @@
 import { AppearanceConfig } from '../types';
 
 const appearanceConfig: AppearanceConfig = {
-  appName: 'gdynia',
+  appName: 'Gdynia',
 };
 
 export default appearanceConfig;

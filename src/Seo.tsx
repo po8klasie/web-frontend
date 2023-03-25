@@ -1,5 +1,7 @@
-import { DefaultSeo as DefaultNextSeo, DefaultSeoProps } from 'next-seo';
+import { DefaultSeo as DefaultNextSeo, DefaultSeoProps, NextSeo, NextSeoProps } from 'next-seo';
 import { publicRuntimeConfig } from './runtimeConfig';
+import { AppearanceConfig } from './config/types';
+import { FC } from 'react';
 
 const { APP_ENVIRONMENT } = publicRuntimeConfig;
 
@@ -11,6 +13,15 @@ export const defaultSeoConfig: DefaultSeoProps = {
     handle: '@po8klasie',
     cardType: 'summary_large_image',
   },
+};
+
+interface ProjectSpecificSeoProps extends NextSeoProps {
+  appearanceConfig: AppearanceConfig;
+}
+
+export const ProjectSpecificSeo: FC<ProjectSpecificSeoProps> = ({ appearanceConfig, ...props }) => {
+  const titleTemplate = `%s | po8klasie ${appearanceConfig.appName}`;
+  return <NextSeo titleTemplate={titleTemplate} {...props} />;
 };
 
 export const DefaultSeo = () => <DefaultNextSeo {...defaultSeoConfig} />;

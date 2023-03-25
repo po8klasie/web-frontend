@@ -1,7 +1,7 @@
 import { AppearanceConfig } from '../types';
 
 const appearanceConfig: AppearanceConfig = {
-  appName: 'warszawa',
+  appName: 'Warszawa',
 };
 
 export default appearanceConfig;

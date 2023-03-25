@@ -7,10 +7,17 @@ import { getProjectConfigProps } from '../../config/nextHelpers';
 import withProjectConfig from '../../config/withProjectConfig';
 import { SelectedSchoolProvider } from '../../hooks/useSelectedSchool';
 import MapSearchPageInternals from '../../components/app/MapSearchPage/MapSearchPage';
+import { ProjectSpecificSeo } from '../../Seo';
+import React from 'react';
 
-const MapSearchPage = () => {
+const MapSearchPage = ({ PROJECT }) => {
   return (
-    <AppLayout wideNavbar noFooter className="h-full">
+    <AppLayout projectAppearance={PROJECT.appearance} wideNavbar noFooter className="h-full">
+      <ProjectSpecificSeo
+        appearanceConfig={PROJECT.appearance}
+        title="Mapa szkół"
+        description="Wyszukaj szkoły średnie z  po8klasie"
+      />
       <div className="w-full h-full">
         <SelectedSchoolProvider>
           <MapSearchPageInternals />
