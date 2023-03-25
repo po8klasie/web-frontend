@@ -1,21 +1,18 @@
 import { ChangeEventHandler, FC, useEffect, useState } from 'react';
 import { FilterProps } from './types';
 import CollapsibleFilterWrapper from './CollapsibleFilterWrapper';
-import Link from 'next/link';
 import { AiOutlineWarning } from '@react-icons/all-files/ai/AiOutlineWarning';
 import { getTrackBackground, Range } from 'react-range';
 import { IRenderThumbParams, IRenderTrackParams } from 'react-range/lib/types';
+import ComingSoonWrapper from '../../ComingSoonWrapper';
 
 const RecruitmentPointsAlert = () => (
   <span
     role="alert"
     className="bg-yellow-100 border-l-4 border-yellow-600 p-1 rounded block text-sm"
   >
-    <AiOutlineWarning className="inline-block text-xl text-yellow-600" /> Progi punktowe zmieniają
-    się co roku i zależą od wielu czynników.{' '}
-    <Link href="/">
-      <a className="underline">Dowiedz się więcej</a>
-    </Link>
+    <AiOutlineWarning className="inline-block text-xl text-yellow-600" />
+    Progi punktowe zmieniają się co roku i zależą od wielu czynników.
   </span>
 );
 
@@ -68,23 +65,33 @@ const RecruitmentPointsFilter: FC<FilterProps<[number, number]>> = ({ value, set
 
   return (
     <CollapsibleFilterWrapper title="Najniższy próg punktowy">
-      <RecruitmentPointsAlert />
-      <div className="mt-2 flex items-center">
-        <input className={inputClassName} onChange={createInputChangeHandler(0)} value={range[0]} />
-        <div className="px-2 w-full">
-          <Range
-            step={1}
-            min={MIN}
-            max={MAX}
-            values={range}
-            onChange={setRange}
-            onFinalChange={handleFinalChange}
-            renderTrack={createTrackRenderer(range)}
-            renderThumb={renderThumb}
+      <ComingSoonWrapper>
+        <RecruitmentPointsAlert />
+        <div className="mt-2 flex items-center">
+          <input
+            className={inputClassName}
+            onChange={createInputChangeHandler(0)}
+            value={range[0]}
+          />
+          <div className="px-2 w-full">
+            <Range
+              step={1}
+              min={MIN}
+              max={MAX}
+              values={range}
+              onChange={setRange}
+              onFinalChange={handleFinalChange}
+              renderTrack={createTrackRenderer(range)}
+              renderThumb={renderThumb}
+            />
+          </div>
+          <input
+            className={inputClassName}
+            onChange={createInputChangeHandler(1)}
+            value={range[1]}
           />
         </div>
-        <input className={inputClassName} onChange={createInputChangeHandler(1)} value={range[1]} />
-      </div>
+      </ComingSoonWrapper>
     </CollapsibleFilterWrapper>
   );
 };
