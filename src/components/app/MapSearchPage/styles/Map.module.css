@@ -1,0 +1,16 @@
+.popup {
+    z-index: 100;
+}
+
+.popup :global .mapboxgl-popup-content {
+    @apply shadow-xl rounded pr-7;
+}
+
+.popup :global .mapboxgl-popup-content a {
+    @apply text-gray-600;
+}
+
+.popup :global .mapboxgl-popup-close-button {
+    @apply py-0.5 px-2 text-base;
+}
+

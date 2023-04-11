@@ -2,8 +2,9 @@ import { SearchViewConfig } from '../types';
 
 const searchViewConfig: SearchViewConfig = {
   mapOptions: {
-    center: [54.528652889406324, 18.528099060058597] as [number, number],
-    zoom: 12,
+    latitude: 54.528652889406324,
+    longitude: 18.528099060058597,
+    zoom: 11,
   },
   defaultQuery: {
     project_id: 'gdynia',

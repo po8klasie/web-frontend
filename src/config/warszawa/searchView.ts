@@ -2,8 +2,9 @@ import { SearchViewConfig } from '../types';
 
 const searchViewConfig: SearchViewConfig = {
   mapOptions: {
-    center: [52.237049, 21.017532] as [number, number],
-    zoom: 15,
+    latitude: 52.22921100476421,
+    longitude: 21.052431545204637,
+    zoom: 11,
   },
   defaultQuery: {
     project_id: 'warszawa',

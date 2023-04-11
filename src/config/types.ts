@@ -1,6 +1,6 @@
 import { SchoolInfoSectionId } from '../components/app/SchoolPage/schoolInfoSections/schoolInfoSections';
-import { MapContainerProps } from 'react-leaflet';
 import { AnyParser } from '../utils/searchParser';
+import { ViewState } from 'react-map-gl';
 
 export type FilterDefinition = {
   name: string;
@@ -15,7 +15,7 @@ export type FilterDefinition = {
 };
 
 export type SearchViewConfig = {
-  mapOptions: MapContainerProps;
+  mapOptions: Partial<ViewState>;
   defaultQuery: Record<string, string>;
   filters: FilterDefinition[];
 };

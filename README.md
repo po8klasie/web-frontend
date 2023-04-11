@@ -36,14 +36,14 @@ yarn start
 <a name="env-vars"></a>
 ### Environmental variables
 
-| Name | Required | Description |
-| - | :-: | - |
-| `API_URL` | :heavy_check_mark: | Url where the API is hosted (do NOT include a trailing slash) |
-| `APP_ENVIRONMENT` | :x: | e.g. `production`, `test`. It's used by Sentry and displayed in the footer. |
-| `APP_FRONTEND_RELEASE` | :x: | e.g. docker image tag. It's used by Sentry and displayed in the footer. |
-| `MAPBOX_ACCESS_TOKEN` | :x: | Mapbox access token. If it's not specified, Open Street Map tiles are load. |
-| `PUBLIC_SENTRY_DSN` | :x: | Sentry DSN. If it's not specified, Sentry client is not initialized. |
-| `POSTHOG_API_KEY` | :x: | Posthog API key. If it's not specified, Posthog Analytics client is not initialized. |
+| Name |      Required      | Description                                                                          |
+| - |:------------------:|--------------------------------------------------------------------------------------|
+| `API_URL` | :heavy_check_mark: | Url where the API is hosted (do NOT include a trailing slash)                        |
+| `APP_ENVIRONMENT` |        :x:         | e.g. `production`, `test`. It's used by Sentry and displayed in the footer.          |
+| `APP_FRONTEND_RELEASE` |        :x:         | e.g. docker image tag. It's used by Sentry and displayed in the footer.              |
+| `MAPBOX_ACCESS_TOKEN` | :heavy_check_mark: | Mapbox access token. (We'll be adding OSM support soon)                              |
+| `PUBLIC_SENTRY_DSN` |        :x:         | Sentry DSN. If it's not specified, Sentry client is not initialized.                 |
+| `POSTHOG_API_KEY` |        :x:         | Posthog API key. If it's not specified, Posthog Analytics client is not initialized. |
 
 > *NOTE:* If you don't want to spin up local API server, for development purposes use `https://test.po8klasie.pl/api` as `API_URL`.
 

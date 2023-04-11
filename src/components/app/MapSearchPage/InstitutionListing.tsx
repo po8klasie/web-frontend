@@ -46,6 +46,11 @@ const InstitutionListing: FC<InstitutionListingProps> = ({ serializedAPIQueryStr
             <SchoolCardPlaceholder />
           </div>
         ))}
+      {!isFetching && !parsedData.length && (
+        <div className="text-center">
+          <span className="">Brak szkół spełniających kryteria</span>
+        </div>
+      )}
     </div>
   );
 };

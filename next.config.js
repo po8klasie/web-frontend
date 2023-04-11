@@ -9,6 +9,7 @@ const withBundleAnalyzer = require('@next/bundle-analyzer')({
 
 const customNextConfig = {
   basePath: '/app',
+  assetPrefix: '/app/',
   env: {
     PUBLIC_URL: '',
   },

@@ -2,7 +2,8 @@ import { SearchViewConfig } from '../types';
 
 const searchViewConfig: SearchViewConfig = {
   mapOptions: {
-    center: [50.063159, 19.938762] as [number, number],
+    latitude: 50.063159,
+    longitude: 19.938762,
     zoom: 15,
   },
   defaultQuery: {

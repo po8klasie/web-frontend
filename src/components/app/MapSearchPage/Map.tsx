@@ -1,105 +1,69 @@
-import React, { FC, useCallback, useEffect, useMemo, useState } from 'react';
-import { Map as LeafletMap } from 'leaflet';
-import { MapContainer, TileLayer } from 'react-leaflet';
+import React, { FC, useCallback, useRef, useState } from 'react';
+import { LngLatBounds, Map as MapGL, MapRef, Popup, PopupProps } from 'react-map-gl';
+import 'mapbox-gl/dist/mapbox-gl.css';
 
 import 'leaflet/dist/leaflet.css';
 import { useProjectConfig } from '../../../config/projectConfigContext';
 import { SearchViewConfig } from '../../../config/types';
-import { tileLayerProps } from '../../../utils/map';
 import MapFeatures from './MapFeatures';
-import { ClipLoader } from 'react-spinners';
-import { useQuery } from '@tanstack/react-query';
-import {
-  setCurrentMapPosition,
-  setDesiredMapPosition,
-} from '../../../store/slices/mapSearchPageDataSlice';
-import { useAppDispatch, useAppSelector } from '../../../store/hooks';
-import useDebouncedBbox from './hooks/useDebouncedBbox';
-import { stringifyQueryString } from '../../../utils/searchSerializer';
-import { useFiltersObjectWithoutDefaults } from './hooks/useURLSerializer';
+import { setCurrentMapPosition } from '../../../store/slices/mapSearchPageDataSlice';
+import { useAppDispatch } from '../../../store/hooks';
+import { publicRuntimeConfig } from '../../../runtimeConfig';
+import { debounce } from 'lodash';
 
-const Loader = () => {
-  return (
-    <div
-      className="absolute right-5 top-5 bg-white bg-opacity-80 flex items-center justify-center p-1 rounded-full"
-      style={{ zIndex: 100000 }}
-    >
-      <ClipLoader size={20} color="#9D54BF" />
-    </div>
-  );
-};
+const { MAPBOX_ACCESS_TOKEN } = publicRuntimeConfig;
+
+const mapBoundsToBboxString = (bounds: LngLatBounds) => bounds.toArray().flat().join(',');
 
 /* Warning! This is client-side only component. It needs to be imported using dynamic() */
 const Map: FC = () => {
   const dispatch = useAppDispatch();
-  const { projectID } = useProjectConfig();
   const { searchView: searchViewConfig } = useProjectConfig();
   const { mapOptions } = searchViewConfig as SearchViewConfig;
-  const debouncedBbox = useDebouncedBbox();
-  const [map, setMap] = useState<LeafletMap | null>(null);
-  const desiredMapPosition = useAppSelector((state) => state.mapSearchPageData.desiredMapPosition);
-  const visibleLayersIds = useAppSelector((state) => state.mapSearchPageData.visibleLayersIds);
-  const query = useAppSelector((state) => state.mapSearchPageData.query);
+  const mapRef = useRef<MapRef>(null);
 
-  const handleMapUpdate = useCallback(() => {
-    if (map) {
+  const handleMapLoad = useCallback(
+    ({ target: map }) => {
+      const center = map.getCenter();
       dispatch(
         setCurrentMapPosition({
-          bbox: map.getBounds().toBBoxString().trim(),
+          bbox: mapBoundsToBboxString(map.getBounds()),
           zoom: map.getZoom(),
-          center: [map.getCenter().lat, map.getCenter().lng],
+          center: [center.lat, center.lng],
         }),
       );
-    }
-  }, [map, dispatch]);
-
-  useEffect(() => {
-    if (map && desiredMapPosition) {
-      map.setView(desiredMapPosition.center, desiredMapPosition.zoom);
-      dispatch(setDesiredMapPosition(null));
-    }
-  }, [map, desiredMapPosition, dispatch]);
-
-  const filtersObjectWithoutDefaults = useFiltersObjectWithoutDefaults();
-  const qs = useMemo(
-    () =>
-      stringifyQueryString({
-        ...filtersObjectWithoutDefaults,
-        bbox: debouncedBbox,
-        query,
-        project_id: projectID,
-        layers_ids: visibleLayersIds,
-      }),
-    [filtersObjectWithoutDefaults, debouncedBbox, query, projectID, visibleLayersIds],
+    },
+    [dispatch],
+  );
+  const handleViewStateChange = useCallback(
+    ({ viewState, target: map }) => {
+      dispatch(
+        setCurrentMapPosition({
+          bbox: mapBoundsToBboxString(map.getBounds()),
+          zoom: viewState.zoom,
+          center: [viewState.latitude, viewState.longitude],
+        }),
+      );
+    },
+    [dispatch],
   );
 
-  const { data: mapFeatures, isLoading } = useQuery([`/search/map_features?${qs}`]);
-
-  useEffect(() => {
-    if (map) {
-      map.on('moveend', handleMapUpdate);
-      handleMapUpdate();
-      return () => map.off('moveend', handleMapUpdate);
-    }
-    return () => {
-      /* noop */
-    };
-  }, [map, handleMapUpdate]);
+  const [popupState, setPopupState] = useState<PopupProps | null>(null);
 
   return (
     <div className="w-full h-full relative">
-      {isLoading && <Loader />}
-      <div className="w-full h-full">
-        <MapContainer
-          className="w-full h-full rounded-t-lg"
-          zoomControl={false}
-          whenCreated={setMap}
-          fullscreenControl
-          {...mapOptions}
+      <div className="w-full h-full rounded-t relative">
+        <MapGL
+          initialViewState={mapOptions}
+          ref={mapRef}
+          onMove={debounce(handleViewStateChange, 300)}
+          onLoad={handleMapLoad}
+          mapStyle="mapbox://styles/mapbox/streets-v12"
+          mapboxAccessToken={MAPBOX_ACCESS_TOKEN}
         >
-          <TileLayer {...tileLayerProps} />
-          <MapFeatures data={mapFeatures} />
-        </MapContainer>
+          {popupState && <Popup {...popupState} />}
+          <MapFeatures setPopupState={setPopupState} />
+        </MapGL>
       </div>
     </div>
   );
