@@ -10,6 +10,10 @@ const availableLayers = [
     id: 'roadAccidents',
     name: 'Wypadki drogowe',
   },
+  {
+    id: 'publicTransportStops',
+    name: 'Przystanki komunikacji miejskiej',
+  },
 ];
 
 const LayerSelector = () => {

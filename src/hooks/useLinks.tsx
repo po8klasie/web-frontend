@@ -27,7 +27,7 @@ const useLinks = () => {
   const helpers = useMemo(
     () =>
       ({
-        getSchoolPath: (rspo: string) => `/${prefixedLinks.SCHOOL}/${rspo}`,
+        getSchoolPath: (rspo: string) => `${prefixedLinks.SCHOOL}/${rspo}`,
       } as const),
     [prefixedLinks.SCHOOL],
   );

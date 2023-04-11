@@ -35,17 +35,18 @@ const ForeignLanguages: FC<ForeignLanguagesProps> = ({ foreignLanguages }) => {
 
 const ExtendedSubjects = ({ classes, selectedExtendedSubjects }) => {
   const extendedSubjectsList = useMemo(() => {
-    if (!classes) return null;
+    if (!classes) return [];
     const joinedSubjects = stringifyExtendedSubjects(
       classes.map((schoolClass) => schoolClass.extended_subjects),
     );
     return uniq(joinedSubjects);
   }, [classes]);
-  const selectedSubjectsList = useMemo(() => stringifyExtendedSubjects(selectedExtendedSubjects), [
-    selectedExtendedSubjects,
-  ]);
+  const selectedSubjectsList = useMemo(
+    () => (selectedExtendedSubjects ? stringifyExtendedSubjects(selectedExtendedSubjects) : []),
+    [selectedExtendedSubjects],
+  );
 
-  if (!extendedSubjectsList) return <span className="block">Brak danych</span>;
+  if (extendedSubjectsList.length === 0) return <span className="block">Brak danych</span>;
 
   return (
     <div className="flex">

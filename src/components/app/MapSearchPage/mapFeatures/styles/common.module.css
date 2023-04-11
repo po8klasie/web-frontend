@@ -1,0 +1,14 @@
+.popup {
+
+}
+
+.popup :global .leaflet-popup-content-wrapper {
+    @apply shadow-xl rounded;
+}
+
+.popup :global .leaflet-popup-content a {
+    @apply text-gray-600 hover:underline;
+}
+
+.popup :global .leaflet-popup-tip-container {
+}

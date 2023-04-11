@@ -188,7 +188,7 @@ const ExtendedSubjectsFilter: FC<FilterProps<string>> = ({ value, setValue }) =>
   useEffect(() => {
     if (internalValue.length === 0) setValue('');
     else setValue(JSON.stringify(internalValue));
-  }, [internalValue, setValue]);
+  }, [internalValue]);
 
   const handleCreateClassProfile = (extendedSubjects: ExtendedSubjects) => {
     const prepForComparison = (arr: string[]) => {

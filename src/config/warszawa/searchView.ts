@@ -38,7 +38,7 @@ const searchViewConfig: SearchViewConfig = {
       options: {},
     },
     {
-      name: 'public_transportation_stop',
+      name: 'public_transport_route_type',
       component: 'publicTransportFilter',
       parser: 'array',
       defaultValue: [],

@@ -6,7 +6,6 @@ import { MdTrain } from '@react-icons/all-files/md/MdTrain';
 import { MdTram } from '@react-icons/all-files/md/MdTram';
 import { MdSubway } from '@react-icons/all-files/md/MdSubway';
 import { toggleElementInArray } from '../../../../utils/misc';
-import ComingSoonWrapper from '../../ComingSoonWrapper';
 
 const stationTypes = [
   {
@@ -43,25 +42,23 @@ const PublicTransportFilter: FC<FilterProps<string[]>> = ({ value, setValue }) =
 
   return (
     <CollapsibleFilterWrapper title="Komunikacja miejska">
-      <ComingSoonWrapper>
-        <span className="mb-1 block">{'<'}500m od szkoły znajduje się:</span>
-        <ul>
-          {stationTypes.map(({ name, id, icon: Icon }) => (
-            <li>
-              <label className="flex items-center">
-                <input
-                  type="checkbox"
-                  onChange={() => handleChange(id)}
-                  checked={value.includes(id)}
-                  className="bg-primary focus:ring-primary rounded"
-                />
-                <Icon className="mx-1" />
-                <span className="">{name}</span>
-              </label>
-            </li>
-          ))}
-        </ul>
-      </ComingSoonWrapper>
+      <span className="mb-1 block">{'<'}250m od szkoły znajduje się:</span>
+      <ul>
+        {stationTypes.map(({ name, id, icon: Icon }) => (
+          <li>
+            <label className="flex items-center">
+              <input
+                type="checkbox"
+                onChange={() => handleChange(id)}
+                checked={value.includes(id)}
+                className="bg-primary focus:ring-primary rounded"
+              />
+              <Icon className="mx-1" />
+              <span className="">{name}</span>
+            </label>
+          </li>
+        ))}
+      </ul>
     </CollapsibleFilterWrapper>
   );
 };
