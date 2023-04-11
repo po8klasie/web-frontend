@@ -52,8 +52,6 @@ const useURLSerializer = () => {
     return stringifyMapPosition(currentMapPosition.center, currentMapPosition.zoom);
   }, [currentMapPosition]);
 
-  console.log({ serializedMapPosition });
-
   return {
     serializedAPIQueryString,
     serializedClientQueryString,

@@ -1,6 +1,12 @@
 import { parse } from 'query-string';
 import { FilterDefinition } from '../config/types';
 import { availableRspoInstitutionTypeIds } from '../components/app/MapSearchPage/filters/InstitutionTypeFilter';
+import * as yup from 'yup';
+import { availableExtendedSubjects } from './apiDataMapping';
+
+const extendedSubjectsSchema = yup
+  .array()
+  .of(yup.array().of(yup.string().oneOf(availableExtendedSubjects)));
 
 const parsers = {
   booleanOrNull: (value: unknown) => {
@@ -34,6 +40,10 @@ const parsers = {
       if (!availableInstitutionTypesSet.has(x as string)) throw new Error("Can't transform");
     });
     return valueArr;
+  },
+  extendedSubjects: (value: unknown) => {
+    extendedSubjectsSchema.validateSync(JSON.parse(value as string));
+    return value;
   },
 } as const;
 

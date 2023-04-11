@@ -34,6 +34,9 @@ export const mapSearchPageDataSlice = createSlice({
   name: 'mapSearchData',
   initialState,
   reducers: {
+    setQueryInitial: (state, action) => {
+      state.query = action.payload;
+    },
     setQuery: (state, action) => {
       state.filters = { ...state.defaultFiltersValues };
       state.query = action.payload;
@@ -69,6 +72,7 @@ export const mapSearchPageDataSlice = createSlice({
 
 // Action creators are generated for each case reducer function
 export const {
+  setQueryInitial,
   setQuery,
   setFilterValue,
   setDesiredMapPosition,

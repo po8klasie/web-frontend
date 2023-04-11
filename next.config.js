@@ -29,6 +29,7 @@ const customNextConfig = {
   images: {
     disableStaticImages: true,
   },
+  transpilePackages: ['react-tag-input'],
   webpack(config) {
     config.module.rules.push({
       test: /\.svg$/i,

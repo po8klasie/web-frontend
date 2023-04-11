@@ -6,7 +6,7 @@ import {
   setDefaultFiltersValues,
   setFiltersValues,
   setDesiredMapPosition,
-  setQuery,
+  setQueryInitial,
 } from '../../../../store/slices/mapSearchPageDataSlice';
 import {
   parseFiltersFromUrl,
@@ -39,7 +39,7 @@ const useURLParser = () => {
         ...parseFiltersFromUrl(router.asPath, filters),
       }),
     );
-    dispatch(setQuery(parseQueryFromURL(router.asPath)));
+    dispatch(setQueryInitial(parseQueryFromURL(router.asPath)));
     dispatch(setDesiredMapPosition(parseMapPositionFromURL(router.asPath)));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);

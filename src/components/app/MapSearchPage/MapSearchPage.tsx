@@ -12,7 +12,6 @@ import { FiX } from '@react-icons/all-files/fi/FiX';
 const updateURL = (serializedClientQueryString: string, serializedMapPosition: string) => {
   const qs = serializedClientQueryString ? `?${serializedClientQueryString}` : '';
   const hash = serializedMapPosition ? `#${serializedMapPosition}` : '';
-  if (!qs && !hash) return;
 
   window.history.replaceState(null, '', [window.location.pathname, qs, hash].join(''));
 };

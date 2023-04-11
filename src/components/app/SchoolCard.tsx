@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, useMemo } from 'react';
 import Link from 'next/link';
 import styles from './styles/SchoolCard.module.css';
 import { ISchoolSearchData } from '../../types';
@@ -9,6 +9,14 @@ import {
 import LoadingPlaceholder from './LoadingPlaceholder';
 import useLinks from '../../hooks/useLinks';
 import SchoolCardActionButtons from './SchoolCardActionButtons';
+import { uniq } from 'lodash';
+
+const stringifyExtendedSubjects = (subjectsList: string[][]) =>
+  subjectsList.map((subjects) => {
+    const clone = [...subjects];
+    clone.sort();
+    return clone.join('-');
+  });
 
 interface ForeignLanguagesProps {
   foreignLanguages: string[] | null;
@@ -25,14 +33,47 @@ const ForeignLanguages: FC<ForeignLanguagesProps> = ({ foreignLanguages }) => {
   );
 };
 
+const ExtendedSubjects = ({ classes, selectedExtendedSubjects }) => {
+  const extendedSubjectsList = useMemo(() => {
+    if (!classes) return null;
+    const joinedSubjects = stringifyExtendedSubjects(
+      classes.map((schoolClass) => schoolClass.extended_subjects),
+    );
+    return uniq(joinedSubjects);
+  }, [classes]);
+  const selectedSubjectsList = useMemo(() => stringifyExtendedSubjects(selectedExtendedSubjects), [
+    selectedExtendedSubjects,
+  ]);
+
+  if (!extendedSubjectsList) return <span className="block">Brak danych</span>;
+
+  return (
+    <div className="flex">
+      <ul className={styles.schoolClassesList}>
+        {extendedSubjectsList.map((extendedSubjects) => (
+          <li
+            className={
+              selectedSubjectsList.includes(extendedSubjects) ? 'bg-primaryBg rounded' : ''
+            }
+            key={extendedSubjects}
+          >
+            {extendedSubjects}
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+};
+
 export interface SchoolCardProps {
   school: ISchoolSearchData;
   highlighted?: boolean;
   isFavorite?: boolean;
   onFavoriteClick?: () => void;
+  selectedExtendedSubjects: string[][];
 }
 
-const SchoolCard: FC<SchoolCardProps> = ({ school, highlighted }) => {
+const SchoolCard: FC<SchoolCardProps> = ({ school, highlighted, selectedExtendedSubjects }) => {
   const { getSchoolPath } = useLinks();
   return (
     <div
@@ -65,21 +106,10 @@ const SchoolCard: FC<SchoolCardProps> = ({ school, highlighted }) => {
         </div>
         <div className="mt-2">
           <span className="whitespace-nowrap mr-4">Profile klas 2022/2023:</span>
-          <div className="flex">
-            {school.classes ? (
-              <ul className={styles.schoolClassesList}>
-                {[
-                  ...new Set(
-                    school.classes.map((schoolClass) => schoolClass.extended_subjects.join('-')),
-                  ),
-                ].map((schoolClass) => (
-                  <li key={schoolClass}>{schoolClass}</li>
-                ))}
-              </ul>
-            ) : (
-              <span>brak danych</span>
-            )}
-          </div>
+          <ExtendedSubjects
+            classes={school.classes}
+            selectedExtendedSubjects={selectedExtendedSubjects}
+          />
         </div>
       </div>
       <div className="mr-4 my-4">

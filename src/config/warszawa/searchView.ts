@@ -24,6 +24,13 @@ const searchViewConfig: SearchViewConfig = {
       options: {},
     },
     {
+      name: 'extended_subjects',
+      component: 'extendedSubjectsFilter',
+      parser: 'extendedSubjects',
+      defaultValue: '',
+      options: {},
+    },
+    {
       name: 'languages',
       component: 'languagesFilter',
       parser: 'array',

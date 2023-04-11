@@ -11,6 +11,7 @@ const filterComponents: Record<string, ComponentType<any>> = {
   languagesFilter: dynamic(() => import('./LanguagesFilter')),
   recruitmentPointsFilter: dynamic(() => import('./RecruitmentPointsFilter')),
   publicTransportFilter: dynamic(() => import('./PublicTransportFilter')),
+  extendedSubjectsFilter: dynamic(() => import('./ExtendedSubjectsFilter')),
 };
 
 const getFilterComponent = (componentId: keyof typeof filterComponents) => {

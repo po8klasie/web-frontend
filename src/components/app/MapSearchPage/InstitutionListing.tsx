@@ -1,9 +1,10 @@
 import SelectedSchoolCard from './SelectedSchoolCard';
 import SchoolCard, { SchoolCardPlaceholder } from '../SchoolCard';
 import { useQuery } from '@tanstack/react-query';
-import { FC } from 'react';
+import { FC, useMemo } from 'react';
 import { nanoid } from 'nanoid';
 import useFavoriteInstitutions from '../../../hooks/useFavoriteInstitutions';
+import { useAppSelector } from '../../../store/hooks';
 
 interface InstitutionListingProps {
   serializedAPIQueryString: string;
@@ -15,6 +16,16 @@ const InstitutionListing: FC<InstitutionListingProps> = ({ serializedAPIQueryStr
   });
   const parsedData = data && data.length ? data : [];
   const { isInstitutionFavorite, toggleIsInstitutionFavorite } = useFavoriteInstitutions();
+  const selectedExtendedSubjectsJSON = useAppSelector(
+    (state) => state.mapSearchPageData.filters.extended_subjects,
+  );
+  const selectedExtendedSubjects = useMemo(() => {
+    try {
+      return JSON.parse(selectedExtendedSubjectsJSON);
+    } catch {
+      return [];
+    }
+  }, [selectedExtendedSubjectsJSON]);
 
   return (
     <div>
@@ -25,6 +36,7 @@ const InstitutionListing: FC<InstitutionListingProps> = ({ serializedAPIQueryStr
             school={school}
             onFavoriteClick={() => toggleIsInstitutionFavorite(school.rspo)}
             isFavorite={isInstitutionFavorite(school.rspo)}
+            selectedExtendedSubjects={selectedExtendedSubjects}
           />
         </div>
       ))}

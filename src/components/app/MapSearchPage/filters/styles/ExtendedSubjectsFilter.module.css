@@ -1,0 +1,7 @@
+.suggestions {
+    @apply border-t;
+}
+
+.suggestions mark {
+    @apply bg-primaryBg rounded;
+}
