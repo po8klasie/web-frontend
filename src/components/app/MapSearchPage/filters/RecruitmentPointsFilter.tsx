@@ -4,7 +4,6 @@ import CollapsibleFilterWrapper from './CollapsibleFilterWrapper';
 import { AiOutlineWarning } from '@react-icons/all-files/ai/AiOutlineWarning';
 import { getTrackBackground, Range } from 'react-range';
 import { IRenderThumbParams, IRenderTrackParams } from 'react-range/lib/types';
-import ComingSoonWrapper from '../../ComingSoonWrapper';
 
 const RecruitmentPointsAlert = () => (
   <span
@@ -65,33 +64,23 @@ const RecruitmentPointsFilter: FC<FilterProps<[number, number]>> = ({ value, set
 
   return (
     <CollapsibleFilterWrapper title="Najniższy próg punktowy">
-      <ComingSoonWrapper>
-        <RecruitmentPointsAlert />
-        <div className="mt-2 flex items-center">
-          <input
-            className={inputClassName}
-            onChange={createInputChangeHandler(0)}
-            value={range[0]}
-          />
-          <div className="px-2 w-full">
-            <Range
-              step={1}
-              min={MIN}
-              max={MAX}
-              values={range}
-              onChange={setRange}
-              onFinalChange={handleFinalChange}
-              renderTrack={createTrackRenderer(range)}
-              renderThumb={renderThumb}
-            />
-          </div>
-          <input
-            className={inputClassName}
-            onChange={createInputChangeHandler(1)}
-            value={range[1]}
+      <RecruitmentPointsAlert />
+      <div className="mt-2 flex items-center">
+        <input className={inputClassName} onChange={createInputChangeHandler(0)} value={range[0]} />
+        <div className="px-2 w-full">
+          <Range
+            step={1}
+            min={MIN}
+            max={MAX}
+            values={range}
+            onChange={setRange}
+            onFinalChange={handleFinalChange}
+            renderTrack={createTrackRenderer(range)}
+            renderThumb={renderThumb}
           />
         </div>
-      </ComingSoonWrapper>
+        <input className={inputClassName} onChange={createInputChangeHandler(1)} value={range[1]} />
+      </div>
     </CollapsibleFilterWrapper>
   );
 };
