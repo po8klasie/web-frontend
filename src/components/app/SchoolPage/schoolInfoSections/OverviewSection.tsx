@@ -4,6 +4,7 @@ import { MdHome } from '@react-icons/all-files/md/MdHome';
 import { MdLink } from '@react-icons/all-files/md/MdLink';
 import { MdEmail } from '@react-icons/all-files/md/MdEmail';
 import { IconType } from 'react-icons';
+import ReactMarkdown from 'react-markdown';
 import { LatLngTuple } from 'leaflet';
 import SchoolInfoSection from './SchoolInfoSection';
 import { SectionComponentProps } from './types';
@@ -25,6 +26,17 @@ const ItemWithIcon: FC<ItemWithIconProps> = ({ children, icon: Icon }) => (
     <span className="ml-3">{children}</span>
   </span>
 );
+
+const SchoolDescription = ({ description }) => {
+  return (
+    <div className="border-t border-light py-2 px-5">
+      <h4 className="text-dark text-base font-semibold">O szkole</h4>
+      <div className="my-2 mx-auto prose max-w-none">
+        <ReactMarkdown>{description}</ReactMarkdown>
+      </div>
+    </div>
+  );
+};
 
 const OverviewSection: FC<SectionComponentProps> = ({ school }) => {
   const position: LatLngTuple = parseCoords(school);
@@ -63,12 +75,7 @@ const OverviewSection: FC<SectionComponentProps> = ({ school }) => {
           </div>
         </div>
       </div>
-      {school.description && (
-        <div className="border-t border-light py-2 px-5">
-          <h4 className="text-dark text-base font-semibold">O szkole</h4>
-          <p className="text-gray my-2">{school.description}</p>
-        </div>
-      )}
+      {school.description && <SchoolDescription description={school.description} />}
     </SchoolInfoSection>
   );
 };
