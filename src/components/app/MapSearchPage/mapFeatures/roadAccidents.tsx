@@ -32,12 +32,13 @@ const useRoadAccidentsFeaturesLayer = (
       height: 30,
       anchorY: 30,
     }),
-    onClick: (info) =>
+    onClick: (info) => {
       setPopupState({
         children: createPopupContent(info.object),
-        latitude: info.object.geometry.cooridinates[0],
-        longitude: info.object.geometry.cooridinates[1],
-      }),
+        latitude: info.coordinate[1],
+        longitude: info.coordinate[0],
+      });
+    },
     sizeScale: 1,
     iconSizeMinPixels: 20,
     iconAlphaCutoff: 0.1,

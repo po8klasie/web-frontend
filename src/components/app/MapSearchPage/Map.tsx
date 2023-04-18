@@ -1,8 +1,5 @@
 import React, { FC, useCallback, useRef, useState } from 'react';
 import { LngLatBounds, Map as MapGL, MapRef, Popup, PopupProps } from 'react-map-gl';
-import 'mapbox-gl/dist/mapbox-gl.css';
-
-import 'leaflet/dist/leaflet.css';
 import { useProjectConfig } from '../../../config/projectConfigContext';
 import { SearchViewConfig } from '../../../config/types';
 import MapFeatures from './MapFeatures';
@@ -10,6 +7,8 @@ import { setCurrentMapPosition } from '../../../store/slices/mapSearchPageDataSl
 import { useAppDispatch } from '../../../store/hooks';
 import { publicRuntimeConfig } from '../../../runtimeConfig';
 import { debounce } from 'lodash';
+import 'mapbox-gl/dist/mapbox-gl.css';
+import styles from './styles/Map.module.css';
 
 const { MAPBOX_ACCESS_TOKEN } = publicRuntimeConfig;
 
@@ -61,8 +60,10 @@ const Map: FC = () => {
           mapStyle="mapbox://styles/mapbox/streets-v12"
           mapboxAccessToken={MAPBOX_ACCESS_TOKEN}
         >
-          {popupState && <Popup {...popupState} />}
           <MapFeatures setPopupState={setPopupState} />
+          {popupState && (
+            <Popup className={styles.popup} {...popupState} onClose={() => setPopupState(null)} />
+          )}
         </MapGL>
       </div>
     </div>

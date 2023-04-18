@@ -33,7 +33,7 @@ interface PublicTransportRouteProps {
 }
 
 const PublicTransportRoute: FC<PublicTransportRouteProps> = ({ route }) => (
-  <div className="relative">
+  <div className={styles.routeWrapper}>
     <span className={styles.routeName}>
       <RouteTypeIcon type={route.type} />
       <span>{route.ref ?? route.name}</span>

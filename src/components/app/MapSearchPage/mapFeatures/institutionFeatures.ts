@@ -22,6 +22,7 @@ const iconConfig: ReturnType<IconLayerProps['getIcon']> = {
 };
 
 const useInstitutionFeaturesLayer = () => {
+  const { searchView: searchViewConfig } = useProjectConfig();
   const { selectedSchoolRspo, setSelectedSchoolRspo } = useSelectedSchool();
   const map = useMap();
   const query = useAppSelector((state) => state.mapSearchPageData.query);
@@ -45,15 +46,24 @@ const useInstitutionFeaturesLayer = () => {
   const onDataLoad = (d) => {
     if (d && map.current) {
       const b = d.bounds;
-      map.current.fitBounds(
-        [
-          [b[0], b[1]],
-          [b[2], b[3]],
-        ],
-        {
-          padding: 80,
-        },
-      );
+
+      if (b) {
+        map.current.fitBounds(
+          [
+            [b[0], b[1]],
+            [b[2], b[3]],
+          ],
+          {
+            padding: 80,
+          },
+        );
+        return;
+      }
+      const mapOptions = searchViewConfig?.mapOptions;
+      map.current.flyTo({
+        center: [mapOptions?.longitude, mapOptions?.latitude],
+        zoom: mapOptions?.zoom,
+      });
     }
   };
 

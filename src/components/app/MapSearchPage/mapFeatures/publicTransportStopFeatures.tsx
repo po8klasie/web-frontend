@@ -65,7 +65,7 @@ const Popup: FC<PopupProps> = ({ stopProperties: { osmid, name }, getSchoolPath 
       <span className="font-bold">{name}</span>
       {status == 'success' && <PopupData data={data} getSchoolPath={getSchoolPath} />}
       {status == 'loading' && <span>Ładowanie...</span>}
-      {status == 'loading' && <span>Wystąpił błąd</span>}
+      {status == 'error' && <span>Wystąpił błąd</span>}
     </div>
   );
 };
@@ -91,8 +91,8 @@ const usePublicTransportStopsFeaturesLayer = (
         children: (
           <Popup stopProperties={info.object.properties} getSchoolPath={links.getSchoolPath} />
         ),
-        latitude: info.object.geometry.cooridinates[0],
-        longitude: info.object.geometry.cooridinates[1],
+        latitude: info.coordinate[1],
+        longitude: info.coordinate[0],
       });
     },
     sizeScale: 1,

@@ -1,6 +1,6 @@
 import { MapboxOverlay, MapboxOverlayProps } from '@deck.gl/mapbox/typed';
 import { PopupProps, useControl } from 'react-map-gl';
-import React, { FC, SetStateAction, useMemo } from 'react';
+import React, { FC, SetStateAction } from 'react';
 import useInstitutionFeaturesLayer from './mapFeatures/institutionFeatures';
 import useRoadAccidentsFeaturesLayer from './mapFeatures/roadAccidents';
 import { useAppSelector } from '../../../store/hooks';

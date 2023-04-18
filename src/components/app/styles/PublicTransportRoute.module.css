@@ -9,6 +9,10 @@
     @apply flex items-center;
 }
 
+.routeWrapper {
+    @apply relative;
+}
+
 .routeWrapper:hover .routeName {
     @apply border-dark border-opacity-20 cursor-pointer;
 }
