@@ -8,8 +8,8 @@ const useComparisonInstitutions = () => {
     (state) => state.comparison.institutionRsposToCompare,
   );
   const dispatch = useAppDispatch();
-  const { projectID } = useProjectConfig();
-  const institutionRsposToComparePerProject = institutionRsposToCompare[projectID as string];
+  const { projectId } = useProjectConfig();
+  const institutionRsposToComparePerProject = institutionRsposToCompare[projectId as string];
 
   return {
     institutionRsposToCompare: institutionRsposToComparePerProject,
@@ -18,7 +18,7 @@ const useComparisonInstitutions = () => {
     toggleIsInstitutionToCompare: (rspo: string) =>
       dispatch(
         setInstitutionRsposToCompare({
-          projectID: projectID as string,
+          projectID: projectId as string,
           rspos: toggleElementInArray(institutionRsposToComparePerProject, rspo),
         }),
       ),

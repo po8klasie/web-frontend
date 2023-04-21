@@ -2,16 +2,16 @@ import { ParsedUrlQuery } from 'querystring';
 import { GetServerSidePropsContext, GetServerSidePropsResult } from 'next';
 import { ProjectConfig } from '../../config/types';
 import { DehydratedState } from '@tanstack/react-query';
-import { getProjectConfigProps } from '../../config/nextHelpers';
 import withProjectConfig from '../../config/withProjectConfig';
 import AppLayout from '../../components/app/AppLayout';
 import FavoritesPage from '../../components/app/FavoritesPage/FavoritesPage';
 import { ProjectSpecificSeo } from '../../Seo';
 import React from 'react';
+import { fetchProjectConfig } from '../../config/fetchProjectConfig';
 
 const ProjectFavoritesPage = ({ PROJECT }) => (
-  <AppLayout projectAppearance={PROJECT.appearance} className="min-h-[100vh]">
-    <ProjectSpecificSeo appearanceConfig={PROJECT.appearance} title="Ulubione szkoły" />
+  <AppLayout projectName={PROJECT.projectName} className="min-h-[100vh]">
+    <ProjectSpecificSeo projectName={PROJECT.projectName} title="Ulubione szkoły" />
     <FavoritesPage />
   </AppLayout>
 );
@@ -37,7 +37,7 @@ export const getServerSideProps = async (
 
   return {
     props: {
-      PROJECT: await getProjectConfigProps(['appearance'], projectID),
+      PROJECT: await fetchProjectConfig(projectID, []),
     },
   };
 };

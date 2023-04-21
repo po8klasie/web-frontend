@@ -11,17 +11,17 @@ const links = {
 } as const;
 
 const useLinks = () => {
-  const { projectID } = useProjectConfig();
+  const { projectId } = useProjectConfig();
   const prefixedLinks = useMemo(
     () =>
       Object.entries(links).reduce(
         (acc, [key, value]) => ({
           ...acc,
-          [key]: `/${projectID}${value}`,
+          [key]: `/${projectId}${value}`,
         }),
         {},
       ) as typeof links,
-    [projectID],
+    [projectId],
   );
 
   const helpers = useMemo(

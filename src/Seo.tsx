@@ -1,6 +1,5 @@
 import { DefaultSeo as DefaultNextSeo, DefaultSeoProps, NextSeo, NextSeoProps } from 'next-seo';
 import { publicRuntimeConfig } from './runtimeConfig';
-import { AppearanceConfig } from './config/types';
 import { FC } from 'react';
 
 const { APP_ENVIRONMENT } = publicRuntimeConfig;
@@ -16,11 +15,11 @@ export const defaultSeoConfig: DefaultSeoProps = {
 };
 
 interface ProjectSpecificSeoProps extends NextSeoProps {
-  appearanceConfig: AppearanceConfig;
+  projectName: string;
 }
 
-export const ProjectSpecificSeo: FC<ProjectSpecificSeoProps> = ({ appearanceConfig, ...props }) => {
-  const titleTemplate = `%s | po8klasie ${appearanceConfig.appName}`;
+export const ProjectSpecificSeo: FC<ProjectSpecificSeoProps> = ({ projectName, ...props }) => {
+  const titleTemplate = `%s | po8klasie ${projectName}`;
   return <NextSeo titleTemplate={titleTemplate} {...props} />;
 };
 

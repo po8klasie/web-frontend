@@ -2,16 +2,16 @@ import { ParsedUrlQuery } from 'querystring';
 import { GetServerSidePropsContext, GetServerSidePropsResult } from 'next';
 import { ProjectConfig } from '../../config/types';
 import { DehydratedState } from '@tanstack/react-query';
-import { getProjectConfigProps } from '../../config/nextHelpers';
 import withProjectConfig from '../../config/withProjectConfig';
 import AppLayout from '../../components/app/AppLayout';
 import ProjectDashboardPage from '../../components/app/ProjectDashboardPage/ProjectDashboardPage';
 import { ProjectSpecificSeo } from '../../Seo';
 import React from 'react';
+import { fetchProjectConfig } from '../../config/fetchProjectConfig';
 
 const ProjectIndexPage = ({ PROJECT }) => (
-  <AppLayout projectAppearance={PROJECT.appearance} className="h-full">
-    <ProjectSpecificSeo appearanceConfig={PROJECT.appearance} title="Dashboard" />
+  <AppLayout projectName={PROJECT.projectName} className="h-full">
+    <ProjectSpecificSeo projectName={PROJECT.projectName} title="Dashboard" />
     <ProjectDashboardPage />
   </AppLayout>
 );
@@ -38,7 +38,7 @@ export const getServerSideProps = async (
   let projectConfigProps;
 
   try {
-    projectConfigProps = await getProjectConfigProps(['appearance'], projectID);
+    projectConfigProps = await fetchProjectConfig(projectID, []);
   } catch {
     return {
       notFound: true,

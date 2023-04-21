@@ -6,14 +6,14 @@ import withProjectConfig from '../../config/withProjectConfig';
 import { GetServerSidePropsContext, GetServerSidePropsResult } from 'next';
 import { ProjectConfig } from '../../config/types';
 import { DehydratedState } from '@tanstack/react-query';
-import { getProjectConfigProps } from '../../config/nextHelpers';
 import { ProjectSpecificSeo } from '../../Seo';
+import { fetchProjectConfig } from '../../config/fetchProjectConfig';
 
 const CalculatorPage: FC = ({ PROJECT }) => {
   return (
-    <AppLayout projectAppearance={PROJECT.appearance}>
+    <AppLayout projectName={PROJECT.projectName}>
       <ProjectSpecificSeo
-        appearanceConfig={PROJECT.appearance}
+        projectName={PROJECT.projectName}
         title="Kalkulator punktów"
         description="Oblicz swoje punkty rekrutacyjne z kalkulatorem punktów wyszukiwarki szkół średnich po8klasie"
       />
@@ -60,7 +60,7 @@ export const getServerSideProps = async (
 
   return {
     props: {
-      PROJECT: await getProjectConfigProps(['appearance'], projectID),
+      PROJECT: await fetchProjectConfig(projectID, []),
     },
   };
 };

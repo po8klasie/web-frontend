@@ -26,7 +26,7 @@ const useInstitutionFeaturesLayer = () => {
   const { selectedSchoolRspo, setSelectedSchoolRspo } = useSelectedSchool();
   const map = useMap();
   const query = useAppSelector((state) => state.mapSearchPageData.query);
-  const { projectID } = useProjectConfig();
+  const { projectId } = useProjectConfig();
 
   const filtersObjectWithoutDefaults = useFiltersObjectWithoutDefaults();
   const qs = useMemo(
@@ -34,9 +34,9 @@ const useInstitutionFeaturesLayer = () => {
       stringifyQueryString({
         ...filtersObjectWithoutDefaults,
         query,
-        project_id: projectID,
+        project_id: projectId,
       }),
-    [filtersObjectWithoutDefaults, query, projectID],
+    [filtersObjectWithoutDefaults, query, projectId],
   );
 
   const isSelectedSchool = useCallback((d) => d.properties.rspo === selectedSchoolRspo, [

@@ -8,8 +8,8 @@ const useFavoriteInstitutions = () => {
     (state) => state.favoriteInstitutions.favoriteInstitutionsRspos,
   );
   const dispatch = useAppDispatch();
-  const { projectID } = useProjectConfig();
-  const favoriteInstitutionsRsposPerProject = favoriteInstitutionsRspos[projectID as string];
+  const { projectId } = useProjectConfig();
+  const favoriteInstitutionsRsposPerProject = favoriteInstitutionsRspos[projectId as string];
 
   return {
     favoriteInstitutionsRspos: favoriteInstitutionsRsposPerProject,
@@ -18,7 +18,7 @@ const useFavoriteInstitutions = () => {
     toggleIsInstitutionFavorite: (rspo: string) =>
       dispatch(
         setFavoriteInstitutionsRspos({
-          projectID: projectID as string,
+          projectID: projectId as string,
           rspos: toggleElementInArray(favoriteInstitutionsRsposPerProject, rspo),
         }),
       ),

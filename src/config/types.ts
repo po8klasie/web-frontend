@@ -15,22 +15,17 @@ export type FilterDefinition = {
 };
 
 export type SearchViewConfig = {
-  mapOptions: Partial<ViewState>;
-  defaultQuery: Record<string, string>;
+  defaultMapView: Partial<ViewState>;
   filters: FilterDefinition[];
 };
 
-export interface AppearanceConfig {
-  appName: string;
-}
-
-export interface SchoolInfoConfig {
+export interface SchoolViewConfig {
   enabledSchoolInfoSectionIds: SchoolInfoSectionId[];
 }
 
 export interface ProjectConfig {
-  projectID: string;
-  searchView: SearchViewConfig;
-  appearance: AppearanceConfig;
-  schoolInfo: SchoolInfoConfig;
+  projectId: string;
+  projectName: string;
+  searchViewConfig: SearchViewConfig;
+  schoolViewConfig: SchoolViewConfig;
 }

@@ -20,7 +20,7 @@ export const useFiltersObjectWithoutDefaults = () => {
 };
 
 const useURLSerializer = () => {
-  const { projectID } = useProjectConfig();
+  const { projectId } = useProjectConfig();
 
   const query = useAppSelector((state) => state.mapSearchPageData.query);
   const currentMapPosition = useAppSelector((state) => state.mapSearchPageData.currentMapPosition);
@@ -41,10 +41,10 @@ const useURLSerializer = () => {
       stringifyQueryString({
         ...filterObjWithoutDefaults,
         query,
-        project_id: projectID,
+        project_id: projectId,
         bbox: debouncedBbox,
       }),
-    [filterObjWithoutDefaults, query, debouncedBbox, projectID],
+    [filterObjWithoutDefaults, query, debouncedBbox, projectId],
   );
 
   const serializedMapPosition = useMemo(() => {

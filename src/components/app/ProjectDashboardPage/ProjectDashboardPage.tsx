@@ -30,7 +30,7 @@ const Tile: FC<TileProps> = ({ path, icon: Icon, name }) => (
 
 const ProjectDashboardPage = () => {
   const router = useRouter();
-  const { appearance } = useProjectConfig();
+  const { projectName } = useProjectConfig();
   const links = useLinks();
 
   const tiles: TileProps[] = [
@@ -66,7 +66,7 @@ const ProjectDashboardPage = () => {
     <div className="w-11/12 sm:w-4/5 mx-auto mt-20 h-full">
       <h1 className="text-center ">
         <Brand
-          projectName={appearance.appName}
+          projectName={projectName}
           projectNameClassName="text-2xl"
           className="font-bold text-4xl"
         />

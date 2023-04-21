@@ -26,7 +26,7 @@ const getFiltersDefaultValues = (filters) =>
 const useURLParser = () => {
   const router = useRouter();
   const {
-    searchView: { filters },
+    searchViewConfig: { filters },
   } = useProjectConfig();
   const dispatch = useAppDispatch();
 

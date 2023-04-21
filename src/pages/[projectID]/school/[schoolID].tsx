@@ -2,7 +2,6 @@ import React, { FC } from 'react';
 import { GetServerSidePropsContext, GetServerSidePropsResult } from 'next';
 import { ParsedUrlQuery } from 'querystring';
 import { withProjectConfig, ProjectConfigConsumerProps } from '../../../config/withProjectConfig';
-import { getProjectConfigProps } from '../../../config/nextHelpers';
 import AppLayout from '../../../components/app/AppLayout';
 import SchoolHero from '../../../components/app/SchoolPage/SchoolHero';
 import SchoolPageContent from '../../../components/app/SchoolPage/SchoolPageContent';
@@ -13,6 +12,7 @@ import { useRouter } from 'next/router';
 import { dehydrate, DehydratedState, QueryClient } from '@tanstack/react-query';
 import { queryClientOptions } from '../../../api/queryClient';
 import { ProjectSpecificSeo } from '../../../Seo';
+import { fetchProjectConfig } from '../../../config/fetchProjectConfig';
 
 interface SchoolPageProps extends ProjectConfigConsumerProps<'appearance' | 'schoolInfo'> {
   school: ISchoolData;
@@ -57,12 +57,12 @@ export const getServerSideProps = async (
   await queryClient.prefetchQuery(queryKey);
 
   const school = queryClient.getQueryData<ISchoolData>(queryKey);
-  console.log(school);
+
   if (!school || !school.rspo) return { notFound: true };
 
   return {
     props: {
-      PROJECT: await getProjectConfigProps(['appearance', 'schoolInfo'], projectID),
+      PROJECT: await fetchProjectConfig(projectID, ['school_view_config']),
       dehydratedState: dehydrate(queryClient),
     },
   };

@@ -17,8 +17,8 @@ const mapBoundsToBboxString = (bounds: LngLatBounds) => bounds.toArray().flat().
 /* Warning! This is client-side only component. It needs to be imported using dynamic() */
 const Map: FC = () => {
   const dispatch = useAppDispatch();
-  const { searchView: searchViewConfig } = useProjectConfig();
-  const { mapOptions } = searchViewConfig as SearchViewConfig;
+  const { searchViewConfig } = useProjectConfig();
+  const { defaultMapView } = searchViewConfig as SearchViewConfig;
   const mapRef = useRef<MapRef>(null);
 
   const handleMapLoad = useCallback(
@@ -53,7 +53,7 @@ const Map: FC = () => {
     <div className="w-full h-full relative">
       <div className="w-full h-full rounded-t relative">
         <MapGL
-          initialViewState={mapOptions}
+          initialViewState={defaultMapView}
           ref={mapRef}
           onMove={debounce(handleViewStateChange, 300)}
           onLoad={handleMapLoad}

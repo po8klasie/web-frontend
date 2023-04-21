@@ -7,8 +7,8 @@ import { SearchViewConfig } from '../../../config/types';
 const Filters = () => {
   const filtersState = useAppSelector((state) => state.mapSearchPageData.filters);
   const dispatch = useAppDispatch();
-  const { searchView } = useProjectConfig();
-  const filters = (searchView as SearchViewConfig).filters;
+  const { searchViewConfig } = useProjectConfig();
+  const filters = (searchViewConfig as SearchViewConfig).filters;
 
   const createValueSetter = (filterName: string) => (value: unknown) =>
     dispatch(
