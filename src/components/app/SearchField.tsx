@@ -3,6 +3,7 @@ import { FC, MouseEventHandler, useEffect, useState } from 'react';
 import useDebouncedValue from '../../hooks/useDebouncedValue';
 import { useQuery } from '@tanstack/react-query';
 import styles from './styles/SearchField.module.css';
+import { useProjectConfig } from "../../config/projectConfigContext";
 export interface SearchFieldInstitutionItem {
   name: string;
   rspo: string;
@@ -20,7 +21,7 @@ const AutocompleteOption: FC<AutocompleteOptionProps> = ({ institution, onClick 
     type="button"
     className={[
       'w-full text-left px-5 py-2 text-lg text-red border-b border-lighten first:border-b-0',
-      'hover:bg-lighten hover:bg-opacity-60',
+      'hover:bg-lighten hover:bg-opacity-60 rounded-xl',
     ].join(' ')}
   >
     {institution.name}
@@ -32,9 +33,17 @@ interface SearchFieldProps {
   onInstitutionSelect: (item: SearchFieldInstitutionItem) => void;
   onSubmit: (query: string) => void;
   className?: string;
+  narrowAutoCompleteWrapper?: boolean
 }
 
-const SearchField: FC<SearchFieldProps> = ({ query, onInstitutionSelect, onSubmit, className }) => {
+const SearchField: FC<SearchFieldProps> = ({
+                                             query,
+                                             onInstitutionSelect,
+                                             onSubmit,
+                                             className,
+  narrowAutoCompleteWrapper
+}) => {
+  const {projectId} = useProjectConfig()
   const [localQuery, setLocalQuery] = useState(query ?? '');
 
   useEffect(() => {
@@ -44,9 +53,8 @@ const SearchField: FC<SearchFieldProps> = ({ query, onInstitutionSelect, onSubmi
   const [debouncedQuery] = useDebouncedValue(localQuery, 300);
   const isAutocompleteEnabled = debouncedQuery.trim().length >= 3;
 
-  // TODO(micorix): Scope to certain project
   const { data } = useQuery<SearchFieldInstitutionItem[]>(
-    [`/search/autocomplete?query=${debouncedQuery}`],
+    [`/search/autocomplete?query=${debouncedQuery}&project_id=${projectId}`],
     {
       enabled: isAutocompleteEnabled,
     },
@@ -86,7 +94,10 @@ const SearchField: FC<SearchFieldProps> = ({ query, onInstitutionSelect, onSubmi
         </div>
       </form>
       <div className={styles.searchFieldAutocompleteDropdown} style={{ zIndex: 9999999 }}>
-        <div className="mx-10 bg-appBg bg-opacity-95 rounded-xl shadow-2xl">
+        <div className={[
+          narrowAutoCompleteWrapper ? 'mx-10' : '',
+          'bg-appBg bg-opacity-95 shadow-2xl rounded-xl'
+        ].join(' ')}>
           {autocompleteItems.map((institution) => (
             <AutocompleteOption
               key={institution.rspo}

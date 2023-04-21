@@ -23,6 +23,7 @@ const QueryField = () => {
       query={queryState}
       onSubmit={handleQueryFormSubmit}
       onInstitutionSelect={handleSelect}
+      narrowAutoCompleteWrapper={true}
     />
   );
 };
