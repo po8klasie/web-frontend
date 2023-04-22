@@ -1,4 +1,6 @@
-#!/usr/bin/ash
+#!/bin/bash
+
+set -euxo pipefail
 
 echo "🚨 Running prettier & eslint"
 
