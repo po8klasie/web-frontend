@@ -1,22 +1,24 @@
 import { FC, useMemo } from 'react';
 import SchoolPageMenu from './SchoolPageMenu';
-import schoolInfoSections from './schoolInfoSections/schoolInfoSections';
+import schoolInfoSectionComponents from './schoolInfoSections/schoolInfoSections';
 import { SchoolViewConfig } from '../../../config/types';
 import { ISchoolData } from '../../../types';
 
 interface SchoolPageContentProps {
-  schoolInfoConfig: SchoolViewConfig;
+  schoolViewConfig: SchoolViewConfig;
   school: ISchoolData;
 }
 
 const SchoolPageContent: FC<SchoolPageContentProps> = ({
-  schoolInfoConfig: { enabledSchoolInfoSectionIds },
+  schoolViewConfig: { schoolInfoSections },
   school,
 }) => {
+
   const sectionConfigs = useMemo(
-    () => enabledSchoolInfoSectionIds.map((sectionId) => schoolInfoSections[sectionId]),
-    [enabledSchoolInfoSectionIds],
+    () => schoolInfoSections.map(({sectionId}) => schoolInfoSectionComponents[sectionId]),
+    [schoolInfoSections],
   );
+
   return (
     <div className="w-container mx-auto grid md:grid-cols-5">
       <div className="">

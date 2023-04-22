@@ -14,19 +14,19 @@ import { queryClientOptions } from '../../../api/queryClient';
 import { ProjectSpecificSeo } from '../../../Seo';
 import { fetchProjectConfig } from '../../../config/fetchProjectConfig';
 
-interface SchoolPageProps extends ProjectConfigConsumerProps<'appearance' | 'schoolInfo'> {
+interface SchoolPageProps extends ProjectConfigConsumerProps<'schoolViewConfig'> {
   school: ISchoolData;
 }
 
-const SchoolPage: FC<SchoolPageProps> = ({ PROJECT: { appearance, schoolInfo } }) => {
+const SchoolPage: FC<SchoolPageProps> = ({ PROJECT: { projectName, schoolViewConfig  } }) => {
   const router = useRouter();
   const { data: school } = useSingleSchoolData(router.query.schoolID as string);
 
   return (
-    <AppLayout projectAppearance={appearance}>
-      <ProjectSpecificSeo appearanceConfig={appearance} title={(school as ISchoolData).name} />
+    <AppLayout projectName={projectName}>
+      <ProjectSpecificSeo projectName={projectName} title={(school as ISchoolData).name} />
       <SchoolHero school={school as ISchoolData} />
-      <SchoolPageContent schoolInfoConfig={schoolInfo} school={school as ISchoolData} />
+      <SchoolPageContent schoolViewConfig={schoolViewConfig} school={school as ISchoolData} />
     </AppLayout>
   );
 };
