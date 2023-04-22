@@ -13,10 +13,10 @@ export const useFiltersObjectWithoutDefaults = () => {
   const defaultFiltersValues = useAppSelector(
     (state) => state.mapSearchPageData.defaultFiltersValues,
   );
-  return useMemo(() => createFiltersObjectWithoutDefaults(filters, defaultFiltersValues), [
-    filters,
-    defaultFiltersValues,
-  ]);
+  return useMemo(
+    () => createFiltersObjectWithoutDefaults(filters, defaultFiltersValues),
+    [filters, defaultFiltersValues],
+  );
 };
 
 const useURLSerializer = () => {

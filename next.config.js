@@ -1,6 +1,5 @@
 /* eslint-disable import/no-extraneous-dependencies */
 const { withSentryConfig } = require('@sentry/nextjs');
-const withOptimizedImages = require('next-optimized-images');
 const { i18n } = require('./next-i18next.config');
 
 const withBundleAnalyzer = require('@next/bundle-analyzer')({
@@ -22,15 +21,6 @@ const customNextConfig = {
     POSTHOG_API_KEY: process.env.POSTHOG_API_KEY,
     SHOW_LINKS_TO_APP: process.env.SHOW_LINKS_TO_APP,
   },
-  experimental: {
-    craCompat: true,
-  },
-  // Remove this to leverage Next.js' static image handling
-  // read more here: https://nextjs.org/docs/api-reference/next/image
-  images: {
-    disableStaticImages: true,
-  },
-  transpilePackages: ['react-tag-input'],
   webpack(config) {
     config.module.rules.push({
       test: /\.svg$/i,
@@ -49,19 +39,6 @@ const customNextConfig = {
     });
     return config;
   },
-  rewrites: () => {
-    if (!process.env.API_URL) return [];
-
-    return [
-      {
-        source: '/api/external/:slug*',
-        destination: `${process.env.API_URL}/:slug*`,
-      },
-    ];
-  },
-
-  outputStandalone: true,
-
   // next-optimized-images options
   responsive: {
     adapter: require('responsive-loader/sharp'),
@@ -84,4 +61,4 @@ const customNextConfig = {
   },
 };
 
-module.exports = withBundleAnalyzer(withSentryConfig(withOptimizedImages(customNextConfig)));
+module.exports = withBundleAnalyzer(withSentryConfig(customNextConfig));

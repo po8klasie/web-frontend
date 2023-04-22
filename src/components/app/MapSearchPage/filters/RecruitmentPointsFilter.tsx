@@ -18,23 +18,26 @@ const RecruitmentPointsAlert = () => (
 const MIN = 0;
 const MAX = 200;
 
-const createTrackRenderer = (values: number[]): FC<IRenderTrackParams> => ({ props, children }) => (
-  <div
-    {...props}
-    className="h-1 w-full rounded"
-    style={{
-      ...props.style,
-      background: getTrackBackground({
-        min: MIN,
-        max: MAX,
-        values,
-        colors: ['rgb(229 231 235)', 'rgb(156 163 175)', 'rgb(229 231 235)'],
-      }),
-    }}
-  >
-    {children}
-  </div>
-);
+const createTrackRenderer =
+  (values: number[]): FC<IRenderTrackParams> =>
+  ({ props, children }) =>
+    (
+      <div
+        {...props}
+        className="h-1 w-full rounded"
+        style={{
+          ...props.style,
+          background: getTrackBackground({
+            min: MIN,
+            max: MAX,
+            values,
+            colors: ['rgb(229 231 235)', 'rgb(156 163 175)', 'rgb(229 231 235)'],
+          }),
+        }}
+      >
+        {children}
+      </div>
+    );
 
 const renderThumb: FC<IRenderThumbParams> = ({ props }) => (
   <div {...props} className="relative border-2 rounded-full w-3 h-3 border-primary bg-white" />
@@ -54,13 +57,15 @@ const RecruitmentPointsFilter: FC<FilterProps<[number, number]>> = ({ value, set
     setValue(range);
   };
 
-  const createInputChangeHandler = (i: 0 | 1): ChangeEventHandler<HTMLInputElement> => (e) => {
-    const updatedVal = parseInt(e.target.value, 10);
-    if (updatedVal > MAX) return;
-    const updatedRange = [...range];
-    updatedRange[i] = Number.isNaN(updatedVal) ? 0 : updatedVal;
-    setRange(updatedRange as [number, number]);
-  };
+  const createInputChangeHandler =
+    (i: 0 | 1): ChangeEventHandler<HTMLInputElement> =>
+    (e) => {
+      const updatedVal = parseInt(e.target.value, 10);
+      if (updatedVal > MAX) return;
+      const updatedRange = [...range];
+      updatedRange[i] = Number.isNaN(updatedVal) ? 0 : updatedVal;
+      setRange(updatedRange as [number, number]);
+    };
 
   return (
     <CollapsibleFilterWrapper title="Najniższy próg punktowy">

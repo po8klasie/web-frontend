@@ -49,13 +49,9 @@ ENV NODE_ENV production
 RUN addgroup -g 1001 -S nodejs
 RUN adduser -S nextjs -u 1001
 
-COPY --from=builder /opt/po8klasie/next.config.js ./
-COPY --from=builder /opt/po8klasie/public ./public
-COPY --from=builder /opt/po8klasie/.next ./.next
+COPY --from=builder --chown=nextjs:nodejs /opt/po8klasie/.next ./.next
 COPY --from=builder /opt/po8klasie/node_modules ./node_modules
 COPY --from=builder /opt/po8klasie/package.json ./package.json
-COPY --from=builder /opt/po8klasie/server.js ./server.js
-COPY --from=builder /opt/po8klasie/next-i18next.config.js ./
 
 USER nextjs
 
@@ -66,4 +62,4 @@ ENV PORT 3000
 # https://nextjs.org/telemetry
 ENV NEXT_TELEMETRY_DISABLED 1
 
-CMD ["yarn", "start-production"]
+CMD ["yarn", "start"]

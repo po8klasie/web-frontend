@@ -39,9 +39,10 @@ const useInstitutionFeaturesLayer = () => {
     [filtersObjectWithoutDefaults, query, projectId],
   );
 
-  const isSelectedSchool = useCallback((d) => d.properties.rspo === selectedSchoolRspo, [
-    selectedSchoolRspo,
-  ]);
+  const isSelectedSchool = useCallback(
+    (d) => d.properties.rspo === selectedSchoolRspo,
+    [selectedSchoolRspo],
+  );
 
   const onDataLoad = (d) => {
     if (d && map.current) {

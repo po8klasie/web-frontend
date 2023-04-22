@@ -84,9 +84,7 @@ const SchoolCard: FC<SchoolCardProps> = ({ school, highlighted, selectedExtended
     >
       <div className="m-4 text-gray w-full">
         <h3 className="font-primary font-semibold text-lg text-dark hover:underline">
-          <Link href={getSchoolPath(school.rspo)}>
-            <a>{school.name}</a>
-          </Link>
+          <Link href={getSchoolPath(school.rspo)}>{school.name}</Link>
         </h3>
         <ul className={styles.schoolPropertiesList}>
           <li>{school.is_public ? 'Szkoła publiczna' : 'Szkoła niepubliczna'}</li>
