@@ -65,7 +65,7 @@
     "dev": "next dev",
     "start": "next start",
     "build": "next build",
-    "test": "next test",
+    "test": "jest test",
     "format:check": "prettier --parser typescript --list-different \"**/*.{js,jsx,ts,tsx}\"",
     "format:write": "prettier --parser typescript --write \"**/*.{js,jsx,ts,tsx}\"",
     "lint:check": "eslint --ext .js,.jsx,.ts,.tsx --max-warnings=0 .",
