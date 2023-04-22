@@ -1,20 +1,15 @@
-# po8klasie
+# po8klasie web frontend
 :poland: Prawdopodobnie najprostsza i najszybsza wyszukiwarka szkół średnich. <br/>
-Wkrótce produkcyjnie dostępna dla wszystkich!
 
 :uk: Probably the simplest and fastest high schools lookup service. <br />
-Soon available in production for everyone!
 
-If you want to contribute to po8klasie, please read our [contribution guide](CONTRIBUTING.md).
-
-  
-## Quick start 
+## Quick start
 
 > *NOTE*: This project relies on [Next.js Framework](https://nextjs.org/).
 
 1. Clone this repo :arrow_down:
 ```shell script  
-git clone https://github.com/po8klasie/po8klasie
+git clone https://github.com/po8klasie/web-frontend
 ```
 
 2. In root directory of the project, create `.env` file with specified environmental variables ([see below](#env-vars)) :page_facing_up:
@@ -26,12 +21,8 @@ yarn
 
 4. Run the project :rocket:
 ```shell script  
-yarn start
+yarn dev
 ```
-
-5. Make some changes and submit pull request :tada: <br />
-
-> *NOTE:* Before submitting a pull request, please read our [contribution guidelines](CONTRIBUTING.md).
 
 <a name="env-vars"></a>
 ### Environmental variables
@@ -60,20 +51,24 @@ yarn format:write
 ### What about the back-end?
 If you want to develop front-end only, you are good to go! Just insert URL of the API server in `.env` file.
 
-Docs on how to develop front-end simultaneously with back-end locally coming soon!
+If you want to develop front-end simultaneously with back-end:
+* check out our [po8klasie-fastapi repo](https://github.com/po8klasie/po8klasie-fastapi) for docs on how to spin up backend
+* learn how po8klasie handles data management (see [po8klasie-data-sources repo](https://github.com/po8klasie/po8klasie-data-sources))
+
    
-   
-## Production use
+## Self-hosting
+
+We publish versioned `ghcr.io/po8klasie/web-frontend` docker image. Remember to set up env vars according to "Environmental variables" section.
+
 You can find detailed guide of how to set up po8klasie for production use in our [infra repo](https://github.com/po8klasie/infra).
     
-    
-## More resources  
+## More resources
 * To learn more about Next.js Framework, go to [Next.js website](https://nextjs.org/).    
-* To learn React, check out the [React documentation](https://reactjs.org/).  
+* To learn React, check out the [React documentation](https://react.dev/).  
   
   
 ## Team & our partners
-This is a civic tech and open-source project crafted by volunteers. 
+This is a civic tech and open-source project crafted by volunteers.
 Core team members are listed on [po8klasie.pl website](https://po8klasie.pl).
 
 Our partners:
