@@ -19,11 +19,8 @@ const updateURL = (serializedClientQueryString: string, serializedMapPosition: s
 const MapSearchPage = () => {
   const formMethods = useForm();
   useURLParser();
-  const {
-    serializedAPIQueryString,
-    serializedClientQueryString,
-    serializedMapPosition,
-  } = useURLSerializer();
+  const { serializedAPIQueryString, serializedClientQueryString, serializedMapPosition } =
+    useURLSerializer();
   const [isFiltersPaneOpened, setIsFiltersPaneOpened] = useState(false);
 
   useEffect(() => {

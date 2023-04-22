@@ -7,15 +7,13 @@ import { stringify } from 'query-string';
 import { FiStar } from '@react-icons/all-files/fi/FiStar';
 
 const FavoritesPage = () => {
-  const {
-    favoriteInstitutionsRspos,
-    toggleIsInstitutionFavorite,
-    isInstitutionFavorite,
-  } = useFavoriteInstitutions();
+  const { favoriteInstitutionsRspos, toggleIsInstitutionFavorite, isInstitutionFavorite } =
+    useFavoriteInstitutions();
 
-  const queryString = useMemo(() => stringify({ rspo: favoriteInstitutionsRspos }), [
-    favoriteInstitutionsRspos,
-  ]);
+  const queryString = useMemo(
+    () => stringify({ rspo: favoriteInstitutionsRspos }),
+    [favoriteInstitutionsRspos],
+  );
 
   const { data, isFetching } = useQuery([`/school/multiple?${queryString}`], {
     enabled: favoriteInstitutionsRspos.length > 0,

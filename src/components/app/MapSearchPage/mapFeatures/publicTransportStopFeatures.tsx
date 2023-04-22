@@ -39,10 +39,8 @@ const PopupData = ({ data: { routes, institutions }, getSchoolPath }) => (
         institutions.map((institution) => (
           <li className="my-0.5">
             <Link href={getSchoolPath(institution.rspo)}>
-
               {institution.name}
               <span className="ml-1 text-xs">({institution.distance.toFixed(2)}m)</span>
-
             </Link>
           </li>
         ))}

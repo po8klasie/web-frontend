@@ -61,12 +61,10 @@ const AppNavbar: FC<AppNavbarProps> = ({ projectName, wide }) => {
       >
         <div className="relative flex items-center justify-between">
           <Link href={links.DASHBOARD} className="flex items-center">
-
             <Brand projectName={projectName} className="font-bold text-xl" />
             <span className="ml-2 rounded-full bg-primaryBg text-primary uppercase px-2 py-1 text-xs font-bold">
               Beta
             </span>
-
           </Link>
           <button className="text-xl lg:hidden" onClick={toggleMenu} type="button">
             {isMenuCollapsed ? <AiOutlineClose /> : <AiOutlineMenu />}
@@ -82,14 +80,12 @@ const AppNavbar: FC<AppNavbarProps> = ({ projectName, wide }) => {
               {navLinks.map(({ label, href, badge }) => (
                 <li key={href} className="lg:mx-4 my-4 lg:my-0">
                   <Link href={href} className={getLinkClassName(href)}>
-
                     {label}
                     {badge && (
                       <span className="ml-1 rounded-full px-1 text-sm bg-primaryBg text-primary font-bold">
                         {badge}
                       </span>
                     )}
-
                   </Link>
                 </li>
               ))}
@@ -100,10 +96,9 @@ const AppNavbar: FC<AppNavbarProps> = ({ projectName, wide }) => {
                 'font-bold cursor-pointer inline-block w-full sm:w-auto text-center',
                 roundedSmallLinkClassName,
                 '',
-              ].join(' ')}>
-              
-                Wesprzyj projekt
-              
+              ].join(' ')}
+            >
+              Wesprzyj projekt
             </Link>
           </div>
         </div>

@@ -20,10 +20,8 @@ interface TileProps {
 const Tile: FC<TileProps> = ({ path, icon: Icon, name }) => (
   <div className={styles.tile}>
     <Link href={path}>
-
       <Icon />
       <span>{name}</span>
-
     </Link>
   </div>
 );

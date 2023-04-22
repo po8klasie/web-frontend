@@ -6,9 +6,10 @@ import { ComparisonInstitutionI } from '../types';
 
 const useComparisonInstitutionsQuery = () => {
   const { institutionRsposToCompare } = useComparisonInstitutions();
-  const queryString = useMemo(() => stringify({ rspo: institutionRsposToCompare }), [
-    institutionRsposToCompare,
-  ]);
+  const queryString = useMemo(
+    () => stringify({ rspo: institutionRsposToCompare }),
+    [institutionRsposToCompare],
+  );
 
   const path = `/comparison?${queryString}`;
 

@@ -27,8 +27,8 @@ const SchoolHero: FC<SchoolHeroProps> = ({ school }) => {
       <div className="w-container mx-auto flex justify-between flex-col-reverse md:flex-row">
         <div className="py-6">
           <Link href={`/${projectID}/map`} className="flex items-center">
-
-            <BsArrowLeftShort className="mr-1 text-3xl" />Powrót do mapy
+            <BsArrowLeftShort className="mr-1 text-3xl" />
+            Powrót do mapy
           </Link>
           <div className="mt-2">
             <button
