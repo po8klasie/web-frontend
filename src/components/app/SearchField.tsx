@@ -3,7 +3,7 @@ import { FC, MouseEventHandler, useEffect, useState } from 'react';
 import useDebouncedValue from '../../hooks/useDebouncedValue';
 import { useQuery } from '@tanstack/react-query';
 import styles from './styles/SearchField.module.css';
-import { useProjectConfig } from "../../config/projectConfigContext";
+import { useProjectConfig } from '../../config/projectConfigContext';
 export interface SearchFieldInstitutionItem {
   name: string;
   rspo: string;
@@ -33,17 +33,17 @@ interface SearchFieldProps {
   onInstitutionSelect: (item: SearchFieldInstitutionItem) => void;
   onSubmit: (query: string) => void;
   className?: string;
-  narrowAutoCompleteWrapper?: boolean
+  narrowAutoCompleteWrapper?: boolean;
 }
 
 const SearchField: FC<SearchFieldProps> = ({
-                                             query,
-                                             onInstitutionSelect,
-                                             onSubmit,
-                                             className,
-  narrowAutoCompleteWrapper
+  query,
+  onInstitutionSelect,
+  onSubmit,
+  className,
+  narrowAutoCompleteWrapper,
 }) => {
-  const {projectId} = useProjectConfig()
+  const { projectId } = useProjectConfig();
   const [localQuery, setLocalQuery] = useState(query ?? '');
 
   useEffect(() => {
@@ -94,10 +94,12 @@ const SearchField: FC<SearchFieldProps> = ({
         </div>
       </form>
       <div className={styles.searchFieldAutocompleteDropdown} style={{ zIndex: 9999999 }}>
-        <div className={[
-          narrowAutoCompleteWrapper ? 'mx-10' : '',
-          'bg-appBg bg-opacity-95 shadow-2xl rounded-xl'
-        ].join(' ')}>
+        <div
+          className={[
+            narrowAutoCompleteWrapper ? 'mx-10' : '',
+            'bg-appBg bg-opacity-95 shadow-2xl rounded-xl',
+          ].join(' ')}
+        >
           {autocompleteItems.map((institution) => (
             <AutocompleteOption
               key={institution.rspo}

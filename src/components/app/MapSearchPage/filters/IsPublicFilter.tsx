@@ -4,8 +4,10 @@ import { FilterProps } from './types';
 const baseClassName = 'w-1/2 flex items-center justify-center py-1';
 const activeClassName = 'bg-light';
 
-const IsPublicFilter: FC<FilterProps<string | null>> = ({ value, setValue }) => {
-  const toggle = (val: string) => {
+type StringBool = 'true' | 'false';
+
+const IsPublicFilter: FC<FilterProps<StringBool | null>> = ({ value, setValue }) => {
+  const toggle = (val: StringBool) => {
     if (value === val) setValue(null);
     else setValue(val);
   };

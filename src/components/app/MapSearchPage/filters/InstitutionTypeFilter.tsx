@@ -68,6 +68,7 @@ interface InstitutionTypeCardProps {
 const InstitutionTypeCard: FC<InstitutionTypeCardProps> = ({ name, icon, isActive, onClick }) => (
   <button
     className={['border px-2 py-2 rounded-xl text-center', isActive ? 'bg-gray-100' : ''].join(' ')}
+    aria-checked={isActive}
     onClick={onClick}
   >
     <span className="text-2xl block">{icon}</span>
@@ -86,6 +87,7 @@ const HorizontalInstitutionTypeCard: FC<InstitutionTypeCardProps> = ({
       'flex items-center border px-2 py-1 rounded-xl text-center',
       isActive ? 'bg-gray-100' : '',
     ].join(' ')}
+    aria-checked={isActive}
     onClick={onClick}
   >
     <span className="text-xl block">{icon}</span>
