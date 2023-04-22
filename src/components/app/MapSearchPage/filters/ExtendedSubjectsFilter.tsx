@@ -188,8 +188,6 @@ const ExtendedSubjectsFilter: FC<FilterProps<string>> = ({ value, setValue }) =>
   useEffect(() => {
     if (internalValue.length === 0) setValue('');
     else setValue(JSON.stringify(internalValue));
-    // TODO(micorix): Wrap setValue and it's dependencies with useCallbacks
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [internalValue]);
 
   const handleCreateClassProfile = (extendedSubjects: ExtendedSubjects) => {

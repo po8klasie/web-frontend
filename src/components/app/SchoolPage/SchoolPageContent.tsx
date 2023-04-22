@@ -13,8 +13,9 @@ const SchoolPageContent: FC<SchoolPageContentProps> = ({
   schoolViewConfig: { schoolInfoSections },
   school,
 }) => {
+
   const sectionConfigs = useMemo(
-    () => schoolInfoSections.map(({ sectionId }) => schoolInfoSectionComponents[sectionId]),
+    () => schoolInfoSections.map(({sectionId}) => schoolInfoSectionComponents[sectionId]),
     [schoolInfoSections],
   );
 

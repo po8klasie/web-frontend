@@ -1,32 +1,28 @@
 import { render, screen } from '@testing-library/react';
+import TestFormProvider from '../../tests/TestFormProvider';
 import IsPublicFilter from '../IsPublicFilter';
 
 describe('isPublicFilter', () => {
-  it('markes values as unchecked correctly', async () => {
-    render(<IsPublicFilter name="is_public" value={null} setValue={() => {}} />);
-    expect(screen.getByText('Publiczna').getAttribute('aria-checked')).toEqual('false');
-    expect(screen.getByText('Niepubliczna').getAttribute('aria-checked')).toEqual('false');
-  });
-
   it('markes values as checked correctly', async () => {
-    render(<IsPublicFilter name="is_public" value="true" setValue={() => {}} />);
-    expect(screen.getByText('Publiczna').getAttribute('aria-checked')).toEqual('true');
-    expect(screen.getByText('Niepubliczna').getAttribute('aria-checked')).toEqual('false');
+    render(
+      <TestFormProvider renderField={({ control }) => <IsPublicFilter control={control} />} />,
+    );
     screen.getByText('Publiczna').click();
     expect(screen.getByText('Publiczna').getAttribute('aria-checked')).toEqual('true');
   });
 
-  it('calls setValue with checked value', async () => {
-    const setValue = jest.fn();
-    render(<IsPublicFilter name="is_public" value={null} setValue={setValue} />);
-    screen.getByText('Publiczna').click();
-    expect(setValue).toHaveBeenCalledWith('true');
-  });
+  it('marks values as unchecked correctly', async () => {
+    render(
+      <TestFormProvider
+        defaultValues={{ is_public: false }}
+        renderField={({ control }) => <IsPublicFilter control={control} />}
+      />,
+    );
 
-  it('calls setValue with null', async () => {
-    const setValue = jest.fn();
-    render(<IsPublicFilter name="is_public" value="false" setValue={setValue} />);
+    expect(screen.getByText('Niepubliczna').getAttribute('aria-checked')).toEqual('true');
+
     screen.getByText('Niepubliczna').click();
-    expect(setValue).toHaveBeenCalledWith(null);
+
+    expect(screen.getByText('Niepubliczna').getAttribute('aria-checked')).toEqual('false');
   });
 });

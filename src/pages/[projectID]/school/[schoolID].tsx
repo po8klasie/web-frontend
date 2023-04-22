@@ -18,7 +18,7 @@ interface SchoolPageProps extends ProjectConfigConsumerProps<'schoolViewConfig'>
   school: ISchoolData;
 }
 
-const SchoolPage: FC<SchoolPageProps> = ({ PROJECT: { projectName, schoolViewConfig } }) => {
+const SchoolPage: FC<SchoolPageProps> = ({ PROJECT: { projectName, schoolViewConfig  } }) => {
   const router = useRouter();
   const { data: school } = useSingleSchoolData(router.query.schoolID as string);
 
