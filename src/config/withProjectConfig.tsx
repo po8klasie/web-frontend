@@ -7,14 +7,14 @@ export interface ProjectConfigConsumerProps<T extends keyof ProjectConfig> {
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export const withProjectConfig =
-  <T extends ProjectConfigConsumerProps<any>>(WrappedComponent: FC<T>): FC<T> =>
-  (props) => {
-    return (
-      <ProjectConfigProvider value={props.PROJECT ?? {}}>
-        <WrappedComponent {...props} />
-      </ProjectConfigProvider>
-    );
-  };
+export const withProjectConfig = <T extends ProjectConfigConsumerProps<any>>(
+  WrappedComponent: FC<T>,
+): FC<T> => (props) => {
+  return (
+    <ProjectConfigProvider value={props.PROJECT ?? {}}>
+      <WrappedComponent {...props} />
+    </ProjectConfigProvider>
+  );
+};
 
 export default withProjectConfig;
