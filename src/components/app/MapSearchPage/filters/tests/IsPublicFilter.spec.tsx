@@ -1,28 +1,32 @@
 import { render, screen } from '@testing-library/react';
-import TestFormProvider from '../../tests/TestFormProvider';
 import IsPublicFilter from '../IsPublicFilter';
 
 describe('isPublicFilter', () => {
+  it('markes values as unchecked correctly', async () => {
+    render(<IsPublicFilter name="is_public" value={null} setValue={() => {}} />);
+    expect(screen.getByText('Publiczna').getAttribute('aria-checked')).toEqual('false');
+    expect(screen.getByText('Niepubliczna').getAttribute('aria-checked')).toEqual('false');
+  });
+
   it('markes values as checked correctly', async () => {
-    render(
-      <TestFormProvider renderField={({ control }) => <IsPublicFilter control={control} />} />,
-    );
+    render(<IsPublicFilter name="is_public" value="true" setValue={() => {}} />);
+    expect(screen.getByText('Publiczna').getAttribute('aria-checked')).toEqual('true');
+    expect(screen.getByText('Niepubliczna').getAttribute('aria-checked')).toEqual('false');
     screen.getByText('Publiczna').click();
     expect(screen.getByText('Publiczna').getAttribute('aria-checked')).toEqual('true');
   });
 
-  it('marks values as unchecked correctly', async () => {
-    render(
-      <TestFormProvider
-        defaultValues={{ is_public: false }}
-        renderField={({ control }) => <IsPublicFilter control={control} />}
-      />,
-    );
+  it('calls setValue with checked value', async () => {
+    const setValue = jest.fn();
+    render(<IsPublicFilter name="is_public" value={null} setValue={setValue} />);
+    screen.getByText('Publiczna').click();
+    expect(setValue).toHaveBeenCalledWith('true');
+  });
 
-    expect(screen.getByText('Niepubliczna').getAttribute('aria-checked')).toEqual('true');
-
+  it('calls setValue with null', async () => {
+    const setValue = jest.fn();
+    render(<IsPublicFilter name="is_public" value="false" setValue={setValue} />);
     screen.getByText('Niepubliczna').click();
-
-    expect(screen.getByText('Niepubliczna').getAttribute('aria-checked')).toEqual('false');
+    expect(setValue).toHaveBeenCalledWith(null);
   });
 });

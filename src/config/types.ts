@@ -19,10 +19,9 @@ export type SearchViewConfig = {
   filters: FilterDefinition[];
 };
 
-
 export interface SchoolInfoSection {
-  sectionId: SchoolInfoSectionId
-  options: Record<string, unknown>
+  sectionId: SchoolInfoSectionId;
+  options: Record<string, unknown>;
 }
 
 export interface SchoolViewConfig {
