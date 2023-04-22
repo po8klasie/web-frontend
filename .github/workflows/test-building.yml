@@ -60,13 +60,13 @@ jobs:
 
     # Since secrets are not passed to workflows triggered from forks
     # (we can't push images to registry cache) we use local cache
-#    - name: Mount Docker cache
-#      uses: actions/cache@v2
-#      with:
-#        path: /tmp/.test-building-buildx-cache
-#        key: ${{ runner.os }}-buildx-${{ github.ref }}
-#        restore-keys: |
-#          ${{ runner.os }}-buildx-
+    - name: Mount Docker cache
+      uses: actions/cache@v2
+      with:
+        path: /tmp/.test-building-buildx-cache
+        key: ${{ runner.os }}-buildx-${{ github.ref }}
+        restore-keys: |
+          ${{ runner.os }}-buildx-
 
     - name: Build image for tests
       uses: docker/build-push-action@v2
@@ -76,9 +76,9 @@ jobs:
         push: false
         load: true
         target: builder
-#        cache-from: |
-#          type=registry,ref=ghcr.io/po8klasie/web-frontend:cache-master
-#          type=local,src=/tmp/.test-building-buildx-cache
+        cache-from: |
+          type=registry,ref=ghcr.io/po8klasie/web-frontend:cache-master
+          type=local,src=/tmp/.test-building-buildx-cache
 
     - name: Get SHA tag
       id: get-sha-tag
@@ -103,7 +103,7 @@ jobs:
         tags: ${{ steps.meta.outputs.tags }}
         labels: ${{ steps.meta.outputs.labels }}
         push: false
-#        cache-to: type=local,dest=/tmp/.test-building-buildx-cache-new
+        cache-to: type=local,dest=/tmp/.test-building-buildx-cache-new
 
 
     # This ugly bit is necessary if you don't want your cache to grow forever
@@ -111,7 +111,7 @@ jobs:
     # Temp fix
     # https://github.com/docker/build-push-action/issues/252
     # https://github.com/moby/buildkit/issues/1896
-#    - name: Move cache
-#      run: |
-#        rm -rf /tmp/.test-building-buildx-cache
-#        mv /tmp/.test-building-buildx-cache-new /tmp/.test-building-buildx-cache
+    - name: Move cache
+      run: |
+        rm -rf /tmp/.test-building-buildx-cache
+        mv /tmp/.test-building-buildx-cache-new /tmp/.test-building-buildx-cache
