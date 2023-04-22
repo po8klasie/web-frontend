@@ -60,13 +60,13 @@ const AppNavbar: FC<AppNavbarProps> = ({ projectName, wide }) => {
         } mx-auto lg:flex justify-between items-center py-3`}
       >
         <div className="relative flex items-center justify-between">
-          <Link href={links.DASHBOARD}>
-            <a className="flex items-center">
-              <Brand projectName={projectName} className="font-bold text-xl" />
-              <span className="ml-2 rounded-full bg-primaryBg text-primary uppercase px-2 py-1 text-xs font-bold">
-                Beta
-              </span>
-            </a>
+          <Link href={links.DASHBOARD} className="flex items-center">
+
+            <Brand projectName={projectName} className="font-bold text-xl" />
+            <span className="ml-2 rounded-full bg-primaryBg text-primary uppercase px-2 py-1 text-xs font-bold">
+              Beta
+            </span>
+
           </Link>
           <button className="text-xl lg:hidden" onClick={toggleMenu} type="button">
             {isMenuCollapsed ? <AiOutlineClose /> : <AiOutlineMenu />}
@@ -81,30 +81,29 @@ const AppNavbar: FC<AppNavbarProps> = ({ projectName, wide }) => {
             <ul className="lg:flex lg:mr-8">
               {navLinks.map(({ label, href, badge }) => (
                 <li key={href} className="lg:mx-4 my-4 lg:my-0">
-                  <Link href={href}>
-                    <a className={getLinkClassName(href)}>
-                      {label}
+                  <Link href={href} className={getLinkClassName(href)}>
 
-                      {badge && (
-                        <span className="ml-1 rounded-full px-1 text-sm bg-primaryBg text-primary font-bold">
-                          {badge}
-                        </span>
-                      )}
-                    </a>
+                    {label}
+                    {badge && (
+                      <span className="ml-1 rounded-full px-1 text-sm bg-primaryBg text-primary font-bold">
+                        {badge}
+                      </span>
+                    )}
+
                   </Link>
                 </li>
               ))}
             </ul>
-            <Link href="/#support-us">
-              <a
-                className={[
-                  'font-bold cursor-pointer inline-block w-full sm:w-auto text-center',
-                  roundedSmallLinkClassName,
-                  '',
-                ].join(' ')}
-              >
+            <Link
+              href="/#support-us"
+              className={[
+                'font-bold cursor-pointer inline-block w-full sm:w-auto text-center',
+                roundedSmallLinkClassName,
+                '',
+              ].join(' ')}>
+              
                 Wesprzyj projekt
-              </a>
+              
             </Link>
           </div>
         </div>

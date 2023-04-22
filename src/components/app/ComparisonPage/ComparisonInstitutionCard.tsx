@@ -23,7 +23,7 @@ const ComparisonInstitutionCard: FC<SchoolComparisonCardProps> = ({
         <SchoolCardActionButtons rspo={rspo} className="my-4 flex items-center justify-between" />
         <h3 className="font-primary font-semibold text-lg text-dark hover:underline">
           <Link href={getSchoolPath(rspo)}>
-            <a>{name}</a>
+            {name}
           </Link>
         </h3>
         <ComparablePropertiesRenderer
