@@ -63,7 +63,7 @@ const useInstitutionFeaturesLayer = () => {
       const defaultMapView = searchViewConfig?.defaultMapView;
       map.current.flyTo({
         center: [defaultMapView?.longitude, defaultMapView?.latitude],
-        zoom: defaultMapView?.zoom
+        zoom: defaultMapView?.zoom,
       });
     }
   };
