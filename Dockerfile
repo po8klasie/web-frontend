@@ -49,6 +49,9 @@ ENV NODE_ENV production
 RUN addgroup -g 1001 -S nodejs
 RUN adduser -S nextjs -u 1001
 
+COPY --from=builder /opt/po8klasie/next.config.js ./
+COPY --from=builder /opt/po8klasie/next-i18next.config.js ./
+COPY --from=builder /opt/po8klasie/public ./public
 COPY --from=builder --chown=nextjs:nodejs /opt/po8klasie/.next ./.next
 COPY --from=builder /opt/po8klasie/node_modules ./node_modules
 COPY --from=builder /opt/po8klasie/package.json ./package.json
