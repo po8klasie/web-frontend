@@ -1,6 +1,5 @@
 import { SchoolInfoSectionId } from '../components/app/SchoolPage/schoolInfoSections/schoolInfoSections';
 import { AnyParser } from '../utils/searchParser';
-import { ViewState } from 'react-map-gl';
 
 export type FilterDefinition = {
   name: string;
@@ -15,7 +14,11 @@ export type FilterDefinition = {
 };
 
 export type SearchViewConfig = {
-  defaultMapView: Partial<ViewState>;
+  defaultMapView: {
+    longitude: number;
+    latitude: number;
+    zoom: number;
+  };
   filters: FilterDefinition[];
 };
 

@@ -79,7 +79,7 @@ const usePublicTransportStopsFeaturesLayer = (
     pointType: 'icon',
     pickable: true,
     getIcon: () => ({
-      url: busStopMarker,
+      url: busStopMarker.src,
       width: 15,
       height: 15,
       anchorY: 15,

@@ -14,7 +14,7 @@ const primaryColorRgb = [157, 84, 191];
 const black = [0, 0, 0];
 
 const iconConfig: ReturnType<IconLayerProps['getIcon']> = {
-  url: mapPinImage,
+  url: mapPinImage.src,
   width: 512,
   height: 684,
   anchorY: 684,
@@ -22,7 +22,7 @@ const iconConfig: ReturnType<IconLayerProps['getIcon']> = {
 };
 
 const useInstitutionFeaturesLayer = () => {
-  const { searchView: searchViewConfig } = useProjectConfig();
+  const { searchViewConfig } = useProjectConfig();
   const { selectedSchoolRspo, setSelectedSchoolRspo } = useSelectedSchool();
   const map = useMap();
   const query = useAppSelector((state) => state.mapSearchPageData.query);
@@ -60,10 +60,10 @@ const useInstitutionFeaturesLayer = () => {
         );
         return;
       }
-      const mapOptions = searchViewConfig?.mapOptions;
+      const defaultMapView = searchViewConfig?.defaultMapView;
       map.current.flyTo({
-        center: [mapOptions?.longitude, mapOptions?.latitude],
-        zoom: mapOptions?.zoom,
+        center: [defaultMapView?.longitude, defaultMapView?.latitude],
+        zoom: defaultMapView?.zoom,
       });
     }
   };
