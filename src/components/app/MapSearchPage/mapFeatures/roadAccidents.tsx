@@ -27,7 +27,7 @@ const useRoadAccidentsFeaturesLayer = (
     pointType: 'icon',
     pickable: true,
     getIcon: () => ({
-      url: roadAccidentMarker,
+      url: roadAccidentMarker.src,
       width: 30,
       height: 30,
       anchorY: 30,

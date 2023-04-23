@@ -15,7 +15,11 @@ export type FilterDefinition = {
 };
 
 export type SearchViewConfig = {
-  defaultMapView: Partial<ViewState>;
+  defaultMapView: {
+    longitude: number
+    latitude: number
+    zoom: number
+  };
   filters: FilterDefinition[];
 };
 
