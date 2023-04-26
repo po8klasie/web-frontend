@@ -17,6 +17,4 @@ const createMarker = (iconUrl: string) =>
     ...commonMarkerOptions,
   });
 
-export const markerImage = markerIcon;
-
-export const marker = createMarker(markerImage);
+export const marker = createMarker(markerIcon.src);
