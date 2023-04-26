@@ -12,7 +12,7 @@ interface SchoolHeroProps {
 }
 
 const SchoolHero: FC<SchoolHeroProps> = ({ school }) => {
-  const { projectID } = useProjectConfig();
+  const { projectId } = useProjectConfig();
   const { isInstitutionFavorite, toggleIsInstitutionFavorite } = useFavoriteInstitutions();
   const isFavorite = isInstitutionFavorite(school.rspo);
 
@@ -26,7 +26,7 @@ const SchoolHero: FC<SchoolHeroProps> = ({ school }) => {
     <div className="bg-white border-b border-lighten">
       <div className="w-container mx-auto flex justify-between flex-col-reverse md:flex-row">
         <div className="py-6">
-          <Link href={`/${projectID}/map`} className="flex items-center">
+          <Link href={`/${projectId}/map`} className="flex items-center">
             <BsArrowLeftShort className="mr-1 text-3xl" />
             Powrót do mapy
           </Link>
