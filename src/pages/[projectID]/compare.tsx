@@ -14,7 +14,7 @@ const ProjectComparisonPage = ({ PROJECT }) => (
     <ProjectSpecificSeo
       projectName={PROJECT.projectName}
       title="Porównywarka szkół"
-      description="Porównaj szkoły z porównywarką wyszukiwarki szkół średnich po8klasie"
+      description={`Porównaj szkoły z porównywarką wyszukiwarki szkół średnich po8klasie ${PROJECT.projectName}`}
     />
     <ComparisonPage />
   </AppLayout>

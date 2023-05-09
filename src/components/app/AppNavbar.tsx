@@ -8,6 +8,7 @@ import Brand from '../Brand';
 import useLinks from '../../hooks/useLinks';
 import useFavoriteInstitutions from '../../hooks/useFavoriteInstitutions';
 import useComparisonInstitutions from '../../hooks/useComparisonInstitutions';
+import { AiOutlineComment } from '@react-icons/all-files/ai/AiOutlineComment';
 
 interface AppNavbarProps {
   projectName?: string;
@@ -90,7 +91,7 @@ const AppNavbar: FC<AppNavbarProps> = ({ projectName, wide }) => {
                 </li>
               ))}
             </ul>
-            <Link
+            <a
               href="/#support-us"
               className={[
                 'font-bold cursor-pointer inline-block w-full sm:w-auto text-center',
@@ -99,7 +100,15 @@ const AppNavbar: FC<AppNavbarProps> = ({ projectName, wide }) => {
               ].join(' ')}
             >
               Wesprzyj projekt
-            </Link>
+            </a>
+            <a
+              href="/feedback"
+              rel="noreferrer noopener"
+              className="ml-3 relative text-gray-500 hover:text-gray-600"
+              title="Podziel się opinią"
+            >
+              <AiOutlineComment className="text-xl" />
+            </a>
           </div>
         </div>
       </div>

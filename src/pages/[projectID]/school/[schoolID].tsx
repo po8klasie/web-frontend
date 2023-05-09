@@ -21,10 +21,15 @@ interface SchoolPageProps extends ProjectConfigConsumerProps<'schoolViewConfig'>
 const SchoolPage: FC<SchoolPageProps> = ({ PROJECT: { projectName, schoolViewConfig } }) => {
   const router = useRouter();
   const { data: school } = useSingleSchoolData(router.query.schoolID as string);
+  const schoolName = (school as ISchoolData).name;
 
   return (
     <AppLayout projectName={projectName}>
-      <ProjectSpecificSeo projectName={projectName} title={(school as ISchoolData).name} />
+      <ProjectSpecificSeo
+        projectName={projectName}
+        title={schoolName}
+        description={`Sprawdź ofertę edukacyjną, dojazd czy progi punktowe szkoły "${schoolName}" w wyszukiwarce szkół średnich po8klasie ${projectName}`}
+      />
       <SchoolHero school={school as ISchoolData} />
       <SchoolPageContent schoolViewConfig={schoolViewConfig} school={school as ISchoolData} />
     </AppLayout>
