@@ -5,8 +5,8 @@ import { FiX } from '@react-icons/all-files/fi/FiX';
 import dynamic from 'next/dynamic';
 import { ReactTagsProps, Tag } from 'react-tag-input';
 import { FiPlus } from '@react-icons/all-files/fi/FiPlus';
-import { availableExtendedSubjects } from '../../../../utils/apiDataMapping';
 import styles from './styles/ExtendedSubjectsFilter.module.css';
+import { useQuery } from '@tanstack/react-query';
 
 // HACK(micorix): Bypass ES modules error
 const ReactTags: ComponentType<ReactTagsProps> = dynamic(
@@ -26,11 +26,6 @@ const predefinedClassProfiles: ExtendedSubjects[] = [
   ['pol', 'hist', 'wos'],
 ];
 
-const suggestions: Tag[] = availableExtendedSubjects.map((subject) => ({
-  id: subject,
-  text: subject,
-}));
-
 const KeyCodes = {
   comma: 188,
   enter: 13,
@@ -45,6 +40,14 @@ const CustomExtendedSubjectsInput: FC<CustomExtendedSubjectsInputProps> = ({
   onCreateClassProfile,
 }) => {
   const [tags, setTags] = useState<Tag[]>([]);
+  const { data: suggestionsData } = useQuery<string[]>([`/institution-classes/extended-subjects`], {
+    placeholderData: [],
+    refetchInterval: false,
+  });
+  const suggestions = (suggestionsData as string[]).map((subject) => ({
+    id: subject,
+    text: subject,
+  }));
 
   const handleDelete = (i) => {
     setTags(tags.filter((tag, index) => index !== i));

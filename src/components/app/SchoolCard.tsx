@@ -104,7 +104,7 @@ const SchoolCard: FC<SchoolCardProps> = ({ school, highlighted, selectedExtended
           </div>
         </div>
         <div className="mt-2">
-          <span className="whitespace-nowrap mr-4">Profile klas 2022/2023:</span>
+          <span className="whitespace-nowrap mr-4">Profile klas 2023/2024:</span>
           <ExtendedSubjects
             classes={school.classes}
             selectedExtendedSubjects={selectedExtendedSubjects}
