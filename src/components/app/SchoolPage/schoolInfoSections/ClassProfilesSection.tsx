@@ -2,6 +2,7 @@ import { FC, useMemo } from 'react';
 import SchoolInfoSection from './SchoolInfoSection';
 import { Tab } from '@headlessui/react';
 import { getLanguageEmoji } from '../../../../utils/apiDataMapping';
+import { AiOutlineCheck } from '@react-icons/all-files/ai/AiOutlineCheck';
 
 interface ClassSymbolProps {
   classSymbol: string;
@@ -45,7 +46,7 @@ const ClassMobileDetails = ({
 }) => (
   <details className="px-2 mt-2">
     <summary>
-      <ClassSymbol classSymbol={class_symbol} />
+      <ClassSymbol classSymbol={class_symbol ?? ''} />
       <span className="ml-2 font-semibold">{class_name}</span>
     </summary>
     <div className="px-4 mb-7">
@@ -127,6 +128,17 @@ const ClassProfiles = ({ classesEntries }) => (
   </div>
 );
 
+const ClassesDataInfo = () => (
+  <span
+    role="alert"
+    className="bg-blue-100 border-l-4 border-blue-600 p-1 rounded block text-sm mt-2"
+  >
+    <AiOutlineCheck className="inline-block text-xl text-blue-600 translate-y-[-2px] mr-1" />
+    Dokładamy wszelkich starań, aby dane, które prezentujemy były dokładne. Pamiętaj jednak, aby
+    sprawdzić wybrany profil szkoły z oficjalną ofertą szkoły.
+  </span>
+);
+
 const ClassProfilesSection: FC = ({ school }) => {
   const classesEntries = useMemo(() => {
     const { classes } = school;
@@ -138,9 +150,10 @@ const ClassProfilesSection: FC = ({ school }) => {
   const isClassesDataAvailable = classesEntries.length > 0;
 
   return (
-    <SchoolInfoSection id="classProfiles" updateTime={new Date().toDateString()}>
-      <div className="p-3 pb-0">
-        <h3 className="text-lg font-bold text-dark">Profile klas</h3>
+    <SchoolInfoSection id="classProfiles" updateTime={new Date(2023, 5, 9)}>
+      <div className="p-3">
+        <h3 className="text-lg font-bold text-dark mr-5">Profile klas</h3>
+        <ClassesDataInfo />
       </div>
       {isClassesDataAvailable ? (
         <ClassProfiles classesEntries={classesEntries} />
