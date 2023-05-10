@@ -11,6 +11,7 @@ import { AiOutlineCalculator } from '@react-icons/all-files/ai/AiOutlineCalculat
 import { FiStar } from '@react-icons/all-files/fi/FiStar';
 import { RectangleStackIcon as RectangleStackIconOutline } from '@heroicons/react/24/outline';
 import Link from 'next/link';
+import { AiOutlineComment } from '@react-icons/all-files/ai/AiOutlineComment';
 interface TileProps {
   path: string;
   icon: IconType;
@@ -83,6 +84,23 @@ const ProjectDashboardPage = () => {
         {tiles.map((tileProps) => (
           <Tile {...tileProps} key={tileProps.name} />
         ))}
+      </div>
+      <div className="mt-20 text-gray-500">
+        <span className="flex">
+          Jesteśmy w fazie rozwoju naszej aplikacji. W dowolnej chwili możesz zgłosić błędy lub
+          sugestie, korzystając z ikony
+          <AiOutlineComment className="text-xl mx-2" />w prawym górnym rogu.
+        </span>
+        <div className="mt-2">
+          <a
+            href="/feedback"
+            rel="noreferrer noopener"
+            className="inline-flex items-center py-1 px-2 rounded text-gray-500 border border-gray-200 hover:border-gray-300 hover:text-gray-600 transition"
+          >
+            Zgłoś sugestie teraz
+            <AiOutlineComment className="ml-2 text-xl" />
+          </a>
+        </div>
       </div>
     </div>
   );

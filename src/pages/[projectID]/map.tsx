@@ -16,7 +16,7 @@ const MapSearchPage = ({ PROJECT }) => {
       <ProjectSpecificSeo
         projectName={PROJECT.projectName}
         title="Mapa szkół"
-        description="Wyszukaj szkoły średnie z po8klasie"
+        description={`Wyszukaj szkoły średnie z po8klasie ${PROJECT.projectName}`}
       />
       <div className="w-full h-full">
         <SelectedSchoolProvider>

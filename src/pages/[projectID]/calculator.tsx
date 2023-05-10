@@ -15,7 +15,7 @@ const CalculatorPage: FC = ({ PROJECT }) => {
       <ProjectSpecificSeo
         projectName={PROJECT.projectName}
         title="Kalkulator punktów"
-        description="Oblicz swoje punkty rekrutacyjne z kalkulatorem punktów wyszukiwarki szkół średnich po8klasie"
+        description={`Oblicz swoje punkty rekrutacyjne z kalkulatorem punktów wyszukiwarki szkół średnich po8klasie ${PROJECT.projectName}`}
       />
       <div className="w-container mx-auto">
         <h1 className="flex items-center text-3xl font-bold mt-5 lg:mt-10">
