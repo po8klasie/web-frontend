@@ -40,22 +40,22 @@ const languages = {
   ros: {
     id: 'ros',
     name: 'rosyjski',
-    icon: '🇷🇺'
+    icon: '🇷🇺',
   },
   szwe: {
     id: 'szwe',
     name: 'szwedzki',
-    icon: '🇸🇪'
+    icon: '🇸🇪',
   },
-  'łac': {
+  łac: {
     id: 'łac',
     name: 'łacina',
-    icon: null
+    icon: null,
   },
-  'łać': {
+  łać: {
     id: 'łać',
     name: 'łacina',
-    icon: null
+    icon: null,
   },
   'greka klasyczna': {
     id: 'greka klasyczna',
@@ -65,7 +65,7 @@ const languages = {
   'język obcy': {
     id: 'język obcy',
     name: 'język obcy',
-    icon: null
+    icon: null,
   },
 };
 
