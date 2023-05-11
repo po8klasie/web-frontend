@@ -5,6 +5,7 @@ import CollapsibleFilterWrapper from './CollapsibleFilterWrapper';
 import { FiX } from '@react-icons/all-files/fi/FiX';
 import { removeFromArray } from '../../../../utils/misc';
 
+// see /api/institution-classes/languages
 const languages = {
   ang: {
     id: 'ang',
@@ -35,6 +36,36 @@ const languages = {
     id: 'por',
     name: 'portugalski',
     icon: '🇵🇹',
+  },
+  ros: {
+    id: 'ros',
+    name: 'rosyjski',
+    icon: '🇷🇺'
+  },
+  szwe: {
+    id: 'szwe',
+    name: 'szwedzki',
+    icon: '🇸🇪'
+  },
+  'łac': {
+    id: 'łac',
+    name: 'łacina',
+    icon: null
+  },
+  'łać': {
+    id: 'łać',
+    name: 'łacina',
+    icon: null
+  },
+  'greka klasyczna': {
+    id: 'greka klasyczna',
+    name: 'greka klasyczna',
+    icon: null,
+  },
+  'język obcy': {
+    id: 'język obcy',
+    name: 'język obcy',
+    icon: null
   },
 };
 
