@@ -10,7 +10,7 @@ import React from 'react';
 import { fetchProjectConfig } from '../../config/fetchProjectConfig';
 
 const ProjectIndexPage = ({ PROJECT }) => (
-  <AppLayout projectName={PROJECT.projectName} className="h-full">
+  <AppLayout projectName={PROJECT.projectName} className="min-h-full">
     <ProjectSpecificSeo projectName={PROJECT.projectName} title="Dashboard" />
     <ProjectDashboardPage />
   </AppLayout>
