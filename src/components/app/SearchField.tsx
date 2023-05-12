@@ -12,12 +12,13 @@ export interface SearchFieldInstitutionItem {
 
 interface AutocompleteOptionProps {
   institution: SearchFieldInstitutionItem;
-  onClick: MouseEventHandler;
+  onClick: () => void;
 }
 
 const AutocompleteOption: FC<AutocompleteOptionProps> = ({ institution, onClick }) => (
   <button
     onClick={onClick}
+    onTouchStart={onClick} // HACK(micorix): click event is not fired on iOS Safari
     type="button"
     className={[
       'w-full text-left px-5 py-2 text-lg text-red border-b border-lighten first:border-b-0',
