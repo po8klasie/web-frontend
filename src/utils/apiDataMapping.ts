@@ -12,6 +12,8 @@ export const getLanguageEmoji = (lang: string): string => {
       return '🇪🇸';
     case 'wlo':
       return '🇮🇹';
+    case 'szwe':
+      return '🇸🇪';
     default:
       return lang;
   }

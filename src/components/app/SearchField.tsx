@@ -1,5 +1,5 @@
 import { FiSearch } from '@react-icons/all-files/fi/FiSearch';
-import { FC, MouseEventHandler, useEffect, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 import useDebouncedValue from '../../hooks/useDebouncedValue';
 import { useQuery } from '@tanstack/react-query';
 import styles from './styles/SearchField.module.css';
@@ -12,12 +12,13 @@ export interface SearchFieldInstitutionItem {
 
 interface AutocompleteOptionProps {
   institution: SearchFieldInstitutionItem;
-  onClick: MouseEventHandler;
+  onClick: () => void;
 }
 
 const AutocompleteOption: FC<AutocompleteOptionProps> = ({ institution, onClick }) => (
   <button
     onClick={onClick}
+    onTouchStart={onClick} // HACK(micorix): click event is not fired on iOS Safari
     type="button"
     className={[
       'w-full text-left px-5 py-2 text-lg text-red border-b border-lighten first:border-b-0',

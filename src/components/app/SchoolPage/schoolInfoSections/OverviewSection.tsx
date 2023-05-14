@@ -14,6 +14,8 @@ import { SectionHeading } from './reusableUI';
 
 const SchoolLocationMap = dynamic(() => import('../SchoolLocationMap'), { ssr: false });
 
+const linkClassName = 'hover:underline';
+
 interface ItemWithIconProps {
   icon: IconType;
 }
@@ -54,17 +56,32 @@ const OverviewSection: FC<SectionComponentProps> = ({ school }) => {
                 </ItemWithIcon>
               </li>
               <li className="my-2">
-                <a href={school.website} rel="noreferrer noopener" target="_blank">
+                <a
+                  href={school.website}
+                  rel="noreferrer noopener"
+                  target="_blank"
+                  className={linkClassName}
+                >
                   <ItemWithIcon icon={MdLink}>{school.website}</ItemWithIcon>
                 </a>
               </li>
               <li className="my-2">
-                <a href={`tel:${school.phone}`} rel="noreferrer noopener" target="_blank">
+                <a
+                  href={`tel:${school.phone}`}
+                  rel="noreferrer noopener"
+                  target="_blank"
+                  className={linkClassName}
+                >
                   <ItemWithIcon icon={MdPhone}>{school.phone}</ItemWithIcon>
                 </a>
               </li>
               <li className="my-2">
-                <a href={`mailto:${school.email}`} rel="noreferrer noopener" target="_blank">
+                <a
+                  href={`mailto:${school.email}`}
+                  rel="noreferrer noopener"
+                  target="_blank"
+                  className={linkClassName}
+                >
                   <ItemWithIcon icon={MdEmail}>{school.email}</ItemWithIcon>
                 </a>
               </li>
