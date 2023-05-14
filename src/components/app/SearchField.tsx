@@ -1,5 +1,5 @@
 import { FiSearch } from '@react-icons/all-files/fi/FiSearch';
-import { FC, MouseEventHandler, useEffect, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 import useDebouncedValue from '../../hooks/useDebouncedValue';
 import { useQuery } from '@tanstack/react-query';
 import styles from './styles/SearchField.module.css';
