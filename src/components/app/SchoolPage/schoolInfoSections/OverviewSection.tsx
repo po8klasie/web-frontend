@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { FC, useState } from 'react';
 import dynamic from 'next/dynamic';
 import { MdHome } from '@react-icons/all-files/md/MdHome';
 import { MdLink } from '@react-icons/all-files/md/MdLink';
@@ -29,13 +29,32 @@ const ItemWithIcon: FC<ItemWithIconProps> = ({ children, icon: Icon }) => (
   </span>
 );
 
-const SchoolDescription = ({ description }) => {
+interface SchoolDescriptionProps {
+  description: string;
+}
+const SchoolDescription: FC<SchoolDescriptionProps> = ({ description }) => {
+  const [isWholeContentVisible, setIsWholeContentVisible] = useState(false);
+  const shouldTrim = description.length > 200;
+  const content =
+    isWholeContentVisible || !shouldTrim ? description : `${description.slice(0, 200)}...`;
+  const buttonText = isWholeContentVisible ? 'Pokaż mniej' : 'Pokaż więcej';
+
   return (
     <div className="border-t border-light py-2 px-5">
       <h4 className="text-dark text-base font-semibold">O szkole</h4>
       <div className="my-2 mx-auto prose max-w-none">
-        <ReactMarkdown>{description}</ReactMarkdown>
+        <ReactMarkdown>{content}</ReactMarkdown>
       </div>
+      {shouldTrim && (
+        <div>
+          <button
+            className="underline hover:text-gray-700"
+            onClick={() => setIsWholeContentVisible((v) => !v)}
+          >
+            {buttonText}
+          </button>
+        </div>
+      )}
     </div>
   );
 };
@@ -92,7 +111,9 @@ const OverviewSection: FC<SectionComponentProps> = ({ school }) => {
           </div>
         </div>
       </div>
-      {school.description && <SchoolDescription description={school.description} />}
+      {school.description && school.description.trim().length > 0 && (
+        <SchoolDescription description={school.description.trim()} />
+      )}
     </SchoolInfoSection>
   );
 };
