@@ -15,7 +15,7 @@ const mainInstitutionTypes = [
     icon: '🔧',
   },
   {
-    rspoTypeId: '94',
+    rspoTypeId: '93',
     name: (
       <span>
         Szkoła branżowa <br /> I st.
