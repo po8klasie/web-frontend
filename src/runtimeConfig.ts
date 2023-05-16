@@ -9,6 +9,7 @@ export interface IPublicRuntimeConfig {
   MAPBOX_ACCESS_TOKEN: string;
   POSTHOG_API_KEY: string;
   SHOW_LINKS_TO_APP: string;
+  SITE_URL: string;
 }
 
 const emptyPublicRuntimeConfig: IPublicRuntimeConfig = {
@@ -19,6 +20,7 @@ const emptyPublicRuntimeConfig: IPublicRuntimeConfig = {
   MAPBOX_ACCESS_TOKEN: '',
   POSTHOG_API_KEY: '',
   SHOW_LINKS_TO_APP: '',
+  SITE_URL: '',
 };
 
 export const isFeatureFlagEnabled = (flagValue: string) => flagValue === 'true';

@@ -1,13 +1,13 @@
 import type { GetServerSideProps } from 'next';
 import { publicRuntimeConfig } from '../../runtimeConfig';
 
-const { API_URL } = publicRuntimeConfig;
+const { API_URL, SITE_URL } = publicRuntimeConfig;
 
 const PROJECT_LINKS = ['/', '/map', '/compare', '/calculator', '/favorites'];
 
-const generateSiteMap = (host: string, projectId: string, rspos: string[]) => {
+const generateSiteMap = (projectId: string, rspos: string[]) => {
   const wrapURLWithTag = (url: string) => `<url><loc>${url}</loc></url>`;
-  const getFullUrl = (path: string) => `https://${host}/app/${projectId}${path}`;
+  const getFullUrl = (path: string) => `${SITE_URL}/app/${projectId}${path}`;
   const getSchoolPath = (rspo: string) => `/school/${rspo}`;
 
   return `<?xml version="1.0" encoding="UTF-8"?>
@@ -19,8 +19,7 @@ const generateSiteMap = (host: string, projectId: string, rspos: string[]) => {
  `;
 };
 
-export const getServerSideProps: GetServerSideProps = async ({ params, res, req }) => {
-  const host = req.headers.host as string;
+export const getServerSideProps: GetServerSideProps = async ({ params, res }) => {
   const projectId = params?.projectID as string;
 
   const schoolsForProject = await fetch(
@@ -28,7 +27,7 @@ export const getServerSideProps: GetServerSideProps = async ({ params, res, req 
   ).then((r) => r.json());
   const rspos = schoolsForProject.map((school) => school.rspo);
 
-  const sitemap = generateSiteMap(host, projectId, rspos);
+  const sitemap = generateSiteMap(projectId, rspos);
 
   res.setHeader('Content-Type', 'text/xml');
   res.write(sitemap);
