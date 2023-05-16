@@ -20,6 +20,7 @@ const customNextConfig = {
     MAPBOX_ACCESS_TOKEN: process.env.MAPBOX_ACCESS_TOKEN,
     POSTHOG_API_KEY: process.env.POSTHOG_API_KEY,
     SHOW_LINKS_TO_APP: process.env.SHOW_LINKS_TO_APP,
+    SITE_URL: process.env.SITE_URL,
   },
   webpack(config) {
     config.module.rules.push({
