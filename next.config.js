@@ -49,6 +49,7 @@ const customNextConfig = {
     disableServerWebpackPlugin: true,
     disableClientWebpackPlugin: true,
   },
+  productionBrowserSourceMaps: true,
   i18n,
   eslint: {
     // Warning: This allows production builds to successfully complete even if
