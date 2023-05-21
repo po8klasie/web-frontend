@@ -1,7 +1,7 @@
 import React, { FC, useMemo } from 'react';
 import Link from 'next/link';
 import styles from './styles/SchoolCard.module.css';
-import { ISchoolSearchData } from '../../types';
+import { ISchoolOverview } from '../../types';
 import {
   getLanguageEmoji,
   getSchoolTypeFromRspoInstitutionTypeId,
@@ -33,11 +33,16 @@ const ForeignLanguages: FC<ForeignLanguagesProps> = ({ foreignLanguages }) => {
   );
 };
 
-const ExtendedSubjects = ({ classes, selectedExtendedSubjects }) => {
+interface ExtendedSubjectsProps {
+  classes: ISchoolOverview['classes'];
+  selectedExtendedSubjects?: string[][];
+}
+
+const ExtendedSubjects: FC<ExtendedSubjectsProps> = ({ classes, selectedExtendedSubjects }) => {
   const extendedSubjectsList = useMemo(() => {
     if (!classes) return [];
     const joinedSubjects = stringifyExtendedSubjects(
-      classes.map((schoolClass) => schoolClass.extended_subjects),
+      classes.map((schoolClass) => schoolClass.extendedSubjects),
     );
     return uniq(joinedSubjects);
   }, [classes]);
@@ -67,11 +72,11 @@ const ExtendedSubjects = ({ classes, selectedExtendedSubjects }) => {
 };
 
 export interface SchoolCardProps {
-  school: ISchoolSearchData;
+  school: ISchoolOverview;
   highlighted?: boolean;
   isFavorite?: boolean;
   onFavoriteClick?: () => void;
-  selectedExtendedSubjects: string[][];
+  selectedExtendedSubjects?: string[][];
 }
 
 const SchoolCard: FC<SchoolCardProps> = ({ school, highlighted, selectedExtendedSubjects }) => {
@@ -87,20 +92,24 @@ const SchoolCard: FC<SchoolCardProps> = ({ school, highlighted, selectedExtended
           <Link href={getSchoolPath(school.rspo)}>{school.name}</Link>
         </h3>
         <ul className={styles.schoolPropertiesList}>
-          <li>{school.is_public ? 'Szkoła publiczna' : 'Szkoła niepubliczna'}</li>
-          <li>{getSchoolTypeFromRspoInstitutionTypeId(school.rspo_institution_type)}</li>
+          <li>{school.isPublic ? 'Szkoła publiczna' : 'Szkoła niepubliczna'}</li>
+          <li>{getSchoolTypeFromRspoInstitutionTypeId(school.rspoInstitutionType)}</li>
           <li>
-            {school.street} {school.building_number}, {school.city}
+            {school.street} {school.buildingNumber}, {school.city}
           </li>
         </ul>
         <div className="mt-2">
           Najniższy próg klasy 2022/2023:{' '}
-          <strong>{school.points_stats_min > 0 ? school.points_stats_min : 'brak danych'}</strong>
+          <strong>
+            {school.pointsStatsMin && school.pointsStatsMin > 0
+              ? school.pointsStatsMin
+              : 'brak danych'}
+          </strong>
         </div>
         <div className="mt-2 flex items-center">
           <span className="mr-4">Języki</span>
           <div>
-            <ForeignLanguages foreignLanguages={school.available_languages} />
+            <ForeignLanguages foreignLanguages={school.availableLanguages} />
           </div>
         </div>
         <div className="mt-2">

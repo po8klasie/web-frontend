@@ -5,15 +5,19 @@ import { FC, useMemo } from 'react';
 import { nanoid } from 'nanoid';
 import useFavoriteInstitutions from '../../../hooks/useFavoriteInstitutions';
 import { useAppSelector } from '../../../store/hooks';
+import { ISchoolOverview } from '../../../types';
 
 interface InstitutionListingProps {
   serializedAPIQueryString: string;
 }
 
 const InstitutionListing: FC<InstitutionListingProps> = ({ serializedAPIQueryString }) => {
-  const { data, isFetching } = useQuery([`/search/institution/?${serializedAPIQueryString}`], {
-    placeholderData: [],
-  });
+  const { data, isFetching } = useQuery<ISchoolOverview[]>(
+    [`/search/institution/?${serializedAPIQueryString}`],
+    {
+      placeholderData: [],
+    },
+  );
   const parsedData = data && data.length ? data : [];
   const { isInstitutionFavorite, toggleIsInstitutionFavorite } = useFavoriteInstitutions();
   const selectedExtendedSubjectsJSON = useAppSelector(
@@ -21,7 +25,7 @@ const InstitutionListing: FC<InstitutionListingProps> = ({ serializedAPIQueryStr
   );
   const selectedExtendedSubjects = useMemo(() => {
     try {
-      return JSON.parse(selectedExtendedSubjectsJSON);
+      return JSON.parse(`${selectedExtendedSubjectsJSON}`);
     } catch {
       return [];
     }

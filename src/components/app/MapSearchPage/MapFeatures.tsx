@@ -1,10 +1,11 @@
 import { MapboxOverlay, MapboxOverlayProps } from '@deck.gl/mapbox/typed';
-import { PopupProps, useControl } from 'react-map-gl';
+import { useControl } from 'react-map-gl';
 import React, { FC, SetStateAction } from 'react';
 import useInstitutionFeaturesLayer from './mapFeatures/institutionFeatures';
 import useRoadAccidentsFeaturesLayer from './mapFeatures/roadAccidents';
 import { useAppSelector } from '../../../store/hooks';
 import usePublicTransportStopFeaturesLayer from './mapFeatures/publicTransportStopFeatures';
+import { IPopupState } from './types';
 
 function DeckGLOverlay(
   props: MapboxOverlayProps & {
@@ -17,7 +18,7 @@ function DeckGLOverlay(
 }
 
 interface MapFeaturesProps {
-  setPopupState: React.Dispatch<SetStateAction<PopupProps | null>>;
+  setPopupState: React.Dispatch<SetStateAction<IPopupState | null>>;
 }
 
 const MapFeatures: FC<MapFeaturesProps> = ({ setPopupState }) => {

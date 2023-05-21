@@ -15,14 +15,14 @@ const filterComponents: Record<string, ComponentType<any>> = {
 };
 
 const getFilterComponent = (componentId: keyof typeof filterComponents) => {
-  return filterComponents[componentId];
+  return filterComponents[componentId] as FC;
 };
 
-interface FilterComponentProps extends FilterProps {
+interface FilterComponentProps<T> extends FilterProps<T> {
   filterComponentId: keyof typeof filterComponents;
 }
 
-const FilterComponent: FC<FilterComponentProps> = ({ filterComponentId, ...props }) => {
+const FilterComponent: FC<FilterComponentProps<unknown>> = ({ filterComponentId, ...props }) => {
   const componentRef = useRef(getFilterComponent(filterComponentId));
   const Component = componentRef.current;
 

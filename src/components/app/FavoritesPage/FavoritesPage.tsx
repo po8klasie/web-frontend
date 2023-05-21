@@ -5,6 +5,7 @@ import { nanoid } from 'nanoid';
 import { useMemo } from 'react';
 import { stringify } from 'query-string';
 import { FiStar } from '@react-icons/all-files/fi/FiStar';
+import { ISchoolOverview } from '../../../types';
 
 const FavoritesPage = () => {
   const { favoriteInstitutionsRspos, toggleIsInstitutionFavorite, isInstitutionFavorite } =
@@ -15,7 +16,7 @@ const FavoritesPage = () => {
     [favoriteInstitutionsRspos],
   );
 
-  const { data, isFetching } = useQuery([`/school/multiple?${queryString}`], {
+  const { data, isFetching } = useQuery<ISchoolOverview[]>([`/school/multiple?${queryString}`], {
     enabled: favoriteInstitutionsRspos.length > 0,
   });
 

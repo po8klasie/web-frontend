@@ -1,4 +1,6 @@
-const ComingSoonWrapper = ({ children }) => (
+import { FC, PropsWithChildren } from 'react';
+
+const ComingSoonWrapper: FC<PropsWithChildren<Record<string, never>>> = ({ children }) => (
   <div className="border border rounded">
     <div className="border-b p-1 bg-gray-100">{children}</div>
     <div className="p-1">

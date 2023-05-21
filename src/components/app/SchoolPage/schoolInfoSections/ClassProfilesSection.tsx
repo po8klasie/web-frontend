@@ -1,9 +1,10 @@
-import { FC, useMemo } from 'react';
+import { FC, ReactNode, useMemo } from 'react';
 import SchoolInfoSection from './SchoolInfoSection';
 import { Tab } from '@headlessui/react';
 import { getLanguageEmoji } from '../../../../utils/apiDataMapping';
 import { AiOutlineCheck } from '@react-icons/all-files/ai/AiOutlineCheck';
 import { FiExternalLink } from '@react-icons/all-files/fi/FiExternalLink';
+import { IInstitutionDetailsClassProfileData } from './types';
 
 interface ClassSymbolProps {
   classSymbol: string;
@@ -15,13 +16,21 @@ const ClassSymbol: FC<ClassSymbolProps> = ({ classSymbol }) => (
   </span>
 );
 
+interface IClassProfileDisplayConfig {
+  name: string;
+  isNotEmpty: (classProfileData: IInstitutionDetailsClassProfileData) => unknown;
+  renderCell: (classProfileData: IInstitutionDetailsClassProfileData) => ReactNode;
+  renderDetails: (classProfileData: IInstitutionDetailsClassProfileData) => ReactNode;
+  showOnMobile: boolean;
+}
+
 const classProfileDefaultDisplayConfig = [
   {
     name: 'Symbol',
-    isNotEmpty: ({ class_symbol }) => class_symbol,
-    renderCell: ({ class_symbol }) => (
+    isNotEmpty: ({ classSymbol }) => classSymbol,
+    renderCell: ({ classSymbol }) => (
       <td className="px-3 py-2 flex items-center">
-        <ClassSymbol classSymbol={class_symbol ?? ''} />
+        <ClassSymbol classSymbol={classSymbol ?? ''} />
       </td>
     ),
     showOnMobile: false,
@@ -29,23 +38,23 @@ const classProfileDefaultDisplayConfig = [
   },
   {
     name: 'Klasa',
-    isNotEmpty: ({ class_name }) => class_name,
-    renderCell: ({ class_name }) => <td className="px-3 py-2">{class_name}</td>,
+    isNotEmpty: ({ className }) => className,
+    renderCell: ({ className }) => <td className="px-3 py-2">{className}</td>,
     showOnMobile: false,
     renderDetails: () => null,
   },
   {
     name: 'Przedmioty rozszerzone',
-    isNotEmpty: ({ extended_subjects }) => extended_subjects,
-    renderCell: ({ extended_subjects }) => (
-      <td className="px-3 py-2">{extended_subjects && extended_subjects.join(', ')}</td>
+    isNotEmpty: ({ extendedSubjects }) => extendedSubjects,
+    renderCell: ({ extendedSubjects }) => (
+      <td className="px-3 py-2">{extendedSubjects && extendedSubjects.join(', ')}</td>
     ),
     showOnMobile: true,
-    renderDetails: ({ extended_subjects }) => (
+    renderDetails: ({ extendedSubjects }) => (
       <div className="">
         <h5 className="mt-2">Przedmioty rozszerzone</h5>
         <ul className="list-disc pl-6">
-          {extended_subjects && extended_subjects.map((subject) => <li>{subject}</li>)}
+          {extendedSubjects && extendedSubjects.map((subject) => <li>{subject}</li>)}
         </ul>
       </div>
     ),
@@ -64,21 +73,21 @@ const classProfileDefaultDisplayConfig = [
   },
   {
     name: 'Języki obce',
-    isNotEmpty: ({ available_languages }) => available_languages,
-    renderCell: ({ available_languages }) => (
+    isNotEmpty: ({ availableLanguages }) => availableLanguages,
+    renderCell: ({ availableLanguages }) => (
       <td className="px-3 py-2 whitespace-nowrap">
-        {available_languages &&
-          available_languages.map((lang) => (
+        {availableLanguages &&
+          availableLanguages.map((lang) => (
             <span className="mx-1 first:ml-0">{getLanguageEmoji(lang)}</span>
           ))}
       </td>
     ),
     showOnMobile: true,
-    renderDetails: ({ available_languages }) => (
+    renderDetails: ({ availableLanguages }) => (
       <div className="mt-2">
         <span className="mr-2">Języki:</span>
-        {available_languages &&
-          available_languages.map((lang) => (
+        {availableLanguages &&
+          availableLanguages.map((lang) => (
             <span className="mx-1 first:ml-0">{getLanguageEmoji(lang)}</span>
           ))}
       </div>
@@ -86,11 +95,11 @@ const classProfileDefaultDisplayConfig = [
   },
   {
     name: 'Próg punktowy',
-    isNotEmpty: ({ points_stats_min }) => points_stats_min,
-    renderCell: ({ points_stats_min }) => <td className="px-3 py-2">{points_stats_min}</td>,
+    isNotEmpty: ({ pointsStatsMin }) => pointsStatsMin,
+    renderCell: ({ pointsStatsMin }) => <td className="px-3 py-2">{pointsStatsMin}</td>,
     showOnMobile: true,
-    renderDetails: ({ points_stats_min }) => (
-      <h5 className="mt-2">Próg punktowy: {points_stats_min}</h5>
+    renderDetails: ({ pointsStatsMin }) => (
+      <h5 className="mt-2">Próg punktowy: {pointsStatsMin}</h5>
     ),
   },
   {
@@ -100,7 +109,7 @@ const classProfileDefaultDisplayConfig = [
     renderCell: ({ url }) => (
       <td className="px-3 py-2">
         <a
-          href={url}
+          href={url as string}
           target="_blank"
           rel="noreferrer noopener"
           className="flex justify-center text-gray-800"
@@ -113,7 +122,7 @@ const classProfileDefaultDisplayConfig = [
     renderDetails: ({ url }) => (
       <div className="mt-4">
         <a
-          href={url}
+          href={url as string}
           target="_blank"
           rel="noreferrer noopener"
           className="flex items-center text-gray-800 hover:underline"
@@ -123,9 +132,11 @@ const classProfileDefaultDisplayConfig = [
       </div>
     ),
   },
-] as const;
+] satisfies IClassProfileDisplayConfig[];
 
-const prepareClassProfilesDisplayConfig = (classProfiles) => {
+const prepareClassProfilesDisplayConfig = (
+  classProfiles: IInstitutionDetailsClassProfileData[],
+) => {
   return classProfileDefaultDisplayConfig.filter((propertyDisplayConfig) => {
     return classProfiles.some(propertyDisplayConfig.isNotEmpty);
   });

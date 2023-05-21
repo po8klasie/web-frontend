@@ -33,17 +33,17 @@ const comparableProperties: ComparablePropertiesSectionI[] = [
       </>
     ),
   },
-  {
-    sectionName: 'Profile klas 2022/2023',
-    getBlankItemsNo: ({ classes }, { classes: classesMaxLen }) => classesMaxLen - classes.length,
-    renderComparisonListContents: ({ classes }) =>
-      renderComparisonListItemsFromArray<string>(classes),
-  },
-  {
-    sectionName: 'Języki',
-    renderComparisonListContents: ({ availableLanguages }) =>
-      renderComparisonListItemsFromArray<string>(availableLanguages),
-  },
+  // {
+  //   sectionName: 'Profile klas 2022/2023',
+  //   getBlankItemsNo: ({ classes }, { classes: classesMaxLen }) => classesMaxLen - classes.length,
+  //   renderComparisonListContents: ({ classes }) =>
+  //     renderComparisonListItemsFromArray<string>(classes),
+  // },
+  // {
+  //   sectionName: 'Języki',
+  //   renderComparisonListContents: ({ availableLanguages }) =>
+  //     renderComparisonListItemsFromArray<string>(availableLanguages),
+  // },
 ];
 
 export default comparableProperties;

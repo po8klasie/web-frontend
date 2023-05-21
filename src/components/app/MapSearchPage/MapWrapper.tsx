@@ -1,8 +1,9 @@
 import QueryField from './QueryField';
 import LayerSelector from './LayerSelector';
 import dynamic from 'next/dynamic';
+import { FC } from 'react';
 
-const SearchPageMap = dynamic(() => import('./Map'), { ssr: false });
+const SearchPageMap = dynamic(() => import('./Map'), { ssr: false }) as FC;
 
 const MapWrapper = () => {
   return (

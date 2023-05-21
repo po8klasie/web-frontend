@@ -1,5 +1,5 @@
 import React, { FC, useCallback, useRef, useState } from 'react';
-import { LngLatBounds, Map as MapGL, MapRef, Popup, PopupProps } from 'react-map-gl';
+import { LngLatBounds, Map as MapGL, MapRef, Popup } from 'react-map-gl';
 import { useProjectConfig } from '../../../config/projectConfigContext';
 import { SearchViewConfig } from '../../../config/types';
 import MapFeatures from './MapFeatures';
@@ -9,6 +9,7 @@ import { publicRuntimeConfig } from '../../../runtimeConfig';
 import { debounce } from 'lodash';
 import 'mapbox-gl/dist/mapbox-gl.css';
 import styles from './styles/Map.module.css';
+import { IPopupState } from './types';
 
 const { MAPBOX_ACCESS_TOKEN } = publicRuntimeConfig;
 
@@ -47,7 +48,7 @@ const Map: FC = () => {
     [dispatch],
   );
 
-  const [popupState, setPopupState] = useState<PopupProps | null>(null);
+  const [popupState, setPopupState] = useState<IPopupState | null>(null);
 
   return (
     <div className="w-full h-full relative">

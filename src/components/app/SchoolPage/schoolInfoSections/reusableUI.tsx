@@ -55,7 +55,7 @@ const ItemWithIcon: FC<ItemWithIconProps> = ({ children, icon: Icon, iconClassNa
 );
 
 interface ItemsListProps {
-  items?: string[];
+  items?: string[] | null;
   icon: IconType;
   title: string;
   iconClassName: string;

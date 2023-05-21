@@ -1,12 +1,11 @@
 import { LatLngTuple } from 'leaflet';
-import { ISchoolSearchData } from '../types';
 import { TileLayerProps } from 'react-leaflet';
 import { publicRuntimeConfig } from '../runtimeConfig';
 
-export const parseCoords = (school: ISchoolSearchData): LatLngTuple => [
-  parseFloat(`${school.latitude}`),
-  parseFloat(`${school.longitude}`),
-];
+export const parseCoords = (school: {
+  latitude: string | number;
+  longitude: string | number;
+}): LatLngTuple => [parseFloat(`${school.latitude}`), parseFloat(`${school.longitude}`)];
 
 const { MAPBOX_ACCESS_TOKEN } = publicRuntimeConfig;
 

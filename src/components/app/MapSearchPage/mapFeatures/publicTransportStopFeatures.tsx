@@ -1,4 +1,4 @@
-import React, { FC, PropsWithChildren, SetStateAction } from 'react';
+import React, { FC, SetStateAction } from 'react';
 import PublicTransportRoute from '../../PublicTransportRoute';
 import Link from 'next/link';
 import useLinks from '../../../../hooks/useLinks';
@@ -7,14 +7,15 @@ import { useQuery } from '@tanstack/react-query';
 import { publicRuntimeConfig } from '../../../../runtimeConfig';
 import { useProjectConfig } from '../../../../config/projectConfigContext';
 import busStopMarker from '../../../../assets/app/bus-stop-icon.png';
+import { IPopupState } from '../types';
 
-interface RouteInstitutionInfo {
+interface IRouteInstitutionInfo {
   name: string;
   rspo: string;
   distance: number;
 }
 
-interface RouteInfo {
+interface IRouteInfo {
   routeFrom: string;
   routeTo: string;
   ref: string;
@@ -22,13 +23,19 @@ interface RouteInfo {
   type: string;
 }
 
-interface PublicTransportStopProperties {
+interface IPublicTransportStopProperties {
+  osmid: string;
   name: string;
-  routes: RouteInfo[];
-  institutions: RouteInstitutionInfo[];
+  routes: IRouteInfo[];
+  institutions: IRouteInstitutionInfo[];
 }
 
-const PopupData = ({ data: { routes, institutions }, getSchoolPath }) => (
+export interface PopupDataProps {
+  data: IPublicTransportStopProperties;
+  getSchoolPath: (rspo: string) => string;
+}
+
+const PopupData: FC<PopupDataProps> = ({ data: { routes, institutions }, getSchoolPath }) => (
   <div>
     <div className="flex flex-wrap text-xs">
       {routes && routes.map((route) => <PublicTransportRoute key={route.name} route={route} />)}
@@ -48,16 +55,18 @@ const PopupData = ({ data: { routes, institutions }, getSchoolPath }) => (
   </div>
 );
 
-interface PopupProps {
-  stopProperties: PublicTransportStopProperties;
+export interface PublicTransportPopupProps {
+  stopProperties: IPublicTransportStopProperties;
   getSchoolPath: (rspo: string) => string;
 }
 
-const Popup: FC<PopupProps> = ({ stopProperties: { osmid, name }, getSchoolPath }) => {
-  const { data, status } = useQuery([
+const Popup: FC<PublicTransportPopupProps> = ({
+  stopProperties: { osmid, name },
+  getSchoolPath,
+}) => {
+  const { data, status } = useQuery<IPublicTransportStopProperties>([
     `/search/map_features/public_transport_stops/stop_popup_info/${osmid}`,
   ]);
-  console.log(data);
   return (
     <div className="">
       <span className="font-bold">{name}</span>
@@ -69,7 +78,7 @@ const Popup: FC<PopupProps> = ({ stopProperties: { osmid, name }, getSchoolPath 
 };
 
 const usePublicTransportStopsFeaturesLayer = (
-  setPopupState: React.Dispatch<SetStateAction<PropsWithChildren<PopupProps> | null>>,
+  setPopupState: React.Dispatch<SetStateAction<IPopupState | null>>,
 ) => {
   const links = useLinks();
   const { projectId } = useProjectConfig();
@@ -85,6 +94,8 @@ const usePublicTransportStopsFeaturesLayer = (
       anchorY: 15,
     }),
     onClick: (info) => {
+      if (!info.coordinate) return;
+
       setPopupState({
         children: (
           <Popup stopProperties={info.object.properties} getSchoolPath={links.getSchoolPath} />

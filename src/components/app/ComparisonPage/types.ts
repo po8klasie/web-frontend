@@ -1,4 +1,4 @@
-export type ComparisonResultT = 'match' | 'neutral';
+export type ComparisonResultT = 'match' | 'neutral' | 'different';
 
 export interface ComparisonItemI<T> {
   value: T;

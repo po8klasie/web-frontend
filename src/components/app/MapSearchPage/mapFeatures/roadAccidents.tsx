@@ -2,7 +2,7 @@ import roadAccidentMarker from '../../../../assets/app/road-accident-icon.png';
 import { MVTLayer } from '@deck.gl/geo-layers/typed';
 import { publicRuntimeConfig } from '../../../../runtimeConfig';
 import React, { SetStateAction } from 'react';
-import { PopupProps } from 'react-map-gl';
+import { IPopupState } from '../types';
 
 interface RoadAccidentProperties {
   sewikid: string;
@@ -19,7 +19,7 @@ const createPopupContent = ({ properties }: { properties: RoadAccidentProperties
 );
 
 const useRoadAccidentsFeaturesLayer = (
-  setPopupState: React.Dispatch<SetStateAction<PopupProps | null>>,
+  setPopupState: React.Dispatch<SetStateAction<IPopupState | null>>,
 ) => {
   return new MVTLayer({
     id: 'roadAccidents',
