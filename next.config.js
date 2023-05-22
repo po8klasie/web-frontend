@@ -9,19 +9,6 @@ const withBundleAnalyzer = require('@next/bundle-analyzer')({
 const customNextConfig = {
   basePath: '/app',
   assetPrefix: '/app/',
-  env: {
-    PUBLIC_URL: '',
-  },
-  publicRuntimeConfig: {
-    API_URL: process.env.API_URL,
-    APP_ENVIRONMENT: process.env.APP_ENVIRONMENT,
-    APP_FRONTEND_RELEASE: process.env.APP_FRONTEND_RELEASE,
-    PUBLIC_SENTRY_DSN: process.env.PUBLIC_SENTRY_DSN,
-    MAPBOX_ACCESS_TOKEN: process.env.MAPBOX_ACCESS_TOKEN,
-    POSTHOG_API_KEY: process.env.POSTHOG_API_KEY,
-    SHOW_LINKS_TO_APP: process.env.SHOW_LINKS_TO_APP,
-    SITE_URL: process.env.SITE_URL,
-  },
   webpack(config) {
     config.module.rules.push({
       test: /\.svg$/i,
@@ -61,6 +48,9 @@ const customNextConfig = {
     // your project has type errors.
     ignoreBuildErrors: true,
   },
+  experimental: {
+    esmExternals: 'loose'
+  }
 };
 
 module.exports = withBundleAnalyzer(withSentryConfig(customNextConfig));

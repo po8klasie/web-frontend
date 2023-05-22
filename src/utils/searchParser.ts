@@ -1,8 +1,7 @@
 import { parse } from 'query-string';
-import { FilterDefinition } from '../config/types';
-import { availableRspoInstitutionTypeIds } from '../components/app/MapSearchPage/filters/InstitutionTypeFilter';
 import * as yup from 'yup';
 import { availableExtendedSubjects } from './apiDataMapping';
+import { availableRspoInstitutionTypeIds } from "../app/[projectID]/map/(filters)/@institutionTypeFilter/page";
 
 const extendedSubjectsSchema = yup
   .array()
@@ -73,7 +72,7 @@ export const parseMapPositionFromURL = (asPath: string) => {
   };
 };
 
-export const parseFiltersFromUrl = (asPath: string, filterDefinitions: FilterDefinition[]) => {
+export const parseFiltersFromUrl = (asPath: string, filterDefinitions: any[]) => {
   const rawQueryData = parseQS(asPath);
   const keysInQuery = Object.keys(rawQueryData);
   const parsedFilters = {};

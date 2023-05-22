@@ -1,4 +1,4 @@
-import { useProjectConfig } from '../config/projectConfigContext';
+import { useProjectConfig } from '../api/projectConfig/projectConfigContext';
 import { useMemo } from 'react';
 
 const links = {

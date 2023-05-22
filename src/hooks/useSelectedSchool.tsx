@@ -1,3 +1,5 @@
+'use client'
+
 import {
   createContext,
   Dispatch,
@@ -7,8 +9,8 @@ import {
   useContext,
   useState,
 } from 'react';
-import { useQuery } from '@tanstack/react-query';
 import { ISchoolOverview } from '../types';
+import { useAPIQuery } from "../api/queryClient";
 
 interface ISelectedSchoolContextValue {
   selectedSchoolRspo: string | null;
@@ -35,7 +37,7 @@ export const SelectedSchoolProvider: FC<PropsWithChildren<Record<string, never>>
 
 export const useSelectedSchool = () => {
   const { selectedSchoolRspo, setSelectedSchoolRspo } = useContext(selectedSchoolContext);
-  const { data } = useQuery<ISchoolOverview>([`/search/institution/${selectedSchoolRspo}`], {
+  const { data } = useAPIQuery<ISchoolOverview>([`/search/institution/${selectedSchoolRspo}`], {
     enabled: !!selectedSchoolRspo,
   });
 
