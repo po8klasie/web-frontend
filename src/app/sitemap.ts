@@ -1,6 +1,7 @@
 import { MetadataRoute } from 'next';
 import environment from '../environment/server';
 import { ISchoolOverview } from '../types';
+import forceServerComponentDynamicRender from '../utils/forceServerComponentDynamicRender';
 
 const {
   publicEnvironment: { API_URL, SITE_URL },
@@ -30,6 +31,8 @@ const getUrlsForProject = async (projectId: string): Promise<{ url: string }[]> 
 };
 
 const generateSitemap = async (): Promise<MetadataRoute.Sitemap> => {
+  // XXX(micorix): Do not fetch sitemap at build time if no env var provided
+  if (!API_URL) forceServerComponentDynamicRender();
   const projectIds = await getProjectIds();
   return (await Promise.all(projectIds.map(getUrlsForProject))).flat();
 };
