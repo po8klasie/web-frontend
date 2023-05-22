@@ -5,6 +5,7 @@ import { fetchProjectConfig } from '../../api/projectConfig/projectConfig';
 import environment from '../../environment/server';
 import { ProjectPageT } from '../../types';
 import { defaultMetadata } from '../../utils/seo';
+import Analytics from './_components/Analytics';
 
 export const metadata = defaultMetadata;
 
@@ -12,9 +13,8 @@ const Layout: ProjectPageT = async ({ children, params }) => {
   const projectConfig = await fetchProjectConfig(params.projectID);
   return (
     <Providers projectConfig={projectConfig} environment={environment}>
-      <AppLayout className="h-full" noFooter={true}>
-        {children}
-      </AppLayout>
+      <Analytics />
+      <AppLayout className="h-full">{children}</AppLayout>
     </Providers>
   );
 };
