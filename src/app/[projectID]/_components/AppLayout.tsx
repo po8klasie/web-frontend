@@ -16,7 +16,7 @@ const AppLayout: FC<PropsWithChildren<AppLayoutProps>> = ({ children, className 
   return (
     <div className={['bg-appBg flex flex-col min-h-full', className ?? ''].join(' ')}>
       <AppNavbar wide={isMapSite} />
-      <main className="pt-navbarHeight" style={{ flex: '1 0 auto' }}>
+      <main className={`pt-navbarHeight ${isMapSite ? 'h-full' : ''}`} style={{ flex: '1 0 auto' }}>
         {children}
       </main>
       <div className="shrink-0">{!isMapSite && <AppFooter />}</div>
