@@ -7,4 +7,4 @@ export const PROJECT_PAGES = {
   COMPARISON_PAGE: '/compare',
 } as const;
 
-export const getInstitutionPath = (rspo: string) => `${PROJECT_PAGES.SCHOOL}/${rspo}`
+export const getInstitutionPath = (rspo: string) => `${PROJECT_PAGES.SCHOOL}/${rspo}`;

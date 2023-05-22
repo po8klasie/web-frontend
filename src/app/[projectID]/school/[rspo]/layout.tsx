@@ -1,16 +1,16 @@
-import { fetchInstitutionDetails } from "../../../../api/institutionDetails/institutionDetails";
-import SchoolHero from "./_components/SchoolHero";
+import { fetchInstitutionDetails } from '../../../../api/institutionDetails/institutionDetails';
+import SchoolHero from './_components/SchoolHero';
 
-import { getSectionConfigs } from "./(sections)/institutionDetailsSections";
-import SchoolPageMenu from "./_components/SchoolPageMenu";
-import { SchoolPageT } from "../../../../types";
-import { createSchoolMetadata } from "../../../../utils/seo";
+import { getSectionConfigs } from './(sections)/institutionDetailsSections';
+import SchoolPageMenu from './_components/SchoolPageMenu';
+import { SchoolPageT } from '../../../../types';
+import { createSchoolMetadata } from '../../../../utils/seo';
 
-export const generateMetadata = createSchoolMetadata()
+export const generateMetadata = createSchoolMetadata();
 
 const SchoolPage: SchoolPageT = async (props) => {
-  const institutionDetails = await fetchInstitutionDetails(props.params.rspo)
-  const sectionConfigs = await getSectionConfigs(props.params.projectID)
+  const institutionDetails = await fetchInstitutionDetails(props.params.rspo);
+  const sectionConfigs = await getSectionConfigs(props.params.projectID);
   return (
     <div>
       <SchoolHero institutionDetails={institutionDetails} />
@@ -18,12 +18,10 @@ const SchoolPage: SchoolPageT = async (props) => {
         <div className="">
           <SchoolPageMenu sectionConfigs={sectionConfigs} />
         </div>
-        <div className="col-span-4 pt-5">
-          {props.children}
-        </div>
+        <div className="col-span-4 pt-5">{props.children}</div>
       </div>
     </div>
   );
-}
+};
 
-export default SchoolPage
+export default SchoolPage;

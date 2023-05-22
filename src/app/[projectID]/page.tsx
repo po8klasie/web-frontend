@@ -7,15 +7,15 @@ import { FiStar } from '@react-icons/all-files/fi/FiStar';
 import { RectangleStackIcon as RectangleStackIconOutline } from '@heroicons/react/24/outline';
 import { AiOutlineComment } from '@react-icons/all-files/ai/AiOutlineComment';
 import styles from './_styles/ProjectDashboardPage.module.css';
-import ProjectLink from "../../components/ProjectLink";
-import { PROJECT_PAGES } from "../../utils/projectLinksHelpers";
-import { ProjectPageT } from "../../types";
-import DashboardSearchField from "./_components/DashboardSearchField";
-import createProjectMetadata from "../../utils/seo";
+import ProjectLink from '../../components/ProjectLink';
+import { PROJECT_PAGES } from '../../utils/projectLinksHelpers';
+import { ProjectPageT } from '../../types';
+import DashboardSearchField from './_components/DashboardSearchField';
+import createProjectMetadata from '../../utils/seo';
 
 export const generateMetadata = createProjectMetadata(() => ({
-  title: 'Dashboard'
-}))
+  title: 'Dashboard',
+}));
 
 interface TileProps {
   path: string;
@@ -59,10 +59,7 @@ const ProjectDashboardPage: ProjectPageT = () => {
   return (
     <div className="w-11/12 sm:w-4/5 mx-auto mt-20 h-full">
       <h1 className="text-center ">
-        <Brand
-          projectNameClassName="text-2xl"
-          className="font-bold text-4xl"
-        />
+        <Brand projectNameClassName="text-2xl" className="font-bold text-4xl" />
         <span className="ml-2 rounded-full bg-primaryBg text-primary uppercase px-2 py-1 text-xs font-bold">
           Beta
         </span>

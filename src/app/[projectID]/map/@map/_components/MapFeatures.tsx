@@ -1,4 +1,4 @@
-'use client'
+'use client';
 
 import { MapboxOverlay, MapboxOverlayProps } from '@deck.gl/mapbox/typed';
 import { useControl } from 'react-map-gl';
@@ -6,8 +6,8 @@ import React, { FC, SetStateAction } from 'react';
 import useInstitutionFeaturesLayer from '../_mapFeatures/institutionFeatures';
 import useRoadAccidentsFeaturesLayer from '../_mapFeatures/roadAccidents';
 import usePublicTransportStopFeaturesLayer from '../_mapFeatures/publicTransportStopFeatures';
-import { useAppSelector } from "../../../../../store/hooks";
-import { IPopupState } from "../types";
+import { useAppSelector } from '../../../../../store/hooks';
+import { IPopupState } from '../types';
 
 function DeckGLOverlay(
   props: MapboxOverlayProps & {

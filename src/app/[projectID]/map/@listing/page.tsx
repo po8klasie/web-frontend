@@ -2,21 +2,20 @@
 
 import { FC, useMemo } from 'react';
 import { nanoid } from 'nanoid';
-import { ISchoolOverview } from "../../../../types";
-import useFavoriteInstitutions from "../../../../hooks/useFavoriteInstitutions";
-import { useAppSelector } from "../../../../store/hooks";
-import SchoolCard, { SchoolCardPlaceholder } from "../../../../components/SchoolCard";
-import useURLSerializer from "../_hooks/useURLSerializer";
-import { useAPIQuery } from "../../../../api/queryClient";
-import SelectedSchoolCard from "../_components/SelectedSchoolCard";
-
+import { ISchoolOverview } from '../../../../types';
+import useFavoriteInstitutions from '../../../../hooks/useFavoriteInstitutions';
+import { useAppSelector } from '../../../../store/hooks';
+import SchoolCard, { SchoolCardPlaceholder } from '../../../../components/SchoolCard';
+import useURLSerializer from '../_hooks/useURLSerializer';
+import { useAPIQuery } from '../../../../api/queryClient';
+import SelectedSchoolCard from '../_components/SelectedSchoolCard';
 
 interface InstitutionListingProps {
   serializedAPIQueryString: string;
 }
 
 const InstitutionListing: FC<InstitutionListingProps> = () => {
-  const {serializedAPIQueryString} = useURLSerializer()
+  const { serializedAPIQueryString } = useURLSerializer();
   const { data, isFetching } = useAPIQuery<ISchoolOverview[]>(
     [`/search/institution/?${serializedAPIQueryString}`],
     {
@@ -55,11 +54,12 @@ const InstitutionListing: FC<InstitutionListingProps> = () => {
           <span className="">Brak szkół spełniających kryteria</span>
         </div>
       )}
-      {isFetching && new Array(3).fill(0).map(() => (
-        <div className="p-1" key={nanoid()}>
-          <SchoolCardPlaceholder />
-        </div>
-      ))}
+      {isFetching &&
+        new Array(3).fill(0).map(() => (
+          <div className="p-1" key={nanoid()}>
+            <SchoolCardPlaceholder />
+          </div>
+        ))}
     </div>
   );
 };

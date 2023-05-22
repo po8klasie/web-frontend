@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
-import { IInstitutionDetails } from "../app/[projectID]/school/[rspo]/(sections)/types";
+import { IInstitutionDetails } from '../app/[projectID]/school/[rspo]/(sections)/types';
 
 export const createSingleSchoolDataQueryKey = (rspo: string) => [`/school/${rspo}`];
 

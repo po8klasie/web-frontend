@@ -1,10 +1,10 @@
 import SchoolInfoSection from '../SchoolInfoSection';
 import { DataPresentGuard, SectionSubHeading, SimpleUnorderedList } from '../reusableUI';
-import { fetchInstitutionDetails } from "../../../../../../api/institutionDetails/institutionDetails";
-import { SchoolPageT } from "../../../../../../types";
+import { fetchInstitutionDetails } from '../../../../../../api/institutionDetails/institutionDetails';
+import { SchoolPageT } from '../../../../../../types';
 
-const CollaborationSection: SchoolPageT = async ({ params: {rspo} }) => {
-  const institutionDetails = await fetchInstitutionDetails(rspo)
+const CollaborationSection: SchoolPageT = async ({ params: { rspo } }) => {
+  const institutionDetails = await fetchInstitutionDetails(rspo);
   return (
     <SchoolInfoSection overwriteFooter="" id="collaboration" updateTime={new Date().toDateString()}>
       <div className="p-3">

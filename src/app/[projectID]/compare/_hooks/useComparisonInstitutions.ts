@@ -2,7 +2,7 @@ import { useMemo } from 'react';
 import { stringify } from 'query-string';
 import useComparisonInstitutions from '../../../../hooks/useComparisonInstitutions';
 import { ComparisonInstitutionI } from '../_components/types';
-import { useAPIQuery } from "../../../../api/queryClient";
+import { useAPIQuery } from '../../../../api/queryClient';
 
 const useComparisonInstitutionsQuery = () => {
   const { institutionRsposToCompare } = useComparisonInstitutions();

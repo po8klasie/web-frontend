@@ -1,25 +1,22 @@
+import { MdHome } from '@react-icons/all-files/md/MdHome';
+import { MdLink } from '@react-icons/all-files/md/MdLink';
+import { MdPhone } from '@react-icons/all-files/md/MdPhone';
+import { MdEmail } from '@react-icons/all-files/md/MdEmail';
+import type { IconType } from 'react-icons';
+import { fetchInstitutionDetails } from '../../../../../../api/institutionDetails/institutionDetails';
+import { FC } from 'react';
+import { LatLngTuple } from 'leaflet';
+import { parseCoords } from '../../../../../../utils/map';
+import SchoolDescription from './SchoolDescription';
+import dynamic from 'next/dynamic';
+import { SchoolPageT } from '../../../../../../types';
+import SchoolInfoSection from '../SchoolInfoSection';
+import { SectionHeading } from '../reusableUI';
+import { SchoolLocationMapProps } from './SchoolLocationMap';
 
-import { MdHome } from "@react-icons/all-files/md/MdHome";
-import { MdLink } from "@react-icons/all-files/md/MdLink";
-import { MdPhone } from "@react-icons/all-files/md/MdPhone";
-import { MdEmail } from "@react-icons/all-files/md/MdEmail";
-import type { IconType } from "react-icons";
-import { fetchInstitutionDetails } from "../../../../../../api/institutionDetails/institutionDetails";
-import { FC } from "react";
-import { LatLngTuple } from "leaflet";
-import { parseCoords } from "../../../../../../utils/map";
-import SchoolDescription from "./SchoolDescription";
-import dynamic from "next/dynamic";
-import { SchoolPageT } from "../../../../../../types";
-import SchoolInfoSection from "../SchoolInfoSection";
-import { SectionHeading } from "../reusableUI";
-import { SchoolLocationMapProps } from "./SchoolLocationMap";
-
-const SchoolLocationMap = dynamic(
-  () => import('./SchoolLocationMap'),
-  { ssr: false }
-) as FC<SchoolLocationMapProps>;
-
+const SchoolLocationMap = dynamic(() => import('./SchoolLocationMap'), {
+  ssr: false,
+}) as FC<SchoolLocationMapProps>;
 
 const linkClassName = 'hover:underline';
 
@@ -36,8 +33,8 @@ const ItemWithIcon: FC<ItemWithIconProps> = ({ children, icon: Icon }) => (
   </span>
 );
 
-const OverviewSection: SchoolPageT = async ({ params: {rspo} }) => {
-  const institutionDetails = await fetchInstitutionDetails(rspo)
+const OverviewSection: SchoolPageT = async ({ params: { rspo } }) => {
+  const institutionDetails = await fetchInstitutionDetails(rspo);
   const position: LatLngTuple = parseCoords(institutionDetails);
 
   return (
@@ -49,7 +46,8 @@ const OverviewSection: SchoolPageT = async ({ params: {rspo} }) => {
             <ul className="mt-2 text-gray">
               <li className="my-2">
                 <ItemWithIcon icon={MdHome}>
-                  {institutionDetails.street} {institutionDetails.buildingNumber}, {institutionDetails.postalCode} {institutionDetails.city}
+                  {institutionDetails.street} {institutionDetails.buildingNumber},{' '}
+                  {institutionDetails.postalCode} {institutionDetails.city}
                 </ItemWithIcon>
               </li>
               <li className="my-2">
@@ -96,4 +94,4 @@ const OverviewSection: SchoolPageT = async ({ params: {rspo} }) => {
   );
 };
 
-export default OverviewSection
+export default OverviewSection;

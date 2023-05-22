@@ -2,10 +2,7 @@ import React, { FC, useMemo } from 'react';
 import Link from 'next/link';
 import styles from './styles/SchoolCard.module.css';
 import { ISchoolOverview } from '../types';
-import {
-  getLanguageEmoji,
-  getSchoolTypeFromRspoInstitutionTypeId,
-} from '../utils/apiDataMapping';
+import { getLanguageEmoji, getSchoolTypeFromRspoInstitutionTypeId } from '../utils/apiDataMapping';
 import LoadingPlaceholder from './LoadingPlaceholder';
 import useLinks from '../hooks/useLinks';
 import SchoolCardActionButtons from './SchoolCardActionButtons';

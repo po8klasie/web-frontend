@@ -5,7 +5,7 @@ import CollapsibleFilterWrapper from '../_components/CollapsibleFilterWrapper';
 import { AiOutlineWarning } from '@react-icons/all-files/ai/AiOutlineWarning';
 import { getTrackBackground, Range } from 'react-range';
 import { IRenderThumbParams, IRenderTrackParams } from 'react-range/lib/types';
-import useFilterValue from "../_hook/useFilterValue";
+import useFilterValue from '../_hook/useFilterValue';
 
 const RecruitmentPointsAlert = () => (
   <span
@@ -49,7 +49,7 @@ const inputClassName =
   'bg-gray-200 p-1 w-10 text-center rounded outline-none border-2 focus:border-gray-300';
 
 const RecruitmentPointsFilter: FC = () => {
-  const {value, setValue} = useFilterValue<[number, number]>('points_threshold', [0, 200])
+  const { value, setValue } = useFilterValue<[number, number]>('points_threshold', [0, 200]);
   const [range, setRange] = useState<[number, number]>(value);
 
   useEffect(() => {

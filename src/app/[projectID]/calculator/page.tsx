@@ -1,12 +1,12 @@
-import { AiOutlineWarning } from "@react-icons/all-files/ai/AiOutlineWarning";
-import Calculator from "./_components/Calculator";
-import type { ProjectPageT } from "../../../types";
-import createProjectMetadata from "../../../utils/seo";
+import { AiOutlineWarning } from '@react-icons/all-files/ai/AiOutlineWarning';
+import Calculator from './_components/Calculator';
+import type { ProjectPageT } from '../../../types';
+import createProjectMetadata from '../../../utils/seo';
 
 export const generateMetadata = createProjectMetadata((projectName) => ({
   title: 'Kalkulator punktów',
-  description: `Oblicz punkty rekrutacyjne z po8klasie ${projectName}`
-}))
+  description: `Oblicz punkty rekrutacyjne z po8klasie ${projectName}`,
+}));
 
 const CalculatorPage: ProjectPageT = () => {
   return (
@@ -14,8 +14,8 @@ const CalculatorPage: ProjectPageT = () => {
       <h1 className="flex items-center text-3xl font-bold mt-5 lg:mt-10">
         Kalkulator punktów
         <span className="flex rounded-full bg-primaryBg text-primary uppercase px-2 py-1 text-xs font-bold ml-3">
-            New
-          </span>
+          New
+        </span>
       </h1>
       <p className="my-10">
         Podaj swoje oceny, wyniki z egzaminu ósmoklasisty oraz dodatkowe osiągnięcia (jeśli takie
@@ -36,4 +36,4 @@ const CalculatorPage: ProjectPageT = () => {
   );
 };
 
-export default CalculatorPage
+export default CalculatorPage;

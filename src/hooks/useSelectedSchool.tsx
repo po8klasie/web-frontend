@@ -1,4 +1,4 @@
-'use client'
+'use client';
 
 import {
   createContext,
@@ -10,7 +10,7 @@ import {
   useState,
 } from 'react';
 import { ISchoolOverview } from '../types';
-import { useAPIQuery } from "../api/queryClient";
+import { useAPIQuery } from '../api/queryClient';
 
 interface ISelectedSchoolContextValue {
   selectedSchoolRspo: string | null;

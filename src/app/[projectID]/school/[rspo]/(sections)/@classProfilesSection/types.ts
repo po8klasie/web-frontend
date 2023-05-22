@@ -1,5 +1,5 @@
-import { IInstitutionDetailsClassProfileData } from "../types";
+import { IInstitutionDetailsClassProfileData } from '../types';
 
-export type ClassEntryT = [string, IInstitutionDetailsClassProfileData[]]
+export type ClassEntryT = [string, IInstitutionDetailsClassProfileData[]];
 
-export type ClassEntriesT = ClassEntryT[]
+export type ClassEntriesT = ClassEntryT[];

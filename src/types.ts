@@ -1,7 +1,5 @@
 import { institutionTypes } from './utils/apiDataMapping';
-import { AppContext } from "next/app";
-import { NextPage } from "next";
-import { ReactNode } from "react";
+import { ReactNode } from 'react';
 
 export interface IPublicTransportRoute {
   name: string;
@@ -73,16 +71,22 @@ export interface ISchoolData extends ISchoolOverview {
   publicTransportStops: IPublicTransportStopWrapper[];
 }
 
-export type NextAppRouterPageWithParamsT<T, J = Record<string, never>> = (context: {params: T} & J) => ReactNode | Promise<ReactNode>;
+export type NextAppRouterPageWithParamsT<T, J = Record<string, never>> = (
+  context: { params: T } & J,
+) => ReactNode | Promise<ReactNode>;
 
 export interface IProjectPageParams {
-  projectID: string
+  projectID: string;
 }
 
-export type ProjectPageT<T = Record<string, never>> = NextAppRouterPageWithParamsT<IProjectPageParams & T>;
+export type ProjectPageT<T = Record<string, never>> = NextAppRouterPageWithParamsT<
+  IProjectPageParams & T
+>;
 
 export interface ISchoolPageParams extends IProjectPageParams {
-  rspo: string
+  rspo: string;
 }
 
-export type SchoolPageT<T = Record<string, never>> = NextAppRouterPageWithParamsT<ISchoolPageParams & T>
+export type SchoolPageT<T = Record<string, never>> = NextAppRouterPageWithParamsT<
+  ISchoolPageParams & T
+>;

@@ -1,8 +1,8 @@
 'use client';
 
-import { useEffect } from "react";
-import useURLParser from "../_hooks/useURLParser";
-import useURLSerializer from "../_hooks/useURLSerializer";
+import { useEffect } from 'react';
+import useURLParser from '../_hooks/useURLParser';
+import useURLSerializer from '../_hooks/useURLSerializer';
 
 const updateURL = (serializedClientQueryString: string, serializedMapPosition: string) => {
   const qs = serializedClientQueryString ? `?${serializedClientQueryString}` : '';
@@ -13,14 +13,13 @@ const updateURL = (serializedClientQueryString: string, serializedMapPosition: s
 
 const URLModifier = () => {
   useURLParser();
-  const { serializedClientQueryString, serializedMapPosition } =
-    useURLSerializer();
+  const { serializedClientQueryString, serializedMapPosition } = useURLSerializer();
 
   useEffect(() => {
     updateURL(serializedClientQueryString, serializedMapPosition);
   }, [serializedClientQueryString, serializedMapPosition]);
 
   return null;
-}
+};
 
-export default URLModifier
+export default URLModifier;

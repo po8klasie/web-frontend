@@ -1,7 +1,7 @@
-'use client'
+'use client';
 
 import { forwardRef, HTMLProps } from 'react';
-import { useProjectConfig } from "../api/projectConfig/projectConfigContext";
+import { useProjectConfig } from '../api/projectConfig/projectConfigContext';
 
 interface BrandProps extends HTMLProps<HTMLSpanElement> {
   projectName?: string;
@@ -10,12 +10,12 @@ interface BrandProps extends HTMLProps<HTMLSpanElement> {
 
 const Brand = forwardRef<HTMLSpanElement, BrandProps>(
   ({ projectName: overwriteProjectName, projectNameClassName, ...props }, ref) => {
-    const { projectName } = useProjectConfig()
+    const { projectName } = useProjectConfig();
     return (
       <span ref={ref} {...props} className={['font-primary', props.className ?? ''].join(' ')}>
-      po
-      <span className="text-primary">8</span>
-      klasie
+        po
+        <span className="text-primary">8</span>
+        klasie
         {(overwriteProjectName || projectName) && (
           <>
             &nbsp;
@@ -25,12 +25,13 @@ const Brand = forwardRef<HTMLSpanElement, BrandProps>(
                 projectNameClassName ?? '',
               ].join(' ')}
             >
-            {overwriteProjectName || projectName}
-          </span>
+              {overwriteProjectName || projectName}
+            </span>
           </>
         )}
-    </span>
-    )
-  })
+      </span>
+    );
+  },
+);
 
 export default Brand;

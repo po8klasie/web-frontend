@@ -1,6 +1,6 @@
 import { ComparisonListItem } from './ComparisonList';
 import React, { ReactNode } from 'react';
-import { ComparisonItemI, ComparisonItemsSchemaI, PropertiesMaxLengthsI } from './types';
+import { ComparisonItemsSchemaI, PropertiesMaxLengthsI } from './types';
 
 export interface ComparablePropertiesSectionI {
   sectionName: string;
@@ -11,15 +11,15 @@ export interface ComparablePropertiesSectionI {
   renderComparisonListContents: (comparisonItems: ComparisonItemsSchemaI) => ReactNode;
 }
 
-const renderComparisonListItemsFromArray = <T extends string>(arr: ComparisonItemI<T>[]) => (
-  <>
-    {arr.map(({ value, comparisonResult }) => (
-      <ComparisonListItem key={value} state={comparisonResult}>
-        {value}
-      </ComparisonListItem>
-    ))}
-  </>
-);
+// const renderComparisonListItemsFromArray = <T extends string>(arr: ComparisonItemI<T>[]) => (
+//   <>
+//     {arr.map(({ value, comparisonResult }) => (
+//       <ComparisonListItem key={value} state={comparisonResult}>
+//         {value}
+//       </ComparisonListItem>
+//     ))}
+//   </>
+// );
 
 const comparableProperties: ComparablePropertiesSectionI[] = [
   {

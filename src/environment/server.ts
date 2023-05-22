@@ -1,4 +1,4 @@
-import { IEnvironment, IPublicEnvironment } from "./types";
+import { IEnvironment, IPublicEnvironment } from './types';
 
 export const publicEnvironment = {
   API_URL: process.env.API_URL ?? '',
@@ -12,7 +12,7 @@ export const publicEnvironment = {
 } satisfies IPublicEnvironment;
 
 const environment = {
-  publicEnvironment
+  publicEnvironment,
 } satisfies IEnvironment;
 
-export default environment
+export default environment;

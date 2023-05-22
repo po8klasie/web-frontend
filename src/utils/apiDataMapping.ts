@@ -80,7 +80,7 @@ export const institutionTypes = {
   80: 'Zespół wychowania przedszkolnego',
 };
 
-export type RspoInstitutionTypeT = keyof typeof institutionTypes
+export type RspoInstitutionTypeT = keyof typeof institutionTypes;
 
 export const getSchoolTypeFromRspoInstitutionTypeId = (id: keyof typeof institutionTypes) => {
   if (Object.keys(institutionTypes).includes(`${id}`)) return institutionTypes[id];

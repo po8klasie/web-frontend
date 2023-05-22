@@ -1,8 +1,7 @@
 import { useAppDispatch, useAppSelector } from '../store/hooks';
 import { setFavoriteInstitutionsRspos } from '../store/slices/favoriteInstitutionsSlice';
 import { toggleElementInArray } from '../utils/misc';
-import { useProjectConfig } from "../api/projectConfig/projectConfigContext";
-
+import { useProjectConfig } from '../api/projectConfig/projectConfigContext';
 
 const useFavoriteInstitutions = () => {
   const favoriteInstitutionsRspos = useAppSelector(

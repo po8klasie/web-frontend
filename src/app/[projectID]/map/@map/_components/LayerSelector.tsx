@@ -1,12 +1,11 @@
-'use client'
+'use client';
 
 import { FiLayers } from '@react-icons/all-files/fi/FiLayers';
 import { Popover } from '@headlessui/react';
 import { FiCheck } from '@react-icons/all-files/fi/FiCheck';
-import { useAppDispatch, useAppSelector } from "../../../../../store/hooks";
-import { setVisibleLayersIds } from "../../../../../store/slices/mapSearchPageDataSlice";
-import { toggleElementInArray } from "../../../../../utils/misc";
-
+import { useAppDispatch, useAppSelector } from '../../../../../store/hooks';
+import { setVisibleLayersIds } from '../../../../../store/slices/mapSearchPageDataSlice';
+import { toggleElementInArray } from '../../../../../utils/misc';
 
 const availableLayers = [
   {
@@ -41,10 +40,12 @@ const LayerSelector = () => {
             <li key={id}>
               <button onClick={() => handleLayerClick(id)} className="flex items-center">
                 <span className="block w-4 h-4 bg-white border-2 border-gray-400 rounded flex items-center justify-center">
-                  <FiCheck className={[
-                    'text-primary w-6 h-6 block',
-                    isLayerVisible(id) ? 'opacity-100' : 'opacity-0'
-                  ].join(' ')} />
+                  <FiCheck
+                    className={[
+                      'text-primary w-6 h-6 block',
+                      isLayerVisible(id) ? 'opacity-100' : 'opacity-0',
+                    ].join(' ')}
+                  />
                 </span>
                 <span className="ml-2">{name}</span>
               </button>

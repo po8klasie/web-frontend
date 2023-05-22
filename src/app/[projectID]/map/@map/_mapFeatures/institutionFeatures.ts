@@ -3,12 +3,12 @@ import { useMap } from 'react-map-gl';
 import { useCallback, useMemo } from 'react';
 import { MVTLayer } from '@deck.gl/geo-layers/typed';
 import mapPinImage from '../../../../../assets/app/map-pin.png';
-import { useProjectConfig } from "../../../../../api/projectConfig/projectConfigContext";
-import { useSelectedSchool } from "../../../../../hooks/useSelectedSchool";
-import { useAppSelector } from "../../../../../store/hooks";
-import { useFiltersObjectWithoutDefaults } from "../../_hooks/useURLSerializer";
-import { stringifyQueryString } from "../../../../../utils/searchSerializer";
-import { useEnvironment } from "../../../../../environment/environmentContext";
+import { useProjectConfig } from '../../../../../api/projectConfig/projectConfigContext';
+import { useSelectedSchool } from '../../../../../hooks/useSelectedSchool';
+import { useAppSelector } from '../../../../../store/hooks';
+import { useFiltersObjectWithoutDefaults } from '../../_hooks/useURLSerializer';
+import { stringifyQueryString } from '../../../../../utils/searchSerializer';
+import { useEnvironment } from '../../../../../environment/environmentContext';
 
 const primaryColorRgb = [157, 84, 191];
 const black = [0, 0, 0];
@@ -23,7 +23,9 @@ const iconConfig: ReturnType<IconLayerProps['getIcon']> = {
 
 const useInstitutionFeaturesLayer = () => {
   const { searchViewConfig } = useProjectConfig();
-  const {publicEnvironment: {API_URL}} = useEnvironment()
+  const {
+    publicEnvironment: { API_URL },
+  } = useEnvironment();
   const { selectedSchoolRspo, setSelectedSchoolRspo } = useSelectedSchool();
   const map = useMap();
   const query = useAppSelector((state) => state.mapSearchPageData.query);

@@ -1,21 +1,18 @@
-'use client'
+'use client';
 
-import type { FC, PropsWithChildren } from "react";
+import type { FC, PropsWithChildren } from 'react';
 import AppNavbar from './AppNavbar';
 import AppFooter from './AppFooter';
 import BetaBanner from './BetaBanner';
-import { usePathname } from "next/navigation";
+import { usePathname } from 'next/navigation';
 
 interface AppLayoutProps {
   className?: string;
 }
 
-const AppLayout: FC<PropsWithChildren<AppLayoutProps>> = ({
-  children,
-  className,
-}) => {
-  const pathname = usePathname()
-  const isMapSite = pathname.includes('map')
+const AppLayout: FC<PropsWithChildren<AppLayoutProps>> = ({ children, className }) => {
+  const pathname = usePathname();
+  const isMapSite = pathname.includes('map');
   return (
     <div className={['bg-appBg flex flex-col min-h-full', className ?? ''].join(' ')}>
       <AppNavbar wide={isMapSite} />
@@ -25,7 +22,7 @@ const AppLayout: FC<PropsWithChildren<AppLayoutProps>> = ({
       <div className="shrink-0">{!isMapSite && <AppFooter />}</div>
       <BetaBanner />
     </div>
-  )
+  );
 };
 
 export default AppLayout;

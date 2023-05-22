@@ -1,7 +1,7 @@
-import React, { FC, ReactNode } from "react";
-import { getLanguageEmoji } from "../../../../../../utils/apiDataMapping";
-import { FiExternalLink } from "@react-icons/all-files/fi/FiExternalLink";
-import { IInstitutionDetailsClassProfileData } from "../types";
+import React, { FC, ReactNode } from 'react';
+import { getLanguageEmoji } from '../../../../../../utils/apiDataMapping';
+import { FiExternalLink } from '@react-icons/all-files/fi/FiExternalLink';
+import { IInstitutionDetailsClassProfileData } from '../types';
 
 interface ClassSymbolProps {
   classSymbol: string;
@@ -10,7 +10,7 @@ interface ClassSymbolProps {
 export const ClassSymbol: FC<ClassSymbolProps> = ({ classSymbol }) => (
   <span className="inline-flex items-center justify-center rounded-full bg-lightBlue px-2 font-bold m-1">
     {classSymbol.toUpperCase()}
-    </span>
+  </span>
 );
 
 interface IClassProfileDisplayConfig {
@@ -24,28 +24,28 @@ interface IClassProfileDisplayConfig {
 
 export const classProfileDefaultDisplayConfig = [
   {
-    name: "Symbol",
+    name: 'Symbol',
     isNotEmpty: ({ classSymbol }) => classSymbol,
     renderCell: ({ classSymbol }) => (
       <td className="px-3 py-2 flex items-center">
-        <ClassSymbol classSymbol={classSymbol ?? ""} />
+        <ClassSymbol classSymbol={classSymbol ?? ''} />
       </td>
     ),
     showOnMobile: false,
-    renderDetails: () => null
+    renderDetails: () => null,
   },
   {
-    name: "Klasa",
+    name: 'Klasa',
     isNotEmpty: ({ className }) => className,
     renderCell: ({ className }) => <td className="px-3 py-2">{className}</td>,
     showOnMobile: false,
-    renderDetails: () => null
+    renderDetails: () => null,
   },
   {
-    name: "Przedmioty rozszerzone",
+    name: 'Przedmioty rozszerzone',
     isNotEmpty: ({ extendedSubjects }) => extendedSubjects,
     renderCell: ({ extendedSubjects }) => (
-      <td className="px-3 py-2">{extendedSubjects && extendedSubjects.join(", ")}</td>
+      <td className="px-3 py-2">{extendedSubjects && extendedSubjects.join(', ')}</td>
     ),
     showOnMobile: true,
     renderDetails: ({ extendedSubjects }) => (
@@ -55,10 +55,10 @@ export const classProfileDefaultDisplayConfig = [
           {extendedSubjects && extendedSubjects.map((subject) => <li>{subject}</li>)}
         </ul>
       </div>
-    )
+    ),
   },
   {
-    name: "Zawód",
+    name: 'Zawód',
     isNotEmpty: ({ occupation }) => occupation,
     renderCell: ({ occupation }) => <td className="px-3 py-2">{occupation}</td>,
     showOnMobile: true,
@@ -67,10 +67,10 @@ export const classProfileDefaultDisplayConfig = [
         <h5 className="mt-2">Zawód</h5>
         <span className="">{occupation}</span>
       </div>
-    )
+    ),
   },
   {
-    name: "Języki obce",
+    name: 'Języki obce',
     isNotEmpty: ({ availableLanguages }) => availableLanguages,
     renderCell: ({ availableLanguages }) => (
       <td className="px-3 py-2 whitespace-nowrap">
@@ -89,20 +89,20 @@ export const classProfileDefaultDisplayConfig = [
             <span className="mx-1 first:ml-0">{getLanguageEmoji(lang)}</span>
           ))}
       </div>
-    )
+    ),
   },
   {
-    name: "Próg punktowy",
+    name: 'Próg punktowy',
     isNotEmpty: ({ pointsStatsMin }) => pointsStatsMin,
     renderCell: ({ pointsStatsMin }) => <td className="px-3 py-2">{pointsStatsMin}</td>,
     showOnMobile: true,
     renderDetails: ({ pointsStatsMin }) => (
       <h5 className="mt-2">Próg punktowy: {pointsStatsMin}</h5>
-    )
+    ),
   },
   {
-    name: "Zobacz oficjalną ofertę",
-    headingCellClassName: "text-center",
+    name: 'Zobacz oficjalną ofertę',
+    headingCellClassName: 'text-center',
     isNotEmpty: ({ url }) => url,
     renderCell: ({ url }) => (
       <td className="px-3 py-2">
@@ -128,14 +128,14 @@ export const classProfileDefaultDisplayConfig = [
           <FiExternalLink className="mr-2" /> Zobacz oficjalną ofertę
         </a>
       </div>
-    )
-  }
+    ),
+  },
 ] satisfies IClassProfileDisplayConfig[];
 
 export const prepareClassProfilesDisplayConfig = (
-  classProfiles: IInstitutionDetailsClassProfileData[]
+  classProfiles: IInstitutionDetailsClassProfileData[],
 ): IClassProfileDisplayConfig[] => {
   return classProfileDefaultDisplayConfig.filter((propertyDisplayConfig) => {
     return classProfiles.some(propertyDisplayConfig.isNotEmpty);
   });
-}
+};

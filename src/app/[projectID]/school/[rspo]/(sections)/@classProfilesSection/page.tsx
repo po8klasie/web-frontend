@@ -1,11 +1,11 @@
-import { AiOutlineCheck } from "@react-icons/all-files/ai/AiOutlineCheck";
-import { fetchInstitutionDetails } from "../../../../../../api/institutionDetails/institutionDetails";
-import ClassProfiles from "./ClassProfiles";
-import { ClassEntriesT } from "./types";
-import { FC } from "react";
-import { SchoolPageT } from "../../../../../../types";
-import SchoolInfoSection from "../SchoolInfoSection";
-import { IInstitutionDetails } from "../types";
+import { AiOutlineCheck } from '@react-icons/all-files/ai/AiOutlineCheck';
+import { fetchInstitutionDetails } from '../../../../../../api/institutionDetails/institutionDetails';
+import ClassProfiles from './ClassProfiles';
+import { ClassEntriesT } from './types';
+import { FC } from 'react';
+import { SchoolPageT } from '../../../../../../types';
+import SchoolInfoSection from '../SchoolInfoSection';
+import { IInstitutionDetails } from '../types';
 
 const prepareClassEntries = (institutionDetails: IInstitutionDetails): ClassEntriesT => {
   const { classes } = institutionDetails;

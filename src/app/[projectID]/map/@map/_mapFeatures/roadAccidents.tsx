@@ -2,7 +2,7 @@ import roadAccidentMarker from '../../../../../assets/app/road-accident-icon.png
 import { MVTLayer } from '@deck.gl/geo-layers/typed';
 import React, { SetStateAction } from 'react';
 import { IPopupState } from '../types';
-import { useEnvironment } from "../../../../../environment/environmentContext";
+import { useEnvironment } from '../../../../../environment/environmentContext';
 
 interface RoadAccidentProperties {
   sewikid: string;
@@ -21,7 +21,9 @@ const createPopupContent = ({ properties }: { properties: RoadAccidentProperties
 const useRoadAccidentsFeaturesLayer = (
   setPopupState: React.Dispatch<SetStateAction<IPopupState | null>>,
 ) => {
-  const {publicEnvironment: {API_URL}} = useEnvironment()
+  const {
+    publicEnvironment: { API_URL },
+  } = useEnvironment();
   return new MVTLayer({
     id: 'roadAccidents',
     data: `${API_URL}/search/map_features/road_accidents/tiles/{z}/{x}/{y}` as string,

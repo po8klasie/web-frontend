@@ -1,8 +1,8 @@
 'use client';
 
 import SearchField from '../../../../components/SearchField';
-import { useAppDispatch, useAppSelector } from "../../../../store/hooks";
-import { setQuery } from "../../../../store/slices/mapSearchPageDataSlice";
+import { useAppDispatch, useAppSelector } from '../../../../store/hooks';
+import { setQuery } from '../../../../store/slices/mapSearchPageDataSlice';
 
 const QueryField = () => {
   const queryState = useAppSelector((state) => state.mapSearchPageData.query);

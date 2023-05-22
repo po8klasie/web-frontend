@@ -7,7 +7,7 @@ import { useMemo } from 'react';
 import { stringify } from 'query-string';
 import { FiStar } from '@react-icons/all-files/fi/FiStar';
 import { ISchoolOverview } from '../../../types';
-import { useAPIQuery } from "../../../api/queryClient";
+import { useAPIQuery } from '../../../api/queryClient';
 
 const FavoritesPage = () => {
   const { favoriteInstitutionsRspos, toggleIsInstitutionFavorite, isInstitutionFavorite } =

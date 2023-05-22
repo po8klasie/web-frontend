@@ -1,8 +1,8 @@
 'use client';
 
 import { FiX } from '@react-icons/all-files/fi/FiX';
-import { useSelectedSchool } from "../../../../hooks/useSelectedSchool";
-import SchoolCard from "../../../../components/SchoolCard";
+import { useSelectedSchool } from '../../../../hooks/useSelectedSchool';
+import SchoolCard from '../../../../components/SchoolCard';
 
 const SelectedSchoolCard = () => {
   const { selectedSchool, setSelectedSchoolRspo } = useSelectedSchool();

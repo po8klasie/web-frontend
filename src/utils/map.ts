@@ -1,26 +1,17 @@
 import { LatLngTuple } from 'leaflet';
 import { TileLayerProps } from 'react-leaflet';
-import { publicRuntimeConfig } from '../runtimeConfig';
-import { useEnvironment } from "../environment/environmentContext";
+import { useEnvironment } from '../environment/environmentContext';
 
 export const parseCoords = (school: {
   latitude: string | number;
   longitude: string | number;
 }): LatLngTuple => [parseFloat(`${school.latitude}`), parseFloat(`${school.longitude}`)];
 
-const MAPBOX_ACCESS_TOKEN = process.env.MAPBOX_ACCESS_TOKEN;
-
-export const mapBoxTileLayerProps: TileLayerProps = {
-  url: `https://api.mapbox.com/styles/v1/mapbox/streets-v9/tiles/{z}/{x}/{y}?access_token=${MAPBOX_ACCESS_TOKEN}`,
-  tileSize: 512,
-  zoomOffset: -1,
-};
-
 export const getMapBoxTileLayerProps = (accessToken: string) => ({
   url: `https://api.mapbox.com/styles/v1/mapbox/streets-v9/tiles/{z}/{x}/{y}?access_token=${accessToken}`,
   tileSize: 512,
   zoomOffset: -1,
-})
+});
 
 export const osmTileLayerProps: TileLayerProps = {
   url: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
@@ -28,12 +19,8 @@ export const osmTileLayerProps: TileLayerProps = {
 };
 
 export const useLeafletTileLayerProps = () => {
-  const {publicEnvironment: {MAPBOX_ACCESS_TOKEN}} = useEnvironment()
-  return MAPBOX_ACCESS_TOKEN
-    ? getMapBoxTileLayerProps(MAPBOX_ACCESS_TOKEN)
-    : osmTileLayerProps;
-}
-
-export const tileLayerProps = publicRuntimeConfig.MAPBOX_ACCESS_TOKEN
-  ? mapBoxTileLayerProps
-  : osmTileLayerProps;
+  const {
+    publicEnvironment: { MAPBOX_ACCESS_TOKEN },
+  } = useEnvironment();
+  return MAPBOX_ACCESS_TOKEN ? getMapBoxTileLayerProps(MAPBOX_ACCESS_TOKEN) : osmTileLayerProps;
+};

@@ -1,4 +1,4 @@
-'use client'
+'use client';
 
 import React, { FC, useCallback, useRef, useState } from 'react';
 import { LngLatBounds, Map as MapGL, MapRef, Popup } from 'react-map-gl';
@@ -6,11 +6,11 @@ import MapFeatures from './MapFeatures';
 import { debounce } from 'lodash';
 import 'mapbox-gl/dist/mapbox-gl.css';
 import styles from './styles/Map.module.css';
-import { useAppDispatch } from "../../../../../store/hooks";
-import { useProjectConfig } from "../../../../../api/projectConfig/projectConfigContext";
-import { setCurrentMapPosition } from "../../../../../store/slices/mapSearchPageDataSlice";
-import { IPopupState } from "../types";
-import { useEnvironment } from "../../../../../environment/environmentContext";
+import { useAppDispatch } from '../../../../../store/hooks';
+import { useProjectConfig } from '../../../../../api/projectConfig/projectConfigContext';
+import { setCurrentMapPosition } from '../../../../../store/slices/mapSearchPageDataSlice';
+import { IPopupState } from '../types';
+import { useEnvironment } from '../../../../../environment/environmentContext';
 
 const mapBoundsToBboxString = (bounds: LngLatBounds) => bounds.toArray().flat().join(',');
 
@@ -18,7 +18,9 @@ const mapBoundsToBboxString = (bounds: LngLatBounds) => bounds.toArray().flat().
 const Map: FC = () => {
   const dispatch = useAppDispatch();
   const { searchViewConfig } = useProjectConfig();
-  const {publicEnvironment: {MAPBOX_ACCESS_TOKEN}} = useEnvironment()
+  const {
+    publicEnvironment: { MAPBOX_ACCESS_TOKEN },
+  } = useEnvironment();
   const { defaultMapView } = searchViewConfig;
   const mapRef = useRef<MapRef>(null);
 

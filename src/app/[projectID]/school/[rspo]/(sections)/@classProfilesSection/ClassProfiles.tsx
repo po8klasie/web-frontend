@@ -1,18 +1,17 @@
-'use client'
+'use client';
 
-
-import { FC, Fragment, useMemo } from "react";
-import { Tab } from "@headlessui/react";
+import { FC, Fragment, useMemo } from 'react';
+import { Tab } from '@headlessui/react';
 import {
   classProfileDefaultDisplayConfig,
   ClassSymbol,
-  prepareClassProfilesDisplayConfig
-} from "./classProfilesDisplayConfigs";
-import { IInstitutionDetailsClassProfileData } from "../types";
-import { ClassEntriesT } from "./types";
+  prepareClassProfilesDisplayConfig,
+} from './classProfilesDisplayConfigs';
+import { IInstitutionDetailsClassProfileData } from '../types';
+import { ClassEntriesT } from './types';
 
 interface ClassesForYearTableProps {
-  classesForYear: IInstitutionDetailsClassProfileData[]
+  classesForYear: IInstitutionDetailsClassProfileData[];
 }
 
 const ClassesForYearTable: FC<ClassesForYearTableProps> = ({ classesForYear }) => {
@@ -24,31 +23,31 @@ const ClassesForYearTable: FC<ClassesForYearTableProps> = ({ classesForYear }) =
   return (
     <table className="mt-2 w-full hidden lg:table">
       <thead className="text-gray text-left">
-      <tr>
-        {displayConfig.map(({ name, headingCellClassName }) => (
-          <th key={name} className={['px-3', headingCellClassName ?? ''].join(' ')}>
-            {name}
-          </th>
-        ))}
-      </tr>
+        <tr>
+          {displayConfig.map(({ name, headingCellClassName }) => (
+            <th key={name} className={['px-3', headingCellClassName ?? ''].join(' ')}>
+              {name}
+            </th>
+          ))}
+        </tr>
       </thead>
       <tbody className="">
-      {classesForYear.map((classProfile) => (
-        <tr className="even:bg-lightBlue">
-          {displayConfig.map(({ renderCell }) => (
-            <Fragment key={classProfile.extendedSubjects.join('-')}>
-              {renderCell(classProfile)}
-            </Fragment>
+        {classesForYear.map((classProfile) => (
+          <tr className="even:bg-lightBlue">
+            {displayConfig.map(({ renderCell }) => (
+              <Fragment key={classProfile.extendedSubjects.join('-')}>
+                {renderCell(classProfile)}
+              </Fragment>
             ))}
-        </tr>
-      ))}
+          </tr>
+        ))}
       </tbody>
     </table>
   );
 };
 
 interface ClassMobileDetailsProps {
-  classProfile: IInstitutionDetailsClassProfileData
+  classProfile: IInstitutionDetailsClassProfileData;
 }
 
 const ClassMobileDetails: FC<ClassMobileDetailsProps> = ({ classProfile }) => (
@@ -69,10 +68,9 @@ const ClassMobileDetails: FC<ClassMobileDetailsProps> = ({ classProfile }) => (
 );
 
 interface YearTabButtonProps {
-  year: string
-  i: number
+  year: string;
+  i: number;
 }
-
 
 const YearTabButton: FC<YearTabButtonProps> = ({ year, i }) => (
   <Tab
@@ -89,7 +87,7 @@ const YearTabButton: FC<YearTabButtonProps> = ({ year, i }) => (
 );
 
 interface YearTabPanelProps {
-  classesForYear: IInstitutionDetailsClassProfileData[]
+  classesForYear: IInstitutionDetailsClassProfileData[];
 }
 
 const YearTabPanel: FC<YearTabPanelProps> = ({ classesForYear }) => (
@@ -99,14 +97,17 @@ const YearTabPanel: FC<YearTabPanelProps> = ({ classesForYear }) => (
     </div>
     <div className="lg:hidden pb-5">
       {classesForYear.map((classProfile) => (
-        <ClassMobileDetails key={classProfile.extendedSubjects.join('-')} classProfile={classProfile} />
+        <ClassMobileDetails
+          key={classProfile.extendedSubjects.join('-')}
+          classProfile={classProfile}
+        />
       ))}
     </div>
   </Tab.Panel>
 );
 
 interface ClassProfilesProps {
-  classesEntries: ClassEntriesT
+  classesEntries: ClassEntriesT;
 }
 
 const ClassProfiles: FC<ClassProfilesProps> = ({ classesEntries }) => (
@@ -132,4 +133,4 @@ const ClassProfiles: FC<ClassProfilesProps> = ({ classesEntries }) => (
   </div>
 );
 
-export default ClassProfiles
+export default ClassProfiles;

@@ -1,13 +1,13 @@
-'use client'
+'use client';
 
 import { FiSearch } from '@react-icons/all-files/fi/FiSearch';
 import { FC, useEffect, useState } from 'react';
 import useDebouncedValue from '../hooks/useDebouncedValue';
 import styles from './styles/SearchField.module.css';
-import { useAPIQuery } from "../api/queryClient";
-import { useProjectConfig } from "../api/projectConfig/projectConfigContext";
-import { getInstitutionPath } from "../utils/projectLinksHelpers";
-import ProjectLink from "./ProjectLink";
+import { useAPIQuery } from '../api/queryClient';
+import { useProjectConfig } from '../api/projectConfig/projectConfigContext';
+import { getInstitutionPath } from '../utils/projectLinksHelpers';
+import ProjectLink from './ProjectLink';
 export interface SearchFieldInstitutionItem {
   name: string;
   rspo: string;
@@ -94,10 +94,7 @@ const SearchField: FC<SearchFieldProps> = ({
           ].join(' ')}
         >
           {autocompleteItems.map((institution) => (
-            <AutocompleteOption
-              key={institution.rspo}
-              institution={institution}
-            />
+            <AutocompleteOption key={institution.rspo} institution={institution} />
           ))}
         </div>
       </div>

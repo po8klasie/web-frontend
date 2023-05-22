@@ -7,8 +7,8 @@ import { MdTram } from '@react-icons/all-files/md/MdTram';
 import { MdSubway } from '@react-icons/all-files/md/MdSubway';
 import { IPublicTransportRoute, IPublicTransportStop } from '../../../../../../types';
 import { DataPresentGuard, SectionHeading } from '../reusableUI';
-import { fetchInstitutionDetails } from "../../../../../../api/institutionDetails/institutionDetails";
-import SchoolInfoSection from "../SchoolInfoSection";
+import { fetchInstitutionDetails } from '../../../../../../api/institutionDetails/institutionDetails';
+import SchoolInfoSection from '../SchoolInfoSection';
 
 const routeIconClassName = 'mr-2 opacity-70';
 
@@ -85,8 +85,8 @@ const PublicTransportStop: FC<PublicTransportStopProps> = ({ stop, distance }) =
   </>
 );
 
-const PublicTransportSection = async ({ params: {rspo} }) => {
-  const institutionDetails = await fetchInstitutionDetails(rspo)
+const PublicTransportSection = async ({ params: { rspo } }) => {
+  const institutionDetails = await fetchInstitutionDetails(rspo);
 
   return (
     <SchoolInfoSection id="publicTransport" overwriteFooter="Źródło: Open Street Map" updateTime="">

@@ -1,7 +1,7 @@
-'use client'
+'use client';
 
-import { FC, useState } from "react";
-import ReactMarkdown from "react-markdown";
+import { FC, useState } from 'react';
+import ReactMarkdown from 'react-markdown';
 
 interface SchoolDescriptionProps {
   description: string;
@@ -33,4 +33,4 @@ const SchoolDescription: FC<SchoolDescriptionProps> = ({ description }) => {
   );
 };
 
-export default SchoolDescription
+export default SchoolDescription;

@@ -1,7 +1,6 @@
 'use client';
 import { FC, useState } from 'react';
-import Link from 'next/link';
-import { usePathname } from "next/navigation";
+import { usePathname } from 'next/navigation';
 import { AiOutlineClose } from '@react-icons/all-files/ai/AiOutlineClose';
 import { AiOutlineMenu } from '@react-icons/all-files/ai/AiOutlineMenu';
 import { roundedSmallLinkClassName } from '../../../components/RoundedExternalLink';
@@ -9,17 +8,17 @@ import Brand from '../../../components/Brand';
 import useFavoriteInstitutions from '../../../hooks/useFavoriteInstitutions';
 import useComparisonInstitutions from '../../../hooks/useComparisonInstitutions';
 import { AiOutlineComment } from '@react-icons/all-files/ai/AiOutlineComment';
-import { PROJECT_PAGES } from "../../../utils/projectLinksHelpers";
-import ProjectLink from "../../../components/ProjectLink";
-import { useProjectConfig } from "../../../api/projectConfig/projectConfigContext";
+import { PROJECT_PAGES } from '../../../utils/projectLinksHelpers';
+import ProjectLink from '../../../components/ProjectLink';
+import { useProjectConfig } from '../../../api/projectConfig/projectConfigContext';
 
 interface AppNavbarProps {
   wide?: boolean;
 }
 
 const AppNavbar: FC<AppNavbarProps> = ({ wide }) => {
-  const pathname = usePathname()
-  const {projectName} = useProjectConfig()
+  const pathname = usePathname();
+  const { projectName } = useProjectConfig();
   const { favoriteInstitutionsNumber } = useFavoriteInstitutions();
   const { institutionsToCompareNumber } = useComparisonInstitutions();
 

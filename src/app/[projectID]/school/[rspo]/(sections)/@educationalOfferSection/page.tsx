@@ -1,13 +1,13 @@
 import SchoolInfoSection from '../SchoolInfoSection';
 import { BsCalendarCheck, BsCheckCircle } from 'react-icons/bs';
 import { DataPresentGuard, ItemsList, SectionHeading, SectionSubHeading } from '../reusableUI';
-import { fetchInstitutionDetails } from "../../../../../../api/institutionDetails/institutionDetails";
-import { SchoolPageT } from "../../../../../../types";
+import { fetchInstitutionDetails } from '../../../../../../api/institutionDetails/institutionDetails';
+import { SchoolPageT } from '../../../../../../types';
 
 const gridClassName = 'mt-3 grid md:grid-cols-2 xl:grid-cols-3 gap-x-2 gap-y-4 text-gray';
 
-const EducationalOfferSection: SchoolPageT = async ({ params: {rspo} }) => {
-  const institutionDetails = await fetchInstitutionDetails(rspo)
+const EducationalOfferSection: SchoolPageT = async ({ params: { rspo } }) => {
+  const institutionDetails = await fetchInstitutionDetails(rspo);
   return (
     <SchoolInfoSection
       overwriteFooter=""

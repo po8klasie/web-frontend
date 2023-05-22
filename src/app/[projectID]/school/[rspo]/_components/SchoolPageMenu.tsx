@@ -1,4 +1,4 @@
-'use client'
+'use client';
 
 import type { FC, MouseEvent } from 'react';
 import type { InstitutionDetailsSectionConfig } from '../(sections)/institutionDetailsSections';

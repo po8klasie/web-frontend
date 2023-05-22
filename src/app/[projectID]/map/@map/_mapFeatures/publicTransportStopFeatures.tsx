@@ -5,8 +5,8 @@ import { MVTLayer } from '@deck.gl/geo-layers/typed';
 import { useQuery } from '@tanstack/react-query';
 import busStopMarker from '../../../../../assets/app/bus-stop-icon.png';
 import { IPopupState } from '../types';
-import { useProjectConfig } from "../../../../../api/projectConfig/projectConfigContext";
-import { useEnvironment } from "../../../../../environment/environmentContext";
+import { useProjectConfig } from '../../../../../api/projectConfig/projectConfigContext';
+import { useEnvironment } from '../../../../../environment/environmentContext';
 
 interface IRouteInstitutionInfo {
   name: string;
@@ -80,7 +80,9 @@ const usePublicTransportStopsFeaturesLayer = (
   setPopupState: React.Dispatch<SetStateAction<IPopupState | null>>,
 ) => {
   const { projectId } = useProjectConfig();
-  const {publicEnvironment: {API_URL}} = useEnvironment()
+  const {
+    publicEnvironment: { API_URL },
+  } = useEnvironment();
   return new MVTLayer({
     id: 'publicTransportStops',
     data: `${API_URL}/search/map_features/public_transport_stops/tiles/{z}/{x}/{y}/?project_id=${projectId}` as string,
@@ -96,9 +98,7 @@ const usePublicTransportStopsFeaturesLayer = (
       if (!info.coordinate) return;
 
       setPopupState({
-        children: (
-          <Popup stopProperties={info.object.properties} getSchoolPath={() => 'abc'} />
-        ),
+        children: <Popup stopProperties={info.object.properties} getSchoolPath={() => 'abc'} />,
         latitude: info.coordinate[1],
         longitude: info.coordinate[0],
       });

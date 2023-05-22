@@ -7,7 +7,7 @@ import {
   stringifyQueryString,
 } from '../../../../utils/searchSerializer';
 import { useAppSelector } from '../../../../store/hooks';
-import { useProjectConfig } from "../../../../api/projectConfig/projectConfigContext";
+import { useProjectConfig } from '../../../../api/projectConfig/projectConfigContext';
 
 export const useFiltersObjectWithoutDefaults = () => {
   const filters = useAppSelector((state) => state.mapSearchPageData.filters);

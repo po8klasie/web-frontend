@@ -1,5 +1,5 @@
-import { lazy } from "react";
-import LayerSelector from "./_components/LayerSelector";
+import { lazy } from 'react';
+import LayerSelector from './_components/LayerSelector';
 
 const Map = lazy(() => import('./_components/Map'));
 
@@ -10,4 +10,4 @@ export default () => (
       <LayerSelector />
     </div>
   </div>
-)
+);

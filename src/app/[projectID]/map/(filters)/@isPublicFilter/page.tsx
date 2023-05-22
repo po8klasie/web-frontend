@@ -1,7 +1,7 @@
 'use client';
 
 import { FC } from 'react';
-import useFilterValue from "../_hook/useFilterValue";
+import useFilterValue from '../_hook/useFilterValue';
 
 const baseClassName = 'w-1/2 flex items-center justify-center py-1';
 const activeClassName = 'bg-light';
@@ -9,7 +9,7 @@ const activeClassName = 'bg-light';
 type StringBool = 'true' | 'false';
 
 const IsPublicFilter: FC = () => {
-  const {value, setValue} = useFilterValue<StringBool>('is_public')
+  const { value, setValue } = useFilterValue<StringBool>('is_public');
   const toggle = (val: StringBool) => {
     if (value === val) setValue(null);
     else setValue(val);

@@ -1,17 +1,17 @@
-'use client'
-import { createContext, useContext } from 'react';
-import { fetchProjectConfig } from "./projectConfig";
-import { ProjectConfig } from "../../config/types";
+'use client';
+
+import { createContext, FC, useContext } from 'react';
+import { ProjectConfig } from './types';
 
 export const projectConfigContext = createContext<ProjectConfig>({});
 
 export const useProjectConfig = () => useContext(projectConfigContext);
 
-const ProjectConfigProvider = ({projectConfig, children}) => (
-  <projectConfigContext.Provider value={projectConfig}>
-    {children}
-  </projectConfigContext.Provider>
-)
+interface ProjectConfigProviderProps {
+  projectConfig: ProjectConfig;
+}
+const ProjectConfigProvider: FC<ProjectConfigProviderProps> = ({ projectConfig, children }) => (
+  <projectConfigContext.Provider value={projectConfig}>{children}</projectConfigContext.Provider>
+);
 
-
-export default ProjectConfigProvider
+export default ProjectConfigProvider;

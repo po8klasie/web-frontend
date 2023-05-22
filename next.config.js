@@ -49,8 +49,8 @@ const customNextConfig = {
     ignoreBuildErrors: true,
   },
   experimental: {
-    esmExternals: 'loose'
-  }
+    esmExternals: 'loose',
+  },
 };
 
 module.exports = withBundleAnalyzer(withSentryConfig(customNextConfig));

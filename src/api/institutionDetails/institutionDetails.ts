@@ -1,6 +1,6 @@
-import { fetchJson } from "../serverFetch";
-import { IInstitutionDetails } from "../../app/[projectID]/school/[rspo]/(sections)/types";
+import { fetchJson } from '../serverFetch';
+import { IInstitutionDetails } from '../../app/[projectID]/school/[rspo]/(sections)/types';
 
 export const fetchInstitutionDetails = async (rspo: string) => {
-  return fetchJson<IInstitutionDetails>(`/school/${rspo}`)
+  return fetchJson<IInstitutionDetails>(`/school/${rspo}`);
 };

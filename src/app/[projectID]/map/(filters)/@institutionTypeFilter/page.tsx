@@ -1,10 +1,9 @@
-'use client'
+'use client';
 
 import { FC, MouseEventHandler, ReactNode, useState } from 'react';
 import CollapsibleFilterWrapper from '../_components/CollapsibleFilterWrapper';
-import useFilterValue from "../_hook/useFilterValue";
-import { toggleElementInArray } from "../../../../../utils/misc";
-
+import useFilterValue from '../_hook/useFilterValue';
+import { toggleElementInArray } from '../../../../../utils/misc';
 
 const mainInstitutionTypes = [
   {
@@ -80,11 +79,11 @@ const InstitutionTypeCard: FC<InstitutionTypeCardProps> = ({ name, icon, isActiv
 );
 
 const HorizontalInstitutionTypeCard: FC<InstitutionTypeCardProps> = ({
-                                                                       name,
-                                                                       icon,
-                                                                       isActive,
-                                                                       onClick,
-                                                                     }) => (
+  name,
+  icon,
+  isActive,
+  onClick,
+}) => (
   <button
     className={[
       'flex items-center border px-2 py-1 rounded-xl text-center',
@@ -99,7 +98,7 @@ const HorizontalInstitutionTypeCard: FC<InstitutionTypeCardProps> = ({
 );
 
 const InstitutionTypeFilter: FC = () => {
-  const {value, setValue} = useFilterValue<string[]>('rspo_institution_type', [])
+  const { value, setValue } = useFilterValue<string[]>('rspo_institution_type', []);
   const [shouldShowMore, setShouldShowMore] = useState(false);
   const handleClick = (institutionTypeId: string) => () =>
     setValue(

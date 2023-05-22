@@ -1,6 +1,6 @@
-import type { ProjectConfig } from "../../config/types";
-import { fetchJson } from "../serverFetch";
+import { fetchJson } from '../serverFetch';
+import type { ProjectConfig } from './types';
 
 export const fetchProjectConfig = async (projectID: string) => {
-  return fetchJson<ProjectConfig>(`/project/${projectID}`)
+  return fetchJson<ProjectConfig>(`/project/${projectID}`);
 };

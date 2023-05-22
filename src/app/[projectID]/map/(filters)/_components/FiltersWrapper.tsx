@@ -1,19 +1,17 @@
-'use client'
+'use client';
 
-import { FC, ReactNode, useState } from "react";
-import { FiFilter } from "@react-icons/all-files/fi/FiFilter";
-import { FiX } from "@react-icons/all-files/fi/FiX";
-import styles from './styles/FiltersWrapper.module.css'
+import { FC, ReactNode, useState } from 'react';
+import { FiFilter } from '@react-icons/all-files/fi/FiFilter';
+import { FiX } from '@react-icons/all-files/fi/FiX';
+import styles from './styles/FiltersWrapper.module.css';
 
-const FiltersWrapper: FC<{children: ReactNode}> = ({children}) => {
+const FiltersWrapper: FC<{ children: ReactNode }> = ({ children }) => {
   const [isFiltersPaneOpened, setIsFiltersPaneOpened] = useState(false);
 
   return (
     <>
       <div className={isFiltersPaneOpened ? styles.filtersPageOpened : styles.filtersPane}>
-        <div className={styles.filtersInnerWrapper}>
-          {children}
-        </div>
+        <div className={styles.filtersInnerWrapper}>{children}</div>
       </div>
       <button className={styles.filtersFab} onClick={() => setIsFiltersPaneOpened(true)}>
         <FiFilter />
@@ -28,7 +26,7 @@ const FiltersWrapper: FC<{children: ReactNode}> = ({children}) => {
         Zamknij filtry
       </button>
     </>
-  )
-}
+  );
+};
 
-export default FiltersWrapper
+export default FiltersWrapper;

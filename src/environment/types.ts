@@ -10,5 +10,5 @@ export interface IPublicEnvironment {
 }
 
 export interface IEnvironment {
-  publicEnvironment: IPublicEnvironment
+  publicEnvironment: IPublicEnvironment;
 }

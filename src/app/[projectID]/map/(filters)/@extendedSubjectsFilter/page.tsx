@@ -7,8 +7,8 @@ import dynamic from 'next/dynamic';
 import { ReactTagsProps, Tag } from 'react-tag-input';
 import { FiPlus } from '@react-icons/all-files/fi/FiPlus';
 import styles from './styles/ExtendedSubjectsFilter.module.css';
-import { useAPIQuery } from "../../../../../api/queryClient";
-import useFilterValue from "../_hook/useFilterValue";
+import { useAPIQuery } from '../../../../../api/queryClient';
+import useFilterValue from '../_hook/useFilterValue';
 
 // HACK(micorix): Bypass ES modules error
 const ReactTags: ComponentType<ReactTagsProps> = dynamic(
@@ -39,13 +39,16 @@ interface CustomExtendedSubjectsInputProps {
   onCreateClassProfile: (extendedSubjects: ExtendedSubjects) => void;
 }
 const CustomExtendedSubjectsInput: FC<CustomExtendedSubjectsInputProps> = ({
-                                                                             onCreateClassProfile,
-                                                                           }) => {
+  onCreateClassProfile,
+}) => {
   const [tags, setTags] = useState<Tag[]>([]);
-  const { data: suggestionsData } = useAPIQuery<string[]>([`/institution-classes/extended-subjects`], {
-    placeholderData: [],
-    refetchInterval: false,
-  });
+  const { data: suggestionsData } = useAPIQuery<string[]>(
+    [`/institution-classes/extended-subjects`],
+    {
+      placeholderData: [],
+      refetchInterval: false,
+    },
+  );
   const suggestions = (suggestionsData as string[]).map((subject) => ({
     id: subject,
     text: subject,
@@ -102,9 +105,9 @@ interface ExtendedSubjectsListProps {
 }
 
 const ExtendedSubjectsList: FC<ExtendedSubjectsListProps> = ({
-                                                               onCreateCustomClick,
-                                                               onCreateClassProfile,
-                                                             }) => (
+  onCreateCustomClick,
+  onCreateClassProfile,
+}) => (
   <div className="">
     <span className="text-center block text-sm">Wybierz z listy</span>
     <ul className="list-disc list-inside grid grid-cols-2">
@@ -185,7 +188,7 @@ const ClassProfileChip: FC<ClassProfileChipProps> = ({ extendedSubjects, onRemov
 const defaultValue: string[][] = [];
 
 const ExtendedSubjectsFilter: FC = () => {
-  const {value, setValue} = useFilterValue<string>('extended_subjects', '')
+  const { value, setValue } = useFilterValue<string>('extended_subjects', '');
   const [internalValue, setInternalValue] = useState<string[][]>(
     value ? JSON.parse(value) : defaultValue,
   );
@@ -195,7 +198,7 @@ const ExtendedSubjectsFilter: FC = () => {
     if (internalValue.length === 0) setValue('');
     else setValue(JSON.stringify(internalValue));
     // TODO(micorix): Wrap setValue and it's dependencies with useCallbacks
-    // eslint-disable-next-line react-_hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [internalValue]);
 
   const handleCreateClassProfile = (extendedSubjects: ExtendedSubjects) => {

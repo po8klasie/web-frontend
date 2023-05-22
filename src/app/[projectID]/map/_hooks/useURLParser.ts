@@ -1,4 +1,3 @@
-import { useRouter } from 'next/router';
 import { useAppDispatch } from '../../../../store/hooks';
 import { useEffect } from 'react';
 import {
@@ -12,8 +11,8 @@ import {
   parseMapPositionFromURL,
   parseQueryFromURL,
 } from '../../../../utils/searchParser';
-import { useProjectConfig } from "../../../../api/projectConfig/projectConfigContext";
-import { useSearchParams } from "next/navigation";
+import { useProjectConfig } from '../../../../api/projectConfig/projectConfigContext';
+import { useSearchParams } from 'next/navigation';
 
 const getFiltersDefaultValues = (filters) =>
   filters.reduce(
@@ -42,7 +41,7 @@ const useURLParser = () => {
     );
     dispatch(setQueryInitial(parseQueryFromURL(searchParams?.toString() ?? '')));
     dispatch(setDesiredMapPosition(parseMapPositionFromURL(searchParams?.toString() ?? '')));
-    // eslint-disable-next-line react-_hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 };
 

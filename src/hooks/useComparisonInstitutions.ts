@@ -1,8 +1,7 @@
 import { useAppDispatch, useAppSelector } from '../store/hooks';
 import { toggleElementInArray } from '../utils/misc';
 import { setInstitutionRsposToCompare } from '../store/slices/comparisonSlice';
-import { useProjectConfig } from "../api/projectConfig/projectConfigContext";
-
+import { useProjectConfig } from '../api/projectConfig/projectConfigContext';
 
 const useComparisonInstitutions = () => {
   const institutionRsposToCompare = useAppSelector(

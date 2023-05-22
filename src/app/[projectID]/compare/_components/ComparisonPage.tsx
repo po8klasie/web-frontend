@@ -1,11 +1,11 @@
-'use client'
+'use client';
 
-import { ComparisonInstitutionI, PropertiesMaxLengthsI } from "./types";
-import useComparisonInstitutionsQuery from "../_hooks/useComparisonInstitutions";
-import EmptyComparisonMessage from "./EmptyComparisonMessage";
-import ComparisonInstitutionsListing from "./ComparisonInstitutionsListing";
-import { nanoid } from "nanoid";
-import { SchoolCardPlaceholder } from "../../../../components/SchoolCard";
+import { ComparisonInstitutionI, PropertiesMaxLengthsI } from './types';
+import useComparisonInstitutionsQuery from '../_hooks/useComparisonInstitutions';
+import EmptyComparisonMessage from './EmptyComparisonMessage';
+import ComparisonInstitutionsListing from './ComparisonInstitutionsListing';
+import { nanoid } from 'nanoid';
+import { SchoolCardPlaceholder } from '../../../../components/SchoolCard';
 
 const getClassesMaxNo = (data: ComparisonInstitutionI[] | undefined): number => {
   if (!data) return 0;
@@ -52,4 +52,4 @@ const ComparisonPage = () => {
   );
 };
 
-export default ComparisonPage
+export default ComparisonPage;

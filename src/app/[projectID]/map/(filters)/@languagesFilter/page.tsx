@@ -1,81 +1,81 @@
-"use client";
+'use client';
 
-import { FC, useEffect, useMemo, useState } from "react";
-import { Combobox } from "@headlessui/react";
-import CollapsibleFilterWrapper from "../_components/CollapsibleFilterWrapper";
-import { FiX } from "@react-icons/all-files/fi/FiX";
-import useFilterValue from "../_hook/useFilterValue";
+import { FC, useEffect, useMemo, useState } from 'react';
+import { Combobox } from '@headlessui/react';
+import CollapsibleFilterWrapper from '../_components/CollapsibleFilterWrapper';
+import { FiX } from '@react-icons/all-files/fi/FiX';
+import useFilterValue from '../_hook/useFilterValue';
 
 // see /api/institution-classes/languages
 const languages = {
   ang: {
-    id: "ang",
-    name: "angielski",
-    icon: "🇬🇧"
+    id: 'ang',
+    name: 'angielski',
+    icon: '🇬🇧',
   },
   niem: {
-    id: "niem",
-    name: "niemiecki",
-    icon: "🇩🇪"
+    id: 'niem',
+    name: 'niemiecki',
+    icon: '🇩🇪',
   },
   fra: {
-    id: "fra",
-    name: "francuski",
-    icon: "🇫🇷"
+    id: 'fra',
+    name: 'francuski',
+    icon: '🇫🇷',
   },
   hisz: {
-    id: "hisz",
-    name: "hiszpański",
-    icon: "🇪🇸"
+    id: 'hisz',
+    name: 'hiszpański',
+    icon: '🇪🇸',
   },
   wlo: {
-    id: "wlo",
-    name: "włoski",
-    icon: "🇮🇹"
+    id: 'wlo',
+    name: 'włoski',
+    icon: '🇮🇹',
   },
   por: {
-    id: "por",
-    name: "portugalski",
-    icon: "🇵🇹"
+    id: 'por',
+    name: 'portugalski',
+    icon: '🇵🇹',
   },
   ros: {
-    id: "ros",
-    name: "rosyjski",
-    icon: "🇷🇺"
+    id: 'ros',
+    name: 'rosyjski',
+    icon: '🇷🇺',
   },
   szwe: {
-    id: "szwe",
-    name: "szwedzki",
-    icon: "🇸🇪"
+    id: 'szwe',
+    name: 'szwedzki',
+    icon: '🇸🇪',
   },
   łac: {
-    id: "łac",
-    name: "łacina",
-    icon: null
+    id: 'łac',
+    name: 'łacina',
+    icon: null,
   },
   łać: {
-    id: "łać",
-    name: "łacina",
-    icon: null
+    id: 'łać',
+    name: 'łacina',
+    icon: null,
   },
-  "greka klasyczna": {
-    id: "greka klasyczna",
-    name: "greka klasyczna",
-    icon: null
+  'greka klasyczna': {
+    id: 'greka klasyczna',
+    name: 'greka klasyczna',
+    icon: null,
   },
-  "język obcy": {
-    id: "język obcy",
-    name: "język obcy",
-    icon: null
-  }
+  'język obcy': {
+    id: 'język obcy',
+    name: 'język obcy',
+    icon: null,
+  },
 };
 
 type LanguageId = keyof typeof languages;
 const languageIds = Object.keys(languages) as LanguageId[];
 
 const LanguagesFilter: FC = () => {
-  const { value, setValue } = useFilterValue<string[]>("languages", []);
-  const [query, setQuery] = useState("");
+  const { value, setValue } = useFilterValue<string[]>('languages', []);
+  const [query, setQuery] = useState('');
 
   const updateLangIds = (langIds: string[]) => {
     console.log(langIds);
@@ -83,11 +83,11 @@ const LanguagesFilter: FC = () => {
   };
 
   useEffect(() => {
-    setQuery("");
+    setQuery('');
   }, [value]);
 
   const filteredLangIds = useMemo(() => {
-    const isQueryEmpty = query === "";
+    const isQueryEmpty = query === '';
     if (isQueryEmpty) return [];
 
     return languageIds.filter((langId) => {

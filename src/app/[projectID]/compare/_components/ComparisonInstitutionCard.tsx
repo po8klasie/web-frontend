@@ -1,12 +1,11 @@
 import React, { FC } from 'react';
-import Link from 'next/link';
 import styles from './styles/SchoolComparisonCard.module.css';
 import LoadingPlaceholder from '../../../../components/LoadingPlaceholder';
 import ComparablePropertiesRenderer from './ComparablePropertiesRenderer';
 import { ComparisonInstitutionI, PropertiesMaxLengthsI } from './types';
 import SchoolCardActionButtons from '../../../../components/SchoolCardActionButtons';
-import ProjectLink from "../../../../components/ProjectLink";
-import { getInstitutionPath } from "../../../../utils/projectLinksHelpers";
+import ProjectLink from '../../../../components/ProjectLink';
+import { getInstitutionPath } from '../../../../utils/projectLinksHelpers';
 
 export interface SchoolComparisonCardProps {
   institution: ComparisonInstitutionI;
