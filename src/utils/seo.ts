@@ -1,6 +1,7 @@
 import { Metadata } from 'next';
 import { fetchProjectConfig } from '../api/projectConfig/projectConfig';
 import { fetchInstitutionDetails } from '../api/institutionDetails/institutionDetails';
+import environment from '../environment/server';
 
 export const defaultMetadata: Metadata = {
   title: 'po8klasie - wyszukiwarka szkół średnich"',
@@ -29,11 +30,16 @@ const createProjectMetadata =
   };
 
 export const createSchoolMetadata = () =>
-  createProjectMetadata(async (projectName, { params: { rspo } }) => {
+  createProjectMetadata(async (projectName, { params: { rspo, projectID } }) => {
     const institutionDetails = await fetchInstitutionDetails(rspo);
+    const SITE_URL = environment.publicEnvironment.SITE_URL;
     return {
+      metadataBase: SITE_URL,
       title: institutionDetails.name,
       description: `Przeglądaj ofertę edukacyjną, progi punktowe czy dojazd do szkoły "${institutionDetails.name}" z po8klasie ${projectName}`,
+      openGraph: {
+        images: `/app/${projectID}/school/${rspo}/og-image`,
+      },
     };
   });
 

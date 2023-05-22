@@ -2,7 +2,7 @@ import AppLayout from './_components/AppLayout';
 import Providers from './Providers';
 import React from 'react';
 import { fetchProjectConfig } from '../../api/projectConfig/projectConfig';
-import environment, { publicEnvironment } from '../../environment/server';
+import environment from '../../environment/server';
 import { ProjectPageT } from '../../types';
 import { defaultMetadata } from '../../utils/seo';
 import Analytics from './_components/Analytics';
