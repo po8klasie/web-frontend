@@ -1,4 +1,5 @@
 import { institutionTypes } from './utils/apiDataMapping';
+import { ReactNode } from 'react';
 
 export interface IPublicTransportRoute {
   name: string;
@@ -16,25 +17,29 @@ export interface IPublicTransportStop {
   publicTransportRoutes: IPublicTransportRoute[];
 }
 
-export interface ISchoolSearchData {
-  projectId: string;
-  name: string;
+export interface ISchoolOverview {
   rspo: string;
-  rspoFacilityType: keyof typeof institutionTypes;
-  street: string;
-  buildingNumber: string;
-  apartmentNumber: string;
-  city: string;
+  projectId: string;
+
+  name: string;
 
   isPublic: boolean;
+  rspoInstitutionType: keyof typeof institutionTypes;
+  institutionTypeGeneralized: 'secondary_school';
+
+  city: string;
+  street: string;
+  borough: string;
+  buildingNumber: string;
+  apartmentNumber: string;
 
   latitude: number;
   longitude: number;
 
-  borough: string;
+  availableLanguages: string[];
+  classes: { extendedSubjects: string[] }[];
 
-  foreignLanguages: string[] | null;
-  classProfiles: string[] | null;
+  pointsStatsMin: number | null;
 }
 
 export interface IPublicTransportStopWrapper {
@@ -42,7 +47,7 @@ export interface IPublicTransportStopWrapper {
   publicTransportStop: IPublicTransportStop;
 }
 
-export interface ISchoolData extends ISchoolSearchData {
+export interface ISchoolData extends ISchoolOverview {
   postalCode: string;
   email: string;
   phone: string;
@@ -65,3 +70,23 @@ export interface ISchoolData extends ISchoolSearchData {
   classes: any;
   publicTransportStops: IPublicTransportStopWrapper[];
 }
+
+export type NextAppRouterPageWithParamsT<T, J = Record<string, never>> = (
+  context: { params: T } & J,
+) => ReactNode | Promise<ReactNode>;
+
+export interface IProjectPageParams {
+  projectID: string;
+}
+
+export type ProjectPageT<T = Record<string, never>> = NextAppRouterPageWithParamsT<
+  IProjectPageParams & T
+>;
+
+export interface ISchoolPageParams extends IProjectPageParams {
+  rspo: string;
+}
+
+export type SchoolPageT<T = Record<string, never>> = NextAppRouterPageWithParamsT<
+  ISchoolPageParams & T
+>;

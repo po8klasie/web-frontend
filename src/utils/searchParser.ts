@@ -1,8 +1,8 @@
 import { parse } from 'query-string';
-import { FilterDefinition } from '../config/types';
-import { availableRspoInstitutionTypeIds } from '../components/app/MapSearchPage/filters/InstitutionTypeFilter';
 import * as yup from 'yup';
 import { availableExtendedSubjects } from './apiDataMapping';
+import { availableRspoInstitutionTypeIds } from '../app/[projectID]/map/(filters)/@institutionTypeFilter/page';
+import { FilterDefinition } from '../api/projectConfig/types';
 
 const extendedSubjectsSchema = yup
   .array()

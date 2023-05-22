@@ -17,7 +17,13 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
-    "jsx": "preserve"
+    "jsx": "preserve",
+    "incremental": true,
+    "plugins": [
+      {
+        "name": "next"
+      }
+    ]
   },
   "exclude": [
     "node_modules/",
@@ -33,6 +39,7 @@
     "**/*.tsx",
     "**/*.js",
     "**/*.jsx",
-    ".eslintrc.js"
+    ".eslintrc.js",
+    ".next/types/**/*.ts"
   ]
 }

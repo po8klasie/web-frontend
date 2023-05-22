@@ -1,20 +1,26 @@
-import { publicRuntimeConfig } from '../runtimeConfig';
-import { QueryClientConfig, QueryKey } from '@tanstack/react-query';
-
-interface FetcherArgs {
-  queryKey: QueryKey;
-}
-
-export const fetchData = (path: string) => fetch(`${publicRuntimeConfig.API_URL}${path}`);
-
-export const fetcher = <T>({ queryKey }: FetcherArgs): Promise<T> =>
-  fetchData(queryKey[0]).then((res) => res.json());
+import { QueryClient, QueryClientConfig, useQuery, UseQueryOptions } from '@tanstack/react-query';
+import { useEnvironment } from '../environment/environmentContext';
 
 export const queryClientOptions: QueryClientConfig = {
   defaultOptions: {
     queries: {
-      queryFn: fetcher,
       refetchIntervalInBackground: false,
     },
   },
+};
+
+export const queryClient = new QueryClient(queryClientOptions);
+
+export const useAPIQuery = <T = void>(
+  queryKey: [string],
+  options: Omit<UseQueryOptions, 'queryKey' | 'queryFn'>,
+) => {
+  const {
+    publicEnvironment: { API_URL },
+  } = useEnvironment();
+  const path = queryKey[0];
+  const fullUrl = `${API_URL}${path}`;
+  const modifiedQueryKey: [string] = [fullUrl];
+
+  return useQuery<T>(modifiedQueryKey, () => fetch(fullUrl).then((res) => res.json()), options);
 };
