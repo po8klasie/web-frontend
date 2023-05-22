@@ -1,6 +1,8 @@
-import Brand from '../Brand';
+'use client';
 
-const ClientSideErrorPage = () => {
+import Brand from '../components/Brand';
+
+const GlobalErrorPage = () => {
   const handleClick = () => {
     localStorage.clear();
     sessionStorage.clear();
@@ -20,8 +22,17 @@ const ClientSideErrorPage = () => {
           Wyczyść dane podręczne i odśwież stronę
         </button>
       </div>
+
+      <div className="mt-10 flex justify-center">
+        Jeśli problem nadal występuje
+        {' - '}
+        <a href="https://po8klasie.pl/feedback" className="underline ml-1">
+          zgłoś błąd
+        </a>
+        .
+      </div>
     </div>
   );
 };
 
-export default ClientSideErrorPage;
+export default GlobalErrorPage;

@@ -1,6 +1,6 @@
-import Brand from '../Brand';
+import Brand from '../components/Brand';
 
-const ErrorPage404 = () => {
+const NotFoundPage = () => {
   return (
     <div className="w-full h-full px-5 md:px-0 md:w-4/5 mx-auto">
       <div className="mt-20 flex justify-center">
@@ -19,4 +19,4 @@ const ErrorPage404 = () => {
   );
 };
 
-export default ErrorPage404;
+export default NotFoundPage;
