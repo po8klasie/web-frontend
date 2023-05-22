@@ -1,8 +1,19 @@
 'use client';
 
+import * as Sentry from '@sentry/nextjs';
 import Brand from '../components/Brand';
+import { useEffect } from 'react';
 
-const GlobalErrorPage = () => {
+interface ErrorBoundaryProps {
+  error: Error;
+  reset: () => void;
+}
+
+const GlobalErrorPage = ({ error }: ErrorBoundaryProps) => {
+  useEffect(() => {
+    Sentry.captureException(error);
+  }, [error]);
+
   const handleClick = () => {
     localStorage.clear();
     sessionStorage.clear();
