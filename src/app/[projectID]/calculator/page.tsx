@@ -1,6 +1,12 @@
 import { AiOutlineWarning } from "@react-icons/all-files/ai/AiOutlineWarning";
 import Calculator from "./_components/Calculator";
 import type { ProjectPageT } from "../../../types";
+import createProjectMetadata from "../../../utils/seo";
+
+export const generateMetadata = createProjectMetadata((projectName) => ({
+  title: 'Kalkulator punktów',
+  description: `Oblicz punkty rekrutacyjne z po8klasie ${projectName}`
+}))
 
 const CalculatorPage: ProjectPageT = () => {
   return (

@@ -4,6 +4,9 @@ import SchoolHero from "./_components/SchoolHero";
 import { getSectionConfigs } from "./(sections)/institutionDetailsSections";
 import SchoolPageMenu from "./_components/SchoolPageMenu";
 import { SchoolPageT } from "../../../../types";
+import { createSchoolMetadata } from "../../../../utils/seo";
+
+export const generateMetadata = createSchoolMetadata()
 
 const SchoolPage: SchoolPageT = async (props) => {
   const institutionDetails = await fetchInstitutionDetails(props.params.rspo)

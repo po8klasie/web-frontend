@@ -11,6 +11,11 @@ import ProjectLink from "../../components/ProjectLink";
 import { PROJECT_PAGES } from "../../utils/projectLinksHelpers";
 import { ProjectPageT } from "../../types";
 import DashboardSearchField from "./_components/DashboardSearchField";
+import createProjectMetadata from "../../utils/seo";
+
+export const generateMetadata = createProjectMetadata(() => ({
+  title: 'Dashboard'
+}))
 
 interface TileProps {
   path: string;
