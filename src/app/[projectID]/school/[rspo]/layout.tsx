@@ -3,8 +3,9 @@ import SchoolHero from './_components/SchoolHero';
 
 import { getSectionConfigs } from './(sections)/institutionDetailsSections';
 import SchoolPageMenu from './_components/SchoolPageMenu';
-import { SchoolPageT } from '../../../../types';
+import { ISchoolOverview, SchoolPageT } from '../../../../types';
 import { createSchoolMetadata } from '../../../../utils/seo';
+import environment from '../../../../environment/server';
 
 export const generateMetadata = createSchoolMetadata();
 
@@ -25,3 +26,20 @@ const SchoolPage: SchoolPageT = async (props) => {
 };
 
 export default SchoolPage;
+
+export async function generateStaticParams({
+  params: { projectID },
+}: {
+  params: { projectID: string };
+}) {
+  const API_URL = environment.publicEnvironment.API_URL;
+  if (!API_URL) return [];
+
+  const institutions = (await fetch(
+    `${environment.publicEnvironment.API_URL}/search/institution?project_id=${projectID}`,
+  ).then((res) => res.json())) as ISchoolOverview[];
+
+  return institutions.map(({ rspo }) => ({
+    rspo,
+  }));
+}
