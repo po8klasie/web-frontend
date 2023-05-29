@@ -32,7 +32,7 @@ const ClassProfilesSection: SchoolPageT = async ({ params: { rspo } }) => {
   const isClassesDataAvailable = classesEntries.length > 0;
 
   return (
-    <SchoolInfoSection id="classProfiles" updateTime={new Date(2023, 5, 9)}>
+    <SchoolInfoSection id="classProfiles" updateTime={new Date(2023, 4, 9)}>
       <div className="p-3">
         <h3 className="text-lg font-bold text-dark mr-5">Profile klas</h3>
         <ClassesDataInfo />
