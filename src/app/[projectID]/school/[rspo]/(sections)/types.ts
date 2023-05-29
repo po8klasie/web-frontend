@@ -56,6 +56,17 @@ export interface IInstitutionDetailsClassProfilesSectionData {
   classes: Record<number, IInstitutionDetailsClassProfileData[]>;
 }
 
+export interface IInstitutionDetailsZwztRankingEntryData {
+  year: number;
+  placeInCountry: number;
+  placeInVoivodeship: number;
+  indicatorValue: number;
+}
+
+export interface IInstitutionDetailsZwztRankingSectionData {
+  zwztRankingEntries: IInstitutionDetailsZwztRankingEntryData[];
+}
+
 export interface IInstitutionDetailsPublicTransportSection {
   publicTransportStops:
     | {
@@ -76,6 +87,7 @@ export type IInstitutionDetails = {
   IInstitutionDetailsSportsSectionData &
   IInstitutionDetailsPartnersSectionData &
   IInstitutionDetailsClassProfilesSectionData &
+  IInstitutionDetailsZwztRankingSectionData &
   IInstitutionDetailsPublicTransportSection;
 
 export interface SectionComponentProps {

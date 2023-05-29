@@ -26,6 +26,10 @@ const institutionDetailsSectionConfigs = {
     id: 'collaboration',
     name: 'Współpraca',
   },
+  zwztRanking: {
+    id: 'zwztRanking',
+    name: 'Ranking Zwolnieni z Teorii',
+  },
   publicTransport: {
     id: 'publicTransport',
     name: 'Dojazd komunikacją',
