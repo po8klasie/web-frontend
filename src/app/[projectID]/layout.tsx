@@ -2,12 +2,12 @@ import AppLayout from './_components/AppLayout';
 import Providers from './Providers';
 import React from 'react';
 import { fetchProjectConfig } from '../../api/projectConfig/projectConfig';
-import environment, { PublicEnvironmentScript } from "../../environment/server";
+import environment from '../../environment/server';
 import { ProjectPageT } from '../../types';
 import { defaultMetadata } from '../../utils/seo';
 import Analytics from './_components/Analytics';
 import { ProjectConfig } from '../../api/projectConfig/types';
-import SentryClientSideInitializer from "./_components/SentryClientSideInitializer";
+import SentryClientSideInitializer from './_components/SentryClientSideInitializer';
 
 export const metadata = defaultMetadata;
 

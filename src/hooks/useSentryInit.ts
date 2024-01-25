@@ -2,11 +2,13 @@
 
 import * as Sentry from '@sentry/nextjs';
 import { Integrations as TracingIntegrations } from '@sentry/tracing';
-import { useEnvironment } from "../environment/environmentContext";
-import { useEffect } from "react";
+import { useEnvironment } from '../environment/environmentContext';
+import { useEffect } from 'react';
 
 const useSentryInit = () => {
-  const { publicEnvironment: {APP_ENVIRONMENT, APP_FRONTEND_RELEASE, PUBLIC_SENTRY_DSN} } = useEnvironment()
+  const {
+    publicEnvironment: { APP_ENVIRONMENT, APP_FRONTEND_RELEASE, PUBLIC_SENTRY_DSN },
+  } = useEnvironment();
   useEffect(() => {
     if (PUBLIC_SENTRY_DSN) {
       Sentry.init({
@@ -17,7 +19,8 @@ const useSentryInit = () => {
         tracesSampleRate: 1.0,
       });
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-}
+};
 
-export default useSentryInit
+export default useSentryInit;

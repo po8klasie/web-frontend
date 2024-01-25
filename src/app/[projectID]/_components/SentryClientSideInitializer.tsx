@@ -1,6 +1,6 @@
 'use client';
 
-import useSentryInit from "../../../hooks/useSentryInit";
+import useSentryInit from '../../../hooks/useSentryInit';
 
 const SentryClientSideInitializer = () => {
   useSentryInit();
