@@ -7,6 +7,7 @@ import { ProjectPageT } from '../../types';
 import { defaultMetadata } from '../../utils/seo';
 import Analytics from './_components/Analytics';
 import { ProjectConfig } from '../../api/projectConfig/types';
+import SentryClientSideInitializer from './_components/SentryClientSideInitializer';
 
 export const metadata = defaultMetadata;
 
@@ -15,6 +16,7 @@ const Layout: ProjectPageT = async ({ children, params }) => {
   return (
     <Providers projectConfig={projectConfig} environment={environment}>
       <Analytics />
+      <SentryClientSideInitializer />
       <AppLayout className="h-full">{children}</AppLayout>
     </Providers>
   );
