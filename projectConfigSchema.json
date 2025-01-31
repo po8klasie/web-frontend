@@ -1,0 +1,126 @@
+{
+  "$ref": "#/definitions/projectConfigSchema",
+  "definitions": {
+    "projectConfigSchema": {
+      "type": "object",
+      "properties": {
+        "projectId": {
+          "type": "string"
+        },
+        "projectName": {
+          "type": "string"
+        },
+        "customizationVariant": {
+          "type": "string",
+          "default": "default"
+        },
+        "searchViewConfig": {
+          "type": "object",
+          "properties": {
+            "defaultMapView": {
+              "type": "object",
+              "properties": {
+                "latitude": {
+                  "type": "number"
+                },
+                "longitude": {
+                  "type": "number"
+                },
+                "zoom": {
+                  "type": "number"
+                }
+              },
+              "required": [
+                "latitude",
+                "longitude",
+                "zoom"
+              ],
+              "additionalProperties": false
+            },
+            "filtersConfig": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "string"
+                  },
+                  "filters": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "string"
+                        },
+                        "queryParam": {
+                          "type": "string"
+                        },
+                        "inline": {
+                          "type": "boolean",
+                          "default": false
+                        }
+                      },
+                      "required": [
+                        "id",
+                        "queryParam"
+                      ],
+                      "additionalProperties": false
+                    }
+                  }
+                },
+                "required": [
+                  "id",
+                  "filters"
+                ],
+                "additionalProperties": false
+              }
+            }
+          },
+          "required": [
+            "defaultMapView",
+            "filtersConfig"
+          ],
+          "additionalProperties": false
+        },
+        "schoolViewConfig": {
+          "type": "object",
+          "properties": {
+            "sectionsConfig": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "string"
+                  },
+                  "options": {
+                    "type": "object",
+                    "additionalProperties": {}
+                  }
+                },
+                "required": [
+                  "id",
+                  "options"
+                ],
+                "additionalProperties": false
+              }
+            }
+          },
+          "required": [
+            "sectionsConfig"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "required": [
+        "projectId",
+        "projectName",
+        "searchViewConfig",
+        "schoolViewConfig"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "$schema": "http://json-schema.org/draft-07/schema#"
+}

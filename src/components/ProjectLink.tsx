@@ -1,13 +1,20 @@
-'use client';
+import { FC } from 'react'
+import { Link, LinkProps, NavLink, NavLinkProps } from 'react-router'
+import { useCustomizationCtx } from '../lib/customizations/customizationContext'
 
-import { FC } from 'react';
-import { useProjectConfig } from '../api/projectConfig/projectConfigContext';
-import Link, { LinkProps } from 'next/link';
+const useProjectLinkProps = <T = LinkProps,>(props: T): T => {
+    const { projectId } = useCustomizationCtx()
+    return { ...props, to: `/app/${projectId}${props.to}` }
+}
 
 const ProjectLink: FC<LinkProps> = (props) => {
-  const { projectId } = useProjectConfig();
-  const href = `/${projectId}${props.href}`;
-  return <Link {...props} href={href} />;
-};
+    const linkProps = useProjectLinkProps(props)
+    return <Link {...linkProps}>{props.children}</Link>
+}
 
-export default ProjectLink;
+export const ProjectNavLink: FC<NavLinkProps> = (props) => {
+    const linkProps = useProjectLinkProps<NavLinkProps>(props)
+    return <NavLink {...linkProps}>{props.children}</NavLink>
+}
+
+export default ProjectLink

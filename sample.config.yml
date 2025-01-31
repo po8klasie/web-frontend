@@ -1,0 +1,40 @@
+$schema: ./projectConfigSchema.json
+
+projectId: sample
+projectName: Sample Project
+customizationVariant: default
+schoolViewConfig:
+  sectionsConfig:
+    - id: overview
+      options: { }
+    - id: classProfiles
+      options: { }
+    - id: educationalOffer
+      options: { }
+    - id: infrastructure
+      options: { }
+    - id: sport
+      options: { }
+    - id: publicTransport
+      options: { }
+searchViewConfig:
+  defaultMapView:
+    latitude: !!float 54.52
+    longitude: !!float 18.49
+    zoom: !!float 11.59
+  filtersConfig:
+    - id: general
+      filters:
+        - id: schoolName
+          queryParam: query
+          inline: true
+        - id: rspo_institution_type
+          queryParam: rspo_institution_type
+    - id: classProfile
+      filters:
+        - id: extendedSubjects
+          queryParam: extended_subjects
+    - id: publicTransport
+      filters:
+        - id: public_transport
+          queryParam: public_transportation_stop

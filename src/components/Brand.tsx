@@ -1,37 +1,34 @@
-'use client';
+import { useCustomizationCtx } from '../lib/customizations/customizationContext'
+import type { FC } from 'react'
 
-import { forwardRef, HTMLProps } from 'react';
-import { useProjectConfig } from '../api/projectConfig/projectConfigContext';
-
-interface BrandProps extends HTMLProps<HTMLSpanElement> {
-  projectName?: string;
-  projectNameClassName?: string;
+interface BrandProps {
+    className?: string
 }
 
-const Brand = forwardRef<HTMLSpanElement, BrandProps>(
-  ({ projectName: overwriteProjectName, projectNameClassName, ...props }, ref) => {
-    const { projectName } = useProjectConfig();
+const Brand: FC<BrandProps> = ({ className }) => {
+    const customizationCtx = useCustomizationCtx()
+    const projectName = customizationCtx
+        ? customizationCtx.projectConfig.projectName
+        : null
     return (
-      <span ref={ref} {...props} className={['font-primary', props.className ?? ''].join(' ')}>
-        po
-        <span className="text-primary">8</span>
-        klasie
-        {(overwriteProjectName || projectName) && (
-          <>
-            &nbsp;
-            <span
-              className={[
-                'font-primary uppercase text-lightGray font-normal',
-                projectNameClassName ?? '',
-              ].join(' ')}
-            >
-              {overwriteProjectName || projectName}
+        <span className={['font-primary text-xl', className].join(' ')}>
+            <span className="font-bold">
+                po
+                <span className="text-primary">8</span>
+                klasie
             </span>
-          </>
-        )}
-      </span>
-    );
-  },
-);
+            &nbsp;
+            {projectName && (
+                <span
+                    className={[
+                        'font-primary uppercase text-lightGray font-normal',
+                    ].join(' ')}
+                >
+                    {projectName}
+                </span>
+            )}
+        </span>
+    )
+}
 
-export default Brand;
+export default Brand

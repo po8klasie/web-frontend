@@ -1,71 +1,56 @@
-# Building stage
+FROM node:20.14 as base
 
-FROM node:16.13.2-alpine AS builder
+ENV PNPM_HOME="/pnpm"
+ENV PATH="$PNPM_HOME:$PATH"
 
-ARG STATIC_PREFETCH_API_URL=""
-ENV API_URL=$STATIC_PREFETCH_API_URL
+RUN npm install -g pnpm@9.1.4
 
-# Check https://github.com/nodejs/docker-node/tree/b4117f9333da4138b03a546ec926ef50a31506c3#nodealpine to understand why libc6-compat might be needed.
-RUN apk add --no-cache libc6-compat libtool automake autoconf nasm g++ make libpng-dev
+ENV SOURCE /opt/web-frontend
 
-RUN mkdir -p /opt/po8klasie
+RUN mkdir -p $SOURCE
 
-WORKDIR /opt/po8klasie
+WORKDIR $SOURCE
 
-COPY package.json yarn.lock .yarnrc.yml ./
+COPY package.json pnpm-lock.yaml ./
 
-# https://yarnpkg.com/features/zero-installs#how-do-you-reach-this-zero-install-state-youre-advocating-for
-COPY .yarn ./.yarn
+FROM base AS prod-deps
 
-RUN yarn install --immutable
+RUN pnpm install --prod --frozen-lockfile
 
-COPY tsconfig.json ./
-COPY next.config.js next-env.d.ts ./
-COPY postcss.config.js tailwind.config.js ./
-COPY public ./public
-COPY src ./src
-COPY sentry.client.config.ts sentry.server.config.ts ./
-COPY next-i18next.config.js ./
+FROM base AS build
 
-RUN yarn build
+RUN pnpm install --frozen-lockfile
 
-COPY server.js ./
+COPY postcss.config.js tailwind.config.ts vite.config.ts react-router.config.ts tsconfig.json ./
 
-COPY .prettierrc.js .prettierignore ./
-COPY .eslintrc.js .eslintignore ./
-COPY jest.config.js ./
+COPY src src
 
-COPY entrypoint.tests.sh ./
+COPY scripts scripts
 
-ENTRYPOINT ["/bin/sh", "-c"]
+COPY eslint.config.js prettier.config.mjs ./
 
-# Final image stage
+RUN pnpm run lint
 
-FROM node:16.13.2-alpine AS runner
+COPY vitest.config.ts setupVitest.ts ./
 
-RUN mkdir -p /opt/po8klasie
+RUN pnpm run test:ci
 
-WORKDIR /opt/po8klasie
+RUN pnpm run build
+
+FROM base
+
+ENV WORKDIR /opt/web-frontend
+
+RUN mkdir -p $SOURCE
+
+WORKDIR $SOURCE
+
+COPY --from=prod-deps $SOURCE/node_modules $SOURCE/node_modules
+
+COPY --from=build $SOURCE/build $SOURCE/build
 
 ENV NODE_ENV production
 
-RUN addgroup -g 1001 -S nodejs
-RUN adduser -S nextjs -u 1001
-
-COPY --from=builder /opt/po8klasie/next.config.js ./
-COPY --from=builder /opt/po8klasie/next-i18next.config.js ./
-COPY --from=builder /opt/po8klasie/public ./public
-COPY --from=builder --chown=nextjs:nodejs /opt/po8klasie/.next ./.next
-COPY --from=builder /opt/po8klasie/node_modules ./node_modules
-COPY --from=builder /opt/po8klasie/package.json ./package.json
-
-USER nextjs
-
-EXPOSE 3000
-
 ENV PORT 3000
 
-# https://nextjs.org/telemetry
-ENV NEXT_TELEMETRY_DISABLED 1
-
-CMD ["yarn", "start"]
+CMD ["pnpm", "start"]
