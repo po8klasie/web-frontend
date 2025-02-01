@@ -93,7 +93,6 @@ export const getInlineFilters = async (
         return filterConfig.inline === true && Boolean(filter.components.inline)
     }
     const filters = await getFilters(customizationCtx, filterPredicate)
-    console.log({ filters })
     return filters
 }
 export default getFilterCategoriesWithFilters
