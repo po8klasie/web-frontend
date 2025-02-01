@@ -12,11 +12,18 @@ const readProjectConfig = async (projectId: string) => {
     const projectConfigsDir =
         process.env[PROJECT_CONFIGS_DIR_ENV_VAR] || DEFAULT_PROJECT_CONFIGS_DIR
 
-    const filename = POSSIBLE_EXTENSIONS.map((ext) =>
-        path.join(projectConfigsDir, `${projectId}${ext}`)
-    ).find((filename) => fs.stat(filename))
+    let filename = null
 
-    if (!filename) {
+    try {
+        filename = await Promise.any(
+            POSSIBLE_EXTENSIONS.map((ext) =>
+                path.join(projectConfigsDir, `${projectId}${ext}`)
+            ).map(async (filename: string) => {
+                await fs.access(filename, fs.constants.R_OK)
+                return filename
+            })
+        )
+    } catch {
         throw new Error(
             `Project config file not found for project ID: ${projectId}`
         )
