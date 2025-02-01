@@ -27,6 +27,8 @@ COPY src src
 
 COPY scripts scripts
 
+COPY customizations customizations
+
 COPY eslint.config.js prettier.config.mjs ./
 
 RUN pnpm run lint
